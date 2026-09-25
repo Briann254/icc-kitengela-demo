@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICC Kitengela — Assemblies of God · Church Management System</title>
+  <meta name="description" content="A Place to Belong. A Family to Grow. Join ICC Kitengela for Sunday Worship at 8:15 AM, 10:15 AM & 12:15 PM.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+              950: '#1e1b4b',
+            },
+            accent: {
+              400: '#facc15',
+              500: '#eab308',
+              600: '#ca8a04',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Subtle transitions */
+    .view-container { display: none; }
+    .view-container.active { display: block; animation: fadeIn 0.18s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    .modal-backdrop { display: none; }
+    .modal-backdrop.open { display: flex; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased font-sans min-h-screen flex flex-col">
+
+  <!-- ================= TOP DEMO ROLE SWITCHER BAR ================= -->
+  <header class="bg-gray-900 text-white border-b border-gray-800 sticky top-0 z-50 text-xs px-4 py-2 flex flex-wrap items-center justify-between gap-3 shadow-md">
+    <div class="flex items-center gap-2">
+      <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="font-bold text-gray-200">ICC Kitengela Demo</span>
+      <span class="text-gray-400 hidden sm:inline">&middot; System Live Preview</span>
+    </div>
+
+    <!-- Role Switcher Pills -->
+    <div class="flex items-center gap-1.5 flex-wrap">
+      <span class="text-gray-400 font-semibold mr-1 hidden md:inline uppercase tracking-wider text-[10px]">Switch View:</span>
+      <button onclick="setRoleView('public')" id="pill-public" class="role-pill px-3 py-1 rounded-md font-bold transition flex items-center gap-1.5 bg-indigo-600 text-white shadow">
+        <span>🌐</span> Public Church Website
+      </button>
+      <button onclick="setRoleView('executive')" id="pill-executive" class="role-pill px-3 py-1 rounded-md font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition flex items-center gap-1.5">
+        <span>👑</span> Senior Pastor / Executive
+      </button>
+      <button onclick="setRoleView('finance')" id="pill-finance" class="role-pill px-3 py-1 rounded-md font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition flex items-center gap-1.5">
+        <span>💼</span> Finance / Treasurer
+      </button>
+      <button onclick="setRoleView('admin')" id="pill-admin" class="role-pill px-3 py-1 rounded-md font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition flex items-center gap-1.5">
+        <span>⚡</span> Church Administrator
+      </button>
+      <button onclick="setRoleView('member')" id="pill-member" class="role-pill px-3 py-1 rounded-md font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition flex items-center gap-1.5">
+        <span>🙏</span> Mary Kamau (Member)
+      </button>
+    </div>
+
+    <div class="hidden lg:flex items-center gap-3 text-gray-400 text-[11px]">
+      <span>Paybill: <strong class="text-accent-400">567935</strong></span>
+      <span>Joshua 1:9</span>
+    </div>
+  </header>
+
+  <!-- ================= PUBLIC CHURCH WEBSITE (SYSTEM DEFAULT LOOK) ================= -->
+  <div id="view-public" class="view-container active flex-1 flex flex-col">
+
+    <!-- DEFAULT NAVBAR -->
+    <nav class="bg-white shadow-sm sticky top-[41px] z-40 border-b border-gray-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        
+        <!-- Logo -->
+        <a href="javascript:void(0)" onclick="route('home')" class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-800 to-indigo-600 flex items-center justify-center text-white font-extrabold text-xl shadow-md">
+            I
+          </div>
+          <div>
+            <span class="text-base font-extrabold tracking-tight text-gray-900 block leading-tight">ICC KITENGELA</span>
+            <span class="text-[10px] uppercase tracking-wider font-semibold text-indigo-600 block">Assembly of God</span>
+          </div>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <div class="hidden lg:flex items-center space-x-6 text-sm font-medium text-gray-600">
+          <a href="javascript:void(0)" onclick="route('home')" id="nav-home" class="nav-link text-indigo-600 font-bold hover:text-indigo-600 transition">Home</a>
+          <a href="javascript:void(0)" onclick="route('about')" id="nav-about" class="nav-link hover:text-indigo-600 transition">About</a>
+          <a href="javascript:void(0)" onclick="route('ministries')" id="nav-ministries" class="nav-link hover:text-indigo-600 transition">Ministries</a>
+          <a href="javascript:void(0)" onclick="route('sermons')" id="nav-sermons" class="nav-link hover:text-indigo-600 transition">Sermons</a>
+          <a href="javascript:void(0)" onclick="route('events')" id="nav-events" class="nav-link hover:text-indigo-600 transition">Events</a>
+          <a href="javascript:void(0)" onclick="route('prayer')" id="nav-prayer" class="nav-link hover:text-indigo-600 transition">Prayer</a>
+          <a href="javascript:void(0)" onclick="route('donate')" id="nav-donate" class="nav-link hover:text-indigo-600 transition">Giving</a>
+          <a href="javascript:void(0)" onclick="route('contact')" id="nav-contact" class="nav-link hover:text-indigo-600 transition">Contact</a>
+        </div>
+
+        <!-- Auth CTA Buttons -->
+        <div class="flex items-center gap-2.5">
+          <button onclick="setRoleView('member')" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 border border-indigo-200 text-indigo-700 text-xs font-semibold rounded-lg hover:bg-indigo-50 transition">
+            Member Portal
+          </button>
+          <button onclick="setRoleView('executive')" class="px-4 py-2 bg-indigo-700 text-white text-xs font-bold rounded-lg hover:bg-indigo-800 transition shadow-sm flex items-center gap-1.5">
+            <span>Staff Login</span> &rarr;
+          </button>
+          <!-- Mobile Menu Hamburger -->
+          <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobile-menu" class="hidden lg:hidden border-t border-gray-100 bg-white px-4 py-3 space-y-2 text-sm font-medium text-gray-700">
+        <a href="javascript:void(0)" onclick="route('home'); toggleMobileMenu()" class="block py-1.5 text-indigo-600 font-bold">Home</a>
+        <a href="javascript:void(0)" onclick="route('about'); toggleMobileMenu()" class="block py-1.5 hover:text-indigo-600">About</a>
+        <a href="javascript:void(0)" onclick="route('ministries'); toggleMobileMenu()" class="block py-1.5 hover:text-indigo-600">Ministries</a>
+        <a href="javascript:void(0)" onclick="route('sermons'); toggleMobileMenu()" class="block py-1.5 hover:text-indigo-600">Sermons</a>
+        <a href="javascript:void(0)" onclick="route('events'); toggleMobileMenu()" class="block py-1.5 hover:text-indigo-600">Events</a>
+        <a href="javascript:void(0)" onclick="route('prayer'); toggleMobileMenu()" class="block py-1.5 hover:text-indigo-600">Prayer Requests</a>
+        <a href="javascript:void(0)" onclick="route('donate'); toggleMobileMenu()" class="block py-1.5 hover:text-indigo-600">Giving &amp; M-Pesa</a>
+        <a href="javascript:void(0)" onclick="route('contact'); toggleMobileMenu()" class="block py-1.5 hover:text-indigo-600">Contact Us</a>
+      </div>
+    </nav>
+
+    <!-- ================= PUBLIC SUB-PAGE ROUTING CONTAINER ================= -->
+    <main class="flex-1">
+
+      <!-- PAGE: HOME -->
+      <div id="subpage-home" class="public-subpage">
+        
+        <!-- HERO BANNER -->
+        <section class="w-full bg-gradient-to-r from-indigo-900 via-indigo-800 to-indigo-900 text-white overflow-hidden relative">
+          <div class="absolute -top-16 -left-16 w-72 h-72 bg-white/5 rounded-full pointer-events-none"></div>
+          <div class="absolute -bottom-16 -right-16 w-96 h-96 bg-white/5 rounded-full pointer-events-none"></div>
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 text-center relative z-10">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 text-indigo-200 border border-white/15 mb-4">
+              <span class="w-2 h-2 rounded-full bg-accent-400"></span> Assemblies of God · Namanga Road, Kitengela
+            </span>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight max-w-4xl mx-auto">
+              ICC Kitengela
+            </h1>
+            <p class="mt-4 text-indigo-200 text-base sm:text-lg max-w-2xl mx-auto font-medium leading-relaxed">
+              &ldquo;Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the LORD your God will be with you wherever you go.&rdquo; &mdash; <strong class="text-accent-400 font-bold">Joshua 1:9</strong>
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3 justify-center">
+              <button onclick="route('contact')" class="px-6 py-3 bg-accent-400 text-indigo-950 font-bold rounded-xl shadow-lg hover:bg-accent-500 transition text-sm">
+                Plan Your Visit This Sunday &rarr;
+              </button>
+              <button onclick="route('donate')" class="px-6 py-3 bg-white/10 text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition text-sm flex items-center gap-2">
+                <span>💳</span> Give via M-Pesa (567935)
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- WIDGET 1: WELCOME -->
+        <section class="py-20 bg-white">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <span class="inline-block text-indigo-600 text-xs font-extrabold uppercase tracking-widest mb-2">Welcome to ICC Kitengela</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-gray-900 leading-tight">
+                  A Place to Belong.<br><span class="text-indigo-700">A Family to Grow.</span>
+                </h2>
+                <div class="mt-3 w-16 h-1.5 bg-indigo-600 rounded"></div>
+                <p class="mt-6 text-lg text-gray-600 leading-relaxed">
+                  Welcome to International Christian Centre Kitengela (Assemblies of God). Under the spiritual leadership of Senior Pastor Keya, we are a warm, Christ-centered family along Namanga Road.
+                </p>
+                <p class="mt-4 text-gray-500 leading-relaxed text-sm">
+                  Whether you are exploring faith for the very first time, newly relocated to Kitengela, or searching for a home church, you have a place at our table. Every Sunday we gather to worship, receive the living Word, and fellowship together.
+                </p>
+                <div class="mt-8 flex flex-wrap gap-4">
+                  <button onclick="route('contact')" class="inline-block bg-indigo-700 hover:bg-indigo-800 text-white font-bold px-7 py-3 rounded-xl shadow transition text-sm">
+                    Plan Your Visit
+                  </button>
+                  <button onclick="route('about')" class="inline-block border-2 border-indigo-700 text-indigo-700 hover:bg-indigo-50 font-bold px-7 py-3 rounded-xl transition text-sm">
+                    Learn About Us
+                  </button>
+                </div>
+              </div>
+              <div class="flex items-center justify-center">
+                <div class="relative">
+                  <div class="w-80 h-80 bg-indigo-50 rounded-full flex items-center justify-center shadow-inner border border-indigo-100">
+                    <div class="text-center px-6">
+                      <div class="w-16 h-16 mx-auto bg-indigo-700 text-white rounded-2xl flex items-center justify-center font-extrabold text-2xl shadow-md mb-3">
+                        I
+                      </div>
+                      <p class="text-indigo-900 font-extrabold text-2xl tracking-tight">ICC KITENGELA</p>
+                      <p class="text-indigo-600 text-xs font-bold uppercase tracking-wider mt-1">Assembly of God</p>
+                      <p class="text-gray-500 text-xs mt-2 font-medium">Namanga Road, Behind Enkasiti Primary</p>
+                      <div class="mt-4 inline-flex items-center gap-1.5 text-xs text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full font-bold border border-emerald-200">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span> 3 Sunday Services
+                      </div>
+                    </div>
+                  </div>
+                  <div class="absolute -top-3 -right-3 w-20 h-20 bg-yellow-200 rounded-full opacity-70"></div>
+                  <div class="absolute -bottom-4 -left-4 w-14 h-14 bg-indigo-200 rounded-full opacity-60"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- WIDGET 2: SERVICE TIMES -->
+        <section class="py-16 bg-indigo-900 text-white">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="inline-block text-indigo-300 text-xs font-bold uppercase tracking-widest mb-3">Join Us In Person &amp; Online</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold">Sunday &amp; Midweek Service Times</h2>
+            <p class="mt-3 text-indigo-200 text-base max-w-xl mx-auto">
+              Three vibrant Sunday services tailored for every member of your family.
+            </p>
+
+            <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+              <div class="bg-indigo-800/80 rounded-2xl p-6 text-white shadow-lg border border-indigo-700/60">
+                <p class="text-indigo-300 text-xs font-bold uppercase tracking-widest">1st Service</p>
+                <p class="text-3xl font-extrabold mt-1 text-white">8:15 AM</p>
+                <p class="text-indigo-200 text-sm mt-2">Early Glory Worship<br>&amp; Communion Service</p>
+              </div>
+
+              <div class="bg-white rounded-2xl p-6 text-indigo-950 shadow-xl border-2 border-accent-400 relative">
+                <span class="absolute top-4 right-4 text-[10px] bg-accent-400 text-indigo-950 font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">Main Family</span>
+                <p class="text-indigo-600 text-xs font-bold uppercase tracking-widest">2nd Service</p>
+                <p class="text-3xl font-extrabold mt-1 text-gray-900">10:15 AM</p>
+                <p class="text-gray-600 text-sm mt-2 font-medium">Celebration Worship<br>&amp; Next Gen Kids Church</p>
+              </div>
+
+              <div class="bg-indigo-800/80 rounded-2xl p-6 text-white shadow-lg border border-indigo-700/60">
+                <p class="text-indigo-300 text-xs font-bold uppercase tracking-widest">3rd Service</p>
+                <p class="text-3xl font-extrabold mt-1 text-white">12:15 PM</p>
+                <p class="text-indigo-200 text-sm mt-2">Ignite Teens, Youth<br>&amp; Young Adults Service</p>
+              </div>
+
+              <div class="bg-indigo-800/80 rounded-2xl p-6 text-white shadow-lg border border-indigo-700/60">
+                <p class="text-indigo-300 text-xs font-bold uppercase tracking-widest">Wednesday</p>
+                <p class="text-3xl font-extrabold mt-1 text-white">6:30 PM</p>
+                <p class="text-indigo-200 text-sm mt-2">Midweek Bible Study<br>&amp; Corporate Intercession</p>
+              </div>
+            </div>
+
+            <p class="mt-8 text-indigo-300 text-xs font-medium">
+              Namanga Road, Behind Enkasiti Primary, Kitengela &nbsp;&middot;&nbsp; Call: <a href="tel:+254700123456" class="text-white font-bold underline">+254 700 123 456</a>
+            </p>
+          </div>
+        </section>
+
+        <!-- WIDGET 3: MINISTRIES -->
+        <section class="py-20 bg-white">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14">
+              <span class="inline-block text-indigo-600 text-xs font-extrabold uppercase tracking-widest mb-2">Community &amp; Discipleship</span>
+              <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">Our Ministries</h2>
+              <p class="mt-3 text-gray-500 text-base max-w-2xl mx-auto">
+                Discover your God-given purpose, build lifelong friendships, and grow deeper in Christ through our 12 active church ministries.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div class="rounded-2xl border border-gray-200 bg-white p-7 hover:shadow-xl hover:border-indigo-300 transition group">
+                <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-indigo-700 transition">
+                  <span class="text-xl">👶</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900">Next Gen Kids Ministry</h3>
+                <p class="mt-2 text-gray-500 text-xs leading-relaxed">
+                  Ages 0–13. Nursery, Sunday School, and pre-teens led by trained, background-checked volunteers in safe, joyful classrooms.
+                </p>
+                <button onclick="route('ministries')" class="mt-4 text-indigo-600 font-bold text-xs hover:text-indigo-800">Learn more &rarr;</button>
+              </div>
+
+              <div class="rounded-2xl border border-gray-200 bg-white p-7 hover:shadow-xl hover:border-indigo-300 transition group">
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-blue-600 transition">
+                  <span class="text-xl">🔥</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900">Ignite Teens &amp; Youth</h3>
+                <p class="mt-2 text-gray-500 text-xs leading-relaxed">
+                  Encounter, energetic worship, and candid discipleship for high school, college, and career young adults navigating life.
+                </p>
+                <button onclick="route('ministries')" class="mt-4 text-indigo-600 font-bold text-xs hover:text-indigo-800">Learn more &rarr;</button>
+              </div>
+
+              <div class="rounded-2xl border border-gray-200 bg-white p-7 hover:shadow-xl hover:border-indigo-300 transition group">
+                <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-indigo-700 transition">
+                  <span class="text-xl">🛡️</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900">Men of Valor Fellowship</h3>
+                <p class="mt-2 text-gray-500 text-xs leading-relaxed">
+                  Building men of godly integrity, business acumen, and strong family leadership through brotherhood breakfasts and retreats.
+                </p>
+                <button onclick="route('ministries')" class="mt-4 text-indigo-600 font-bold text-xs hover:text-indigo-800">Learn more &rarr;</button>
+              </div>
+
+              <div class="rounded-2xl border border-gray-200 bg-white p-7 hover:shadow-xl hover:border-indigo-300 transition group">
+                <div class="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-pink-600 transition">
+                  <span class="text-xl">🌸</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900">Women of Grace (Daughters of Zion)</h3>
+                <p class="mt-2 text-gray-500 text-xs leading-relaxed">
+                  A sisterhood of intercession, business empowerment, family health, and spiritual mentorship across every season of life.
+                </p>
+                <button onclick="route('ministries')" class="mt-4 text-indigo-600 font-bold text-xs hover:text-indigo-800">Learn more &rarr;</button>
+              </div>
+
+              <div class="rounded-2xl border border-gray-200 bg-white p-7 hover:shadow-xl hover:border-indigo-300 transition group">
+                <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-yellow-600 transition">
+                  <span class="text-xl">🎵</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900">Creative Arts &amp; Media</h3>
+                <p class="mt-2 text-gray-500 text-xs leading-relaxed">
+                  Praise choir, instrumentalists, audio engineers, livestream cameras, and visual production creating an atmosphere of praise.
+                </p>
+                <button onclick="route('ministries')" class="mt-4 text-indigo-600 font-bold text-xs hover:text-indigo-800">Learn more &rarr;</button>
+              </div>
+
+              <div class="rounded-2xl border border-gray-200 bg-white p-7 hover:shadow-xl hover:border-indigo-300 transition group">
+                <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-emerald-600 transition">
+                  <span class="text-xl">🏡</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900">Connected &amp; Anchored Cell Groups</h3>
+                <p class="mt-2 text-gray-500 text-xs leading-relaxed">
+                  Weekly estate home groups meeting every Thursday evening across Kitengela for fellowship, prayer, and pastoral support.
+                </p>
+                <button onclick="route('ministries')" class="mt-4 text-indigo-600 font-bold text-xs hover:text-indigo-800">Learn more &rarr;</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- WIDGET 4: RECENT SERMONS -->
+        <section class="py-20 bg-gray-50 border-y border-gray-200">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-12">
+              <div>
+                <span class="inline-block text-indigo-600 text-xs font-extrabold uppercase tracking-widest mb-2">Word &amp; Truth</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">Recent Sermons</h2>
+                <p class="mt-2 text-gray-500 text-sm max-w-xl">Watch and listen to the messages preached by Senior Pastor Keya and guest ministers.</p>
+              </div>
+              <button onclick="route('sermons')" class="mt-4 sm:mt-0 px-5 py-2.5 bg-indigo-700 hover:bg-indigo-800 text-white font-bold rounded-xl text-xs shadow transition">
+                Browse Full Sermon Archives &rarr;
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <!-- Sermon Card 1 -->
+              <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition flex flex-col">
+                <div class="aspect-video bg-gray-900 relative">
+                  <iframe class="w-full h-full" src="https://www.youtube.com/embed/l054ZoKcUGk" title="NEXT GEN SUNDAY | KINGDOM GREATNESS" allowfullscreen></iframe>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full inline-block w-max">Next Gen Sunday</span>
+                  <h3 class="text-base font-bold text-gray-900 mt-2">Kingdom Greatness</h3>
+                  <p class="text-gray-500 text-xs mt-1 leading-relaxed flex-1">Raising a generation grounded in divine character, purpose, and the fear of the Lord.</p>
+                  <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400">
+                    <span class="font-semibold text-gray-700">Pst. Alice Kitonga</span>
+                    <span>YouTube Live</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sermon Card 2 -->
+              <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition flex flex-col">
+                <div class="aspect-video bg-gray-900 relative">
+                  <iframe class="w-full h-full" src="https://www.youtube.com/embed/RDqg7Uvlf9U" title="Worship Experience | ICC Kitengela" allowfullscreen></iframe>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full inline-block w-max">Worship Night</span>
+                  <h3 class="text-base font-bold text-gray-900 mt-2">Encountering His Presence</h3>
+                  <p class="text-gray-500 text-xs mt-1 leading-relaxed flex-1">A night of heartfelt surrender, passionate praise, and experiencing the glory of God.</p>
+                  <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400">
+                    <span class="font-semibold text-gray-700">ICC Kitengela Music</span>
+                    <span>Worship Experience</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sermon Card 3 -->
+              <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition flex flex-col">
+                <div class="aspect-video bg-gray-900 relative">
+                  <iframe class="w-full h-full" src="https://www.youtube.com/embed/BUG6aHzPK3s" title="Understanding Ministry Gifts in the Body of Christ" allowfullscreen></iframe>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full inline-block w-max">Equipping The Saints</span>
+                  <h3 class="text-base font-bold text-gray-900 mt-2">Understanding Ministry Gifts</h3>
+                  <p class="text-gray-500 text-xs mt-1 leading-relaxed flex-1">Understanding spiritual gifts and equipping every believer to minister effectively.</p>
+                  <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400">
+                    <span class="font-semibold text-gray-700">Senior Pastor Keya</span>
+                    <span>Sunday Teaching</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- WIDGET 5: UPCOMING EVENTS -->
+        <section class="py-20 bg-white">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-12">
+              <div>
+                <span class="inline-block text-indigo-600 text-xs font-extrabold uppercase tracking-widest mb-2">Church Calendar</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">Upcoming Events</h2>
+                <p class="mt-2 text-gray-500 text-sm">Stay connected with weekly services, conferences, and fellowships.</p>
+              </div>
+              <button onclick="route('events')" class="mt-4 sm:mt-0 px-5 py-2.5 border-2 border-indigo-700 text-indigo-700 font-bold rounded-xl text-xs hover:bg-indigo-50 transition">
+                View Full Calendar &rarr;
+              </button>
+            </div>
+
+            <div class="space-y-4">
+              <div class="flex items-start gap-5 p-6 bg-white border border-gray-200 rounded-2xl hover:border-indigo-300 hover:shadow-md transition">
+                <div class="flex-shrink-0 w-16 h-16 bg-indigo-700 rounded-xl flex flex-col items-center justify-center text-white shadow">
+                  <span class="text-[10px] font-bold uppercase tracking-wider">Every</span>
+                  <span class="text-xl font-extrabold leading-none mt-1">SUN</span>
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-base font-bold text-gray-900">Sunday Celebration Services</h3>
+                    <span class="text-[10px] bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded-full">3 Services</span>
+                  </div>
+                  <p class="text-gray-500 text-xs mt-1">8:15 AM Early Glory &middot; 10:15 AM Family Celebration &middot; 12:15 PM Ignite Youth Service.</p>
+                  <p class="text-gray-400 text-[11px] mt-1.5">ICC Kitengela Main Sanctuary &middot; Behind Enkasiti Primary</p>
+                </div>
+                <button onclick="route('events')" class="text-indigo-600 font-bold text-xs hover:text-indigo-800">Details &rarr;</button>
+              </div>
+
+              <div class="flex items-start gap-5 p-6 bg-white border border-gray-200 rounded-2xl hover:border-indigo-300 hover:shadow-md transition">
+                <div class="flex-shrink-0 w-16 h-16 bg-indigo-600 rounded-xl flex flex-col items-center justify-center text-white shadow">
+                  <span class="text-[10px] font-bold uppercase tracking-wider">Every</span>
+                  <span class="text-xl font-extrabold leading-none mt-1">WED</span>
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-base font-bold text-gray-900">Midweek Transformational Bible Study</h3>
+                    <span class="text-[10px] bg-yellow-100 text-yellow-800 font-bold px-2 py-0.5 rounded-full">Bible Exposition</span>
+                  </div>
+                  <p class="text-gray-500 text-xs mt-1">Deep systematic exposition of God's Word and targeted corporate intercession.</p>
+                  <p class="text-gray-400 text-[11px] mt-1.5">6:30 PM – 8:00 PM &middot; Main Sanctuary</p>
+                </div>
+                <button onclick="route('events')" class="text-indigo-600 font-bold text-xs hover:text-indigo-800">Details &rarr;</button>
+              </div>
+
+              <div class="flex items-start gap-5 p-6 bg-white border border-gray-200 rounded-2xl hover:border-indigo-300 hover:shadow-md transition">
+                <div class="flex-shrink-0 w-16 h-16 bg-indigo-500 rounded-xl flex flex-col items-center justify-center text-white shadow">
+                  <span class="text-[10px] font-bold uppercase tracking-wider">Every</span>
+                  <span class="text-xl font-extrabold leading-none mt-1">THU</span>
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-base font-bold text-gray-900">Home Cell Altars (Connected &amp; Anchored)</h3>
+                    <span class="text-[10px] bg-purple-100 text-purple-700 font-bold px-2 py-0.5 rounded-full">Neighbourhoods</span>
+                  </div>
+                  <p class="text-gray-500 text-xs mt-1">Meeting in estate homes across Kitengela for prayer, communion, and warm fellowship.</p>
+                  <p class="text-gray-400 text-[11px] mt-1.5">6:30 PM – 7:45 PM &middot; Respective Cell Centres</p>
+                </div>
+                <button onclick="route('events')" class="text-indigo-600 font-bold text-xs hover:text-indigo-800">Details &rarr;</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- WIDGET 6: SCRIPTURE PILLAR -->
+        <section class="py-20 bg-indigo-900 text-white text-center relative overflow-hidden">
+          <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <svg class="w-12 h-12 mx-auto text-accent-400 mb-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+            </svg>
+            <blockquote class="text-2xl sm:text-4xl font-extrabold leading-relaxed">
+              &ldquo;Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the LORD your God will be with you wherever you go.&rdquo;
+            </blockquote>
+            <cite class="block mt-6 text-accent-400 text-base font-bold not-italic">&mdash; Joshua 1:9 (ICC Kitengela Theme Scripture)</cite>
+          </div>
+        </section>
+
+        <!-- WIDGET 7: NEXT STEPS & GIVING -->
+        <section class="py-20 bg-gray-50">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14">
+              <span class="inline-block text-indigo-600 text-xs font-extrabold uppercase tracking-widest mb-2">Next Steps</span>
+              <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">How Can We Serve You?</h2>
+              <p class="mt-2 text-gray-500 text-sm max-w-xl mx-auto">
+                Whether you are new, need pastoral prayer, or desire to partner in giving to God's work.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <!-- Card 1 -->
+              <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 text-center flex flex-col">
+                <div class="w-14 h-14 mx-auto bg-indigo-100 rounded-full flex items-center justify-center mb-5 text-2xl">
+                  👋
+                </div>
+                <h3 class="text-lg font-bold text-gray-900">I'm New Here</h3>
+                <p class="mt-2 text-gray-500 text-xs flex-1 leading-relaxed">
+                  Visiting ICC Kitengela? We would love to welcome you personally and connect you with a cell group in your neighborhood.
+                </p>
+                <button onclick="route('contact')" class="mt-6 w-full bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2.5 rounded-xl transition text-xs shadow">
+                  Connect With Us
+                </button>
+              </div>
+
+              <!-- Card 2 -->
+              <div class="bg-indigo-800 rounded-2xl shadow-md p-8 text-center flex flex-col text-white">
+                <div class="w-14 h-14 mx-auto bg-indigo-700 rounded-full flex items-center justify-center mb-5 text-2xl">
+                  🙏
+                </div>
+                <h3 class="text-lg font-bold">Request Prayer</h3>
+                <p class="mt-2 text-indigo-200 text-xs flex-1 leading-relaxed">
+                  You don't have to walk alone. Senior Pastor Keya and the intercessory team stand ready to pray with you in confidence.
+                </p>
+                <button onclick="route('prayer')" class="mt-6 w-full bg-white text-indigo-900 hover:bg-indigo-50 font-bold py-2.5 rounded-xl transition text-xs shadow">
+                  Submit Prayer Request
+                </button>
+              </div>
+
+              <!-- Card 3 -->
+              <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 text-center flex flex-col">
+                <div class="w-14 h-14 mx-auto bg-yellow-100 rounded-full flex items-center justify-center mb-5 text-2xl">
+                  💳
+                </div>
+                <h3 class="text-lg font-bold text-gray-900">Giving &amp; M-Pesa</h3>
+                <p class="mt-2 text-gray-500 text-xs flex-1 leading-relaxed">
+                  Support God's work securely via Safaricom M-Pesa.<br>
+                  <strong class="text-gray-900 font-extrabold text-sm">Paybill: 567935</strong><br>
+                  <span class="text-gray-400 text-[11px]">Account: TITHE &middot; OFFERING &middot; BUILDING</span>
+                </p>
+                <button onclick="route('donate')" class="mt-6 w-full bg-accent-400 hover:bg-accent-500 text-indigo-950 font-extrabold py-2.5 rounded-xl transition text-xs shadow">
+                  Give Online (STK Push)
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- PAGE: ABOUT -->
+      <div id="subpage-about" class="public-subpage hidden">
+        <section class="bg-indigo-900 text-white py-14 text-center">
+          <div class="max-w-4xl mx-auto px-4">
+            <span class="text-xs uppercase tracking-wider text-accent-400 font-bold">Our Heritage &amp; Mission</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold mt-2">About ICC Kitengela</h1>
+            <p class="text-indigo-200 text-sm mt-3">Assemblies of God &middot; Connecting People to God, Empowering Families</p>
+          </div>
+        </section>
+
+        <section class="py-16 max-w-5xl mx-auto px-4 sm:px-6">
+          <div class="bg-white rounded-2xl p-8 sm:p-12 shadow-sm border border-gray-200 space-y-8">
+            <div>
+              <h2 class="text-2xl font-extrabold text-gray-900">Who We Are</h2>
+              <p class="mt-3 text-gray-600 leading-relaxed text-sm">
+                International Christian Centre Kitengela is an Assemblies of God church located along Namanga Road in Kitengela town, Kenya. We are a family of believers committed to passionate worship, deep biblical discipleship, community transformation, and raising the next generation of godly leaders.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 border-t border-gray-100">
+              <div class="bg-indigo-50/70 p-6 rounded-xl border border-indigo-100">
+                <h3 class="font-extrabold text-indigo-900 text-base">Our Vision</h3>
+                <p class="mt-2 text-gray-600 text-xs leading-relaxed">
+                  To be a vibrant, Christ-centered, transforming church that connects every person to God, equips families, and impacts the community with God's love.
+                </p>
+              </div>
+              <div class="bg-yellow-50/70 p-6 rounded-xl border border-yellow-100">
+                <h3 class="font-extrabold text-yellow-950 text-base">Our Mission</h3>
+                <p class="mt-2 text-gray-600 text-xs leading-relaxed">
+                  To preach the uncompromised Word of God, foster authentic relationships in home cells, and mobilize believers into effective kingdom ministry.
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-6 border-t border-gray-100">
+              <h3 class="text-xl font-bold text-gray-900 mb-4">Pastoral Leadership</h3>
+              <div class="flex items-center gap-5 p-5 bg-gray-50 rounded-xl border border-gray-200">
+                <div class="w-16 h-16 rounded-full bg-indigo-700 text-white font-extrabold text-xl flex items-center justify-center flex-shrink-0 shadow">
+                  PK
+                </div>
+                <div>
+                  <h4 class="font-extrabold text-gray-900 text-base">Senior Pastor Keya</h4>
+                  <p class="text-xs text-indigo-600 font-bold">Senior Pastor &middot; ICC Kitengela</p>
+                  <p class="text-xs text-gray-500 mt-1">Leading the flock under the mandate of Joshua 1:9 — walking in divine boldness, prayer, and pastoral care for the Kitengela community.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 flex gap-3">
+              <button onclick="route('home')" class="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-bold rounded-lg">&larr; Back to Home</button>
+              <button onclick="route('contact')" class="px-5 py-2.5 bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-bold rounded-lg">Contact Us &rarr;</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- PAGE: MINISTRIES -->
+      <div id="subpage-ministries" class="public-subpage hidden">
+        <section class="bg-indigo-900 text-white py-14 text-center">
+          <div class="max-w-4xl mx-auto px-4">
+            <span class="text-xs uppercase tracking-wider text-accent-400 font-bold">12 Active Ministries</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold mt-2">Ministries Directory</h1>
+            <p class="text-indigo-200 text-sm mt-3">There is a place for everyone to serve and be ministered to.</p>
+          </div>
+        </section>
+
+        <section class="py-16 max-w-6xl mx-auto px-4 sm:px-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 1 -->
+            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+              <span class="text-2xl">👶</span>
+              <h3 class="font-bold text-base text-gray-900 mt-3">Next Gen Kids Church</h3>
+              <p class="text-xs text-gray-500 mt-1.5 leading-relaxed">Nursery, pre-school, and primary age children receiving age-appropriate Bible lessons and fun worship.</p>
+              <span class="mt-4 inline-block text-[11px] font-bold text-indigo-600">Sundays 10:15 AM</span>
+            </div>
+            <!-- 2 -->
+            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+              <span class="text-2xl">🔥</span>
+              <h3 class="font-bold text-base text-gray-900 mt-3">Teens Ministry</h3>
+              <p class="text-xs text-gray-500 mt-1.5 leading-relaxed">Teens weekend camps, Bible study, and mentorship helping young people stand strong for God.</p>
+              <span class="mt-4 inline-block text-[11px] font-bold text-indigo-600">Sundays 12:15 PM</span>
+            </div>
+            <!-- 3 -->
+            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+              <span class="text-2xl">⚡</span>
+              <h3 class="font-bold text-base text-gray-900 mt-3">Young Adults / K-Frontrunnerz</h3>
+              <p class="text-xs text-gray-500 mt-1.5 leading-relaxed">Spiritual growth, career mentorship, and vibrant fellowship for college students and young professionals.</p>
+              <span class="mt-4 inline-block text-[11px] font-bold text-indigo-600">Bi-Weekly Saturdays</span>
+            </div>
+            <!-- 4 -->
+            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+              <span class="text-2xl">🛡️</span>
+              <h3 class="font-bold text-base text-gray-900 mt-3">Men's Fellowship (Men of Valor)</h3>
+              <p class="text-xs text-gray-500 mt-1.5 leading-relaxed">Equipping men to be loving husbands, devoted fathers, and leaders in their communities and workplaces.</p>
+              <span class="mt-4 inline-block text-[11px] font-bold text-indigo-600">Monthly Breakfasts</span>
+            </div>
+            <!-- 5 -->
+            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+              <span class="text-2xl">🌸</span>
+              <h3 class="font-bold text-base text-gray-900 mt-3">Women's Fellowship (Daughters of Zion)</h3>
+              <p class="text-xs text-gray-500 mt-1.5 leading-relaxed">Empowering women spiritually, socially, and economically through prayer circles and outreach.</p>
+              <span class="mt-4 inline-block text-[11px] font-bold text-indigo-600">Monthly Fellowships</span>
+            </div>
+            <!-- 6 -->
+            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+              <span class="text-2xl">🏡</span>
+              <h3 class="font-bold text-base text-gray-900 mt-3">Connected &amp; Anchored Cell Groups</h3>
+              <p class="text-xs text-gray-500 mt-1.5 leading-relaxed">Transformational neighborhood home cells meeting across Kitengela estates every Thursday evening.</p>
+              <span class="mt-4 inline-block text-[11px] font-bold text-indigo-600">Thursdays 6:30 PM</span>
+            </div>
+            <!-- 7 -->
+            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+              <span class="text-2xl">🎵</span>
+              <h3 class="font-bold text-base text-gray-900 mt-3">Creative Arts &amp; Worship</h3>
+              <p class="text-xs text-gray-500 mt-1.5 leading-relaxed">Leading the congregation into deep intimacy with God through praise, instruments, and choir.</p>
+              <span class="mt-4 inline-block text-[11px] font-bold text-indigo-600">Saturdays 3:00 PM</span>
+            </div>
+            <!-- 8 -->
+            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+              <span class="text-2xl">🙏</span>
+              <h3 class="font-bold text-base text-gray-900 mt-3">Intercessory &amp; Prayer Ministry</h3>
+              <p class="text-xs text-gray-500 mt-1.5 leading-relaxed">Standing in the gap for the church, pastors, members, Kitengela, and the nation of Kenya.</p>
+              <span class="mt-4 inline-block text-[11px] font-bold text-indigo-600">Wednesdays &amp; All-Night Keshas</span>
+            </div>
+            <!-- 9 -->
+            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+              <span class="text-2xl">🤝</span>
+              <h3 class="font-bold text-base text-gray-900 mt-3">Ushering &amp; Protocol</h3>
+              <p class="text-xs text-gray-500 mt-1.5 leading-relaxed">Welcoming members, guiding guests, and ensuring smooth and orderly celebration services.</p>
+              <span class="mt-4 inline-block text-[11px] font-bold text-indigo-600">Sundays</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- PAGE: SERMONS -->
+      <div id="subpage-sermons" class="public-subpage hidden">
+        <section class="bg-indigo-900 text-white py-14 text-center">
+          <div class="max-w-4xl mx-auto px-4">
+            <span class="text-xs uppercase tracking-wider text-accent-400 font-bold">Watch &amp; Grow</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold mt-2">Sermons &amp; Teachings</h1>
+            <p class="text-indigo-200 text-sm mt-3">Stream sermons preached by Senior Pastor Keya &amp; pastors on YouTube.</p>
+          </div>
+        </section>
+
+        <section class="py-12 max-w-6xl mx-auto px-4 sm:px-6">
+          <!-- Featured Sermon Player -->
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12">
+            <div class="aspect-video bg-gray-950 w-full max-h-[500px]">
+              <iframe id="main-sermon-player" class="w-full h-full" src="https://www.youtube.com/embed/l054ZoKcUGk" title="Featured Sermon" allowfullscreen></iframe>
+            </div>
+            <div class="p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Now Playing &middot; ICC Kitengela YouTube</span>
+                <h2 id="main-sermon-title" class="text-xl sm:text-2xl font-extrabold text-gray-900 mt-1">NEXT GEN SUNDAY | KINGDOM GREATNESS</h2>
+                <p id="main-sermon-meta" class="text-xs text-gray-500 mt-1">Speaker: Pst. Alice Kitonga &middot; Scripture: Matthew 18:1-5</p>
+              </div>
+              <button onclick="showToast('Sermon study notes downloaded (PDF)')" class="px-5 py-2.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 font-bold text-xs rounded-xl transition border border-indigo-200 flex items-center gap-2">
+                <span>📄</span> Download Sermon Notes
+              </button>
+            </div>
+          </div>
+
+          <!-- Sermon Grid -->
+          <h3 class="text-lg font-bold text-gray-900 mb-6">More Teachings from Pastor Keya &amp; Ministers</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div onclick="switchSermon('RDqg7Uvlf9U', 'Worship Experience | Encountering His Presence', 'ICC Kitengela Music Team')" class="cursor-pointer bg-white rounded-xl border border-gray-200 p-5 hover:border-indigo-400 hover:shadow-md transition">
+              <span class="text-xs bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded font-bold">Worship Night</span>
+              <h4 class="font-bold text-gray-900 mt-2 text-sm">Worship Experience | ICC Kitengela</h4>
+              <p class="text-xs text-gray-500 mt-1">An extended night of worship and surrender.</p>
+              <span class="text-xs text-indigo-600 font-bold mt-3 inline-block">▶ Play Video</span>
+            </div>
+
+            <div onclick="switchSermon('BUG6aHzPK3s', 'Understanding Ministry Gifts in the Body of Christ', 'Senior Pastor Keya')" class="cursor-pointer bg-white rounded-xl border border-gray-200 p-5 hover:border-indigo-400 hover:shadow-md transition">
+              <span class="text-xs bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded font-bold">Ministry Gifts</span>
+              <h4 class="font-bold text-gray-900 mt-2 text-sm">Understanding Ministry Gifts</h4>
+              <p class="text-xs text-gray-500 mt-1">Equipping believers for the work of service.</p>
+              <span class="text-xs text-indigo-600 font-bold mt-3 inline-block">▶ Play Video</span>
+            </div>
+
+            <div onclick="switchSermon('a7W_uq_lB1Q', 'Encounter Service | Understanding the Church', 'Rev. William Odero')" class="cursor-pointer bg-white rounded-xl border border-gray-200 p-5 hover:border-indigo-400 hover:shadow-md transition">
+              <span class="text-xs bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded font-bold">Encounter Service</span>
+              <h4 class="font-bold text-gray-900 mt-2 text-sm">Understanding the Church</h4>
+              <p class="text-xs text-gray-500 mt-1">God's eternal blueprint for the local assembly.</p>
+              <span class="text-xs text-indigo-600 font-bold mt-3 inline-block">▶ Play Video</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- PAGE: EVENTS -->
+      <div id="subpage-events" class="public-subpage hidden">
+        <section class="bg-indigo-900 text-white py-14 text-center">
+          <div class="max-w-4xl mx-auto px-4">
+            <span class="text-xs uppercase tracking-wider text-accent-400 font-bold">Calendar of Events</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold mt-2">Church Events</h1>
+            <p class="text-indigo-200 text-sm mt-3">Stay up to date with special conferences, retreats, and fellowships.</p>
+          </div>
+        </section>
+
+        <section class="py-12 max-w-4xl mx-auto px-4 sm:px-6 space-y-4">
+          <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex items-start gap-5">
+            <div class="w-16 h-16 bg-indigo-700 text-white rounded-xl flex flex-col items-center justify-center font-extrabold flex-shrink-0">
+              <span class="text-[10px] uppercase">OCT</span>
+              <span class="text-xl">18</span>
+            </div>
+            <div class="flex-1">
+              <span class="text-[10px] bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-full font-bold">Main Sanctuary</span>
+              <h3 class="text-base font-bold text-gray-900 mt-1">Next Gen Vacation Bible School (VBS)</h3>
+              <p class="text-xs text-gray-500 mt-1">A four-day interactive faith and fun camp for children ages 4 to 12.</p>
+              <p class="text-xs text-gray-400 mt-2">8:30 AM – 1:00 PM Daily &middot; Free Registration</p>
+            </div>
+            <button onclick="showToast('RSVP submitted for VBS')" class="px-4 py-2 bg-indigo-700 text-white text-xs font-bold rounded-lg hover:bg-indigo-800 transition">Register</button>
+          </div>
+
+          <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex items-start gap-5">
+            <div class="w-16 h-16 bg-blue-600 text-white rounded-xl flex flex-col items-center justify-center font-extrabold flex-shrink-0">
+              <span class="text-[10px] uppercase">NOV</span>
+              <span class="text-xl">07</span>
+            </div>
+            <div class="flex-1">
+              <span class="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full font-bold">Youth &amp; Teens</span>
+              <h3 class="text-base font-bold text-gray-900 mt-1">Teens Engage Worship Concert</h3>
+              <p class="text-xs text-gray-500 mt-1">An electric night of youth-led praise, creative drama, and dynamic ministry.</p>
+              <p class="text-xs text-gray-400 mt-2">4:00 PM – 8:00 PM &middot; Free Entry</p>
+            </div>
+            <button onclick="showToast('Reminder set for Teens Engage')" class="px-4 py-2 border border-gray-300 text-gray-700 text-xs font-bold rounded-lg hover:bg-gray-50 transition">Add Calendar</button>
+          </div>
+
+          <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex items-start gap-5">
+            <div class="w-16 h-16 bg-accent-500 text-indigo-950 rounded-xl flex flex-col items-center justify-center font-extrabold flex-shrink-0">
+              <span class="text-[10px] uppercase">NOV</span>
+              <span class="text-xl">21</span>
+            </div>
+            <div class="flex-1">
+              <span class="text-[10px] bg-yellow-50 text-yellow-800 px-2 py-0.5 rounded-full font-bold">Men of Valor</span>
+              <h3 class="text-base font-bold text-gray-900 mt-1">Men's Leadership &amp; Business Breakfast</h3>
+              <p class="text-xs text-gray-500 mt-1">Discussing kingdom economics, family integrity, and fatherhood leadership.</p>
+              <p class="text-xs text-gray-400 mt-2">7:30 AM – 10:00 AM &middot; Kitengela Fellowship Hall</p>
+            </div>
+            <button onclick="showToast('Seat reserved for Men Breakfast')" class="px-4 py-2 bg-indigo-700 text-white text-xs font-bold rounded-lg hover:bg-indigo-800 transition">Reserve</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- PAGE: GIVING / DONATE -->
+      <div id="subpage-donate" class="public-subpage hidden">
+        <section class="bg-indigo-900 text-white py-14 text-center">
+          <div class="max-w-4xl mx-auto px-4">
+            <span class="text-xs uppercase tracking-wider text-accent-400 font-bold">Generosity &amp; Stewardship</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold mt-2">Online Giving &amp; Lipa na M-Pesa</h1>
+            <p class="text-indigo-200 text-sm mt-3">Partner with God in building His church and touching lives in Kitengela.</p>
+          </div>
+        </section>
+
+        <section class="py-12 max-w-4xl mx-auto px-4 sm:px-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+            
+            <!-- Paybill Details Card -->
+            <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm space-y-6">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-700 font-extrabold rounded-xl flex items-center justify-center text-xl">
+                  M
+                </div>
+                <div>
+                  <h3 class="font-extrabold text-gray-900 text-lg">Safaricom M-Pesa Paybill</h3>
+                  <p class="text-xs text-gray-500">Official Church Collection Channel</p>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 space-y-3">
+                <div class="flex justify-between items-center text-sm">
+                  <span class="text-gray-500">Business Number:</span>
+                  <span class="font-extrabold text-indigo-700 text-lg">567935</span>
+                </div>
+                <div class="flex justify-between items-center text-sm border-t border-gray-200 pt-3">
+                  <span class="text-gray-500">Account Options:</span>
+                  <span class="font-bold text-gray-800">TITHE, OFFERING, BUILDING</span>
+                </div>
+                <div class="flex justify-between items-center text-sm border-t border-gray-200 pt-3">
+                  <span class="text-gray-500">Beneficiary:</span>
+                  <span class="font-semibold text-gray-700">ICC Kitengela Assemblies of God</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-gray-500 space-y-2">
+                <p><strong>Instructions on Phone:</strong></p>
+                <ol class="list-decimal pl-4 space-y-1 text-gray-600">
+                  <li>Go to M-Pesa &rarr; Lipa na M-Pesa &rarr; Pay Bill</li>
+                  <li>Enter Business No: <strong>567935</strong></li>
+                  <li>Enter Account No: <strong>TITHE</strong> or <strong>OFFERING</strong></li>
+                  <li>Enter Amount and M-Pesa PIN</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Instant STK Simulation Card -->
+            <div class="bg-gradient-to-br from-indigo-900 to-indigo-950 text-white p-8 rounded-2xl shadow-xl space-y-5">
+              <span class="text-[10px] bg-accent-400 text-indigo-950 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Instant STK Push Simulator</span>
+              <h3 class="text-xl font-extrabold">Send Giving Prompt to Phone</h3>
+              <p class="text-xs text-indigo-200 leading-relaxed">
+                Test the live M-Pesa prompt simulation right in front of the board.
+              </p>
+
+              <div class="space-y-3">
+                <div>
+                  <label class="text-[11px] font-semibold text-indigo-300 block mb-1">M-Pesa Mobile Number</label>
+                  <input id="stk-phone" type="text" value="0712345678" class="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-indigo-300 text-xs focus:outline-none focus:border-accent-400 font-mono">
+                </div>
+                <div>
+                  <label class="text-[11px] font-semibold text-indigo-300 block mb-1">Fund Allocation</label>
+                  <select id="stk-fund" class="w-full px-3.5 py-2.5 rounded-xl bg-indigo-800 border border-white/20 text-white text-xs focus:outline-none">
+                    <option value="TITHE">Tithe (Ksh)</option>
+                    <option value="OFFERING">Sunday Offering (Ksh)</option>
+                    <option value="BUILDING">Church Sanctuary Building (Ksh)</option>
+                    <option value="NEXTGEN">Next Gen Kids Ministry (Ksh)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-[11px] font-semibold text-indigo-300 block mb-1">Amount (KES)</label>
+                  <input id="stk-amount" type="number" value="1000" class="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white text-xs focus:outline-none focus:border-accent-400 font-mono">
+                </div>
+                <button onclick="triggerSimulatedSTK()" id="btn-stk-submit" class="w-full mt-2 py-3 bg-accent-400 hover:bg-accent-500 text-indigo-950 font-extrabold rounded-xl transition text-xs shadow-lg flex items-center justify-center gap-2">
+                  <span>📱</span> Trigger M-Pesa STK Prompt
+                </button>
+              </div>
+
+              <div id="stk-result" class="hidden mt-4 p-3.5 bg-emerald-900/60 border border-emerald-500/50 rounded-xl text-xs text-emerald-200">
+                <div class="flex items-center gap-2 font-bold text-white mb-1">
+                  <span>✓</span> M-Pesa Payment Confirmed!
+                </div>
+                <p id="stk-receipt-text" class="text-[11px] font-mono leading-relaxed">
+                  Ref: QK8472910X Confirmed. Ksh 1,000 received from 0712345678 for TITHE.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </div>
+
+      <!-- PAGE: PRAYER REQUESTS -->
+      <div id="subpage-prayer" class="public-subpage hidden">
+        <section class="bg-indigo-900 text-white py-14 text-center">
+          <div class="max-w-4xl mx-auto px-4">
+            <span class="text-xs uppercase tracking-wider text-accent-400 font-bold">Pastoral Intercession</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold mt-2">Prayer Requests</h1>
+            <p class="text-indigo-200 text-sm mt-3">You don't have to carry it alone. Submit a request and our pastoral team will pray with you.</p>
+          </div>
+        </section>
+
+        <section class="py-12 max-w-3xl mx-auto px-4 sm:px-6">
+          <div class="bg-white p-8 sm:p-10 rounded-2xl border border-gray-200 shadow-sm space-y-6">
+            <div>
+              <h2 class="text-xl font-bold text-gray-900">Confidential Prayer Altar</h2>
+              <p class="text-xs text-gray-500 mt-1">Your prayer requests are handled with absolute confidentiality by Senior Pastor Keya and the prayer team.</p>
+            </div>
+
+            <div class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-xs font-semibold text-gray-700 block mb-1">Your Name</label>
+                  <input id="prayer-name" type="text" placeholder="e.g. John or Anonymous" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-indigo-600 focus:outline-none">
+                </div>
+                <div>
+                  <label class="text-xs font-semibold text-gray-700 block mb-1">Phone / WhatsApp</label>
+                  <input id="prayer-phone" type="text" placeholder="e.g. 0712345678" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-indigo-600 focus:outline-none">
+                </div>
+              </div>
+
+              <div>
+                <label class="text-xs font-semibold text-gray-700 block mb-1">Category</label>
+                <select id="prayer-category" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-indigo-600 focus:outline-none">
+                  <option>Healing &amp; Health</option>
+                  <option>Family &amp; Marriage</option>
+                  <option>Career, Jobs &amp; Business</option>
+                  <option>Spiritual Breakthrough</option>
+                  <option>Thanksgiving &amp; Praise Report</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="text-xs font-semibold text-gray-700 block mb-1">Prayer Request Details</label>
+                <textarea id="prayer-body" rows="4" placeholder="Share what is on your heart..." class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-indigo-600 focus:outline-none"></textarea>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <input id="prayer-confidential" type="checkbox" checked class="rounded text-indigo-600 focus:ring-indigo-500">
+                <label for="prayer-confidential" class="text-xs text-gray-600">Keep this request strictly confidential with the pastoral intercession team</label>
+              </div>
+
+              <button onclick="submitPrayerRequest()" class="w-full py-3 bg-indigo-700 hover:bg-indigo-800 text-white font-bold rounded-xl text-xs shadow transition">
+                Submit Prayer Request &rarr;
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- PAGE: CONTACT -->
+      <div id="subpage-contact" class="public-subpage hidden">
+        <section class="bg-indigo-900 text-white py-14 text-center">
+          <div class="max-w-4xl mx-auto px-4">
+            <span class="text-xs uppercase tracking-wider text-accent-400 font-bold">Connect With Us</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold mt-2">Contact &amp; Location</h1>
+            <p class="text-indigo-200 text-sm mt-3">We would love to hear from you. Visit us in Kitengela or reach out directly.</p>
+          </div>
+        </section>
+
+        <section class="py-12 max-w-5xl mx-auto px-4 sm:px-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+            <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm space-y-6">
+              <h2 class="text-xl font-bold text-gray-900">Church Location &amp; Hours</h2>
+              
+              <div class="space-y-4 text-xs text-gray-600">
+                <div class="flex items-start gap-3">
+                  <span class="text-lg">📍</span>
+                  <div>
+                    <strong class="text-gray-900 text-sm block">Address</strong>
+                    Namanga Road, Behind Enkasiti Primary, Kitengela Town, Kajiado County, Kenya.
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                  <span class="text-lg">📞</span>
+                  <div>
+                    <strong class="text-gray-900 text-sm block">Phone Inquiries</strong>
+                    <a href="tel:+254700123456" class="text-indigo-600 hover:underline font-bold">+254 700 123 456</a>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                  <span class="text-lg">✉️</span>
+                  <div>
+                    <strong class="text-gray-900 text-sm block">Email</strong>
+                    <a href="mailto:info@icckitengela.org" class="text-indigo-600 hover:underline">info@icckitengela.org</a>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                  <span class="text-lg">⏰</span>
+                  <div>
+                    <strong class="text-gray-900 text-sm block">Sunday Services</strong>
+                    1st Service: 8:15 AM &middot; 2nd Service: 10:15 AM &middot; 3rd Service: 12:15 PM
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-gray-100 flex items-center gap-4">
+                <a href="https://www.facebook.com/icckitengela" target="_blank" class="p-2.5 bg-gray-100 rounded-lg text-indigo-700 hover:bg-indigo-50 font-bold text-xs flex items-center gap-1.5">
+                  Facebook
+                </a>
+                <a href="https://www.youtube.com/@icckitengela" target="_blank" class="p-2.5 bg-gray-100 rounded-lg text-red-600 hover:bg-red-50 font-bold text-xs flex items-center gap-1.5">
+                  YouTube
+                </a>
+                <a href="https://www.instagram.com/icckitengela" target="_blank" class="p-2.5 bg-gray-100 rounded-lg text-pink-600 hover:bg-pink-50 font-bold text-xs flex items-center gap-1.5">
+                  Instagram
+                </a>
+              </div>
+            </div>
+
+            <!-- Inquiry Form -->
+            <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm space-y-4">
+              <h3 class="text-lg font-bold text-gray-900">Send an Inquiry</h3>
+              <div>
+                <label class="text-xs font-semibold text-gray-700 block mb-1">Your Full Name</label>
+                <input id="contact-name" type="text" placeholder="John Doe" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-indigo-600 focus:outline-none">
+              </div>
+              <div>
+                <label class="text-xs font-semibold text-gray-700 block mb-1">Email / Phone</label>
+                <input id="contact-email" type="text" placeholder="john@example.com or 0700..." class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-indigo-600 focus:outline-none">
+              </div>
+              <div>
+                <label class="text-xs font-semibold text-gray-700 block mb-1">Message</label>
+                <textarea id="contact-msg" rows="4" placeholder="How can we help or serve you?" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-indigo-600 focus:outline-none"></textarea>
+              </div>
+              <button onclick="submitContactForm()" class="w-full py-3 bg-indigo-700 hover:bg-indigo-800 text-white font-bold rounded-xl text-xs shadow transition">
+                Send Message &rarr;
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </main>
+
+    <!-- DEFAULT FOOTER -->
+    <footer class="bg-gray-900 text-gray-400 mt-auto pt-14 border-t border-gray-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+          
+          <!-- Col 1: Brand -->
+          <div class="lg:col-span-2">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-extrabold text-lg">
+                I
+              </div>
+              <span class="text-white font-extrabold text-lg tracking-tight">ICC KITENGELA</span>
+            </div>
+            <p class="text-xs text-gray-400 leading-relaxed max-w-sm">
+              International Christian Centre Kitengela is an Assemblies of God church located along Namanga Road. Rooted in Joshua 1:9, connecting people to God and empowering families.
+            </p>
+            <div class="flex items-center gap-3 mt-5">
+              <a href="https://www.facebook.com/icckitengela" target="_blank" class="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center text-gray-300 hover:text-white hover:bg-indigo-600 transition text-xs font-bold">f</a>
+              <a href="https://www.youtube.com/@icckitengela" target="_blank" class="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center text-gray-300 hover:text-white hover:bg-red-600 transition text-xs font-bold">yt</a>
+              <a href="https://www.instagram.com/icckitengela" target="_blank" class="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center text-gray-300 hover:text-white hover:bg-pink-600 transition text-xs font-bold">ig</a>
+            </div>
+          </div>
+
+          <!-- Col 2: Navigation -->
+          <div>
+            <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Quick Links</h4>
+            <ul class="space-y-2.5 text-xs">
+              <li><a href="javascript:void(0)" onclick="route('home')" class="hover:text-white transition">Home</a></li>
+              <li><a href="javascript:void(0)" onclick="route('about')" class="hover:text-white transition">About Us</a></li>
+              <li><a href="javascript:void(0)" onclick="route('ministries')" class="hover:text-white transition">Ministries</a></li>
+              <li><a href="javascript:void(0)" onclick="route('sermons')" class="hover:text-white transition">Sermons Archive</a></li>
+              <li><a href="javascript:void(0)" onclick="route('events')" class="hover:text-white transition">Upcoming Events</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Community & Giving -->
+          <div>
+            <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Community</h4>
+            <ul class="space-y-2.5 text-xs">
+              <li><a href="javascript:void(0)" onclick="route('prayer')" class="hover:text-white transition">Prayer Requests</a></li>
+              <li><a href="javascript:void(0)" onclick="route('donate')" class="hover:text-white transition">Giving &amp; M-Pesa (567935)</a></li>
+              <li><a href="javascript:void(0)" onclick="route('contact')" class="hover:text-white transition">Directions &amp; Map</a></li>
+              <li><a href="javascript:void(0)" onclick="setRoleView('member')" class="hover:text-white transition">Member Portal</a></li>
+              <li><a href="javascript:void(0)" onclick="setRoleView('executive')" class="hover:text-white transition">Staff Login</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 4: Service Hours -->
+          <div>
+            <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Sunday Services</h4>
+            <p class="text-xs text-gray-400 leading-relaxed">
+              <strong>1st:</strong> 8:15 AM &ndash; 10:00 AM<br>
+              <strong>2nd:</strong> 10:15 AM &ndash; 12:00 PM<br>
+              <strong>3rd:</strong> 12:15 PM &ndash; 1:45 PM<br>
+              <strong>Wed:</strong> 6:30 PM &ndash; 8:00 PM
+            </p>
+            <div class="mt-4 pt-3 border-t border-gray-800">
+              <span class="text-[10px] text-gray-500 uppercase block font-bold">M-Pesa Paybill</span>
+              <strong class="text-accent-400 text-sm font-mono">567935</strong>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="border-t border-gray-800 py-6 text-center text-xs text-gray-500">
+        <p>&copy; 2026 ICC Kitengela (Assemblies of God). All rights reserved &middot; Powered by Church CMS.</p>
+      </div>
+    </footer>
+
+  </div>
+
+
+  <!-- ================= ROLE VIEW 2: SENIOR PASTOR / EXECUTIVE COCKPIT ================= -->
+  <div id="view-executive" class="view-container flex-1 bg-gray-100 flex flex-col">
+    <!-- Exec Top Header -->
+    <header class="bg-indigo-950 text-white px-6 py-4 border-b border-indigo-900 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-accent-400 text-indigo-950 font-extrabold flex items-center justify-center text-xl shadow">
+          👑
+        </div>
+        <div>
+          <h1 class="text-lg font-extrabold leading-tight">Senior Pastor Executive Cockpit</h1>
+          <p class="text-xs text-indigo-300">Welcome, Senior Pastor Keya &middot; Institutional Overview</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="setRoleView('public')" class="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-bold transition">
+          &larr; View Public Church Website
+        </button>
+        <button onclick="showToast('Executive PDF Digest Generated')" class="px-3.5 py-1.5 bg-accent-400 text-indigo-950 rounded-lg text-xs font-extrabold hover:bg-accent-500 transition">
+          Download Board Brief
+        </button>
+      </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      
+      <!-- KPI Stats -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Active Membership</span>
+          <p class="text-3xl font-extrabold text-gray-900 mt-2">1,248</p>
+          <span class="inline-block mt-2 text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">↑ +84 this quarter</span>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Month-to-Date Giving</span>
+          <p class="text-3xl font-extrabold text-indigo-700 mt-2 font-mono">KES 1,842,500</p>
+          <span class="inline-block mt-2 text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">92% of Monthly Budget</span>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Connected Cell Groups</span>
+          <p class="text-3xl font-extrabold text-gray-900 mt-2">18 Cells</p>
+          <span class="inline-block mt-2 text-xs text-indigo-600 font-bold bg-indigo-50 px-2 py-0.5 rounded-full">342 Members Meeting Thu</span>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">New Visitor Follow-ups</span>
+          <p class="text-3xl font-extrabold text-amber-600 mt-2">24 Pending</p>
+          <span class="inline-block mt-2 text-xs text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded-full">Assigned to Evangelism Lead</span>
+        </div>
+      </div>
+
+      <!-- Pastoral Care & Sunday Attendance Breakdown -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-200">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h2 class="font-extrabold text-gray-900 text-lg">Sunday Attendance Trends Across 3 Services</h2>
+              <p class="text-xs text-gray-500">Early Glory (8:15 AM), Family (10:15 AM), Ignite Youth (12:15 PM)</p>
+            </div>
+            <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">Past 4 Sundays</span>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                <span>10:15 AM Celebration &amp; Next Gen Kids</span>
+                <span>610 Attendees (49%)</span>
+              </div>
+              <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-indigo-600 rounded-full" style="width: 49%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                <span>8:15 AM Early Glory Service</span>
+                <span>380 Attendees (30%)</span>
+              </div>
+              <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-500 rounded-full" style="width: 30%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                <span>12:15 PM Ignite Youth &amp; Young Adults</span>
+                <span>258 Attendees (21%)</span>
+              </div>
+              <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-amber-500 rounded-full" style="width: 21%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+            <span>Average Sunday Attendance: <strong class="text-gray-900">1,248 congregants</strong></span>
+            <button onclick="showToast('Attendance report exported')" class="text-indigo-600 font-bold hover:underline">Export Full Log &rarr;</button>
+          </div>
+        </div>
+
+        <!-- Pastoral Intercession Box -->
+        <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-200 flex flex-col">
+          <h2 class="font-extrabold text-gray-900 text-lg mb-2">Confidential Prayer Queue</h2>
+          <p class="text-xs text-gray-500 mb-4">Direct requests submitted via the public site awaiting Pastor Keya's review.</p>
+
+          <div class="space-y-3 flex-1 overflow-y-auto max-h-[300px]">
+            <div class="p-3 bg-gray-50 rounded-xl border border-gray-200 text-xs">
+              <div class="flex justify-between items-center font-bold text-gray-800">
+                <span>Healing for Grace W.</span>
+                <span class="text-[10px] text-gray-400">1 hour ago</span>
+              </div>
+              <p class="text-gray-500 mt-1">Hospitalized at Nairobi Women's Hospital Kitengela branch. Requesting visit.</p>
+              <button onclick="showToast('Marked as Prayed for / Contacted')" class="mt-2 text-indigo-600 font-bold hover:underline">Pray &amp; Mark Completed &rarr;</button>
+            </div>
+
+            <div class="p-3 bg-gray-50 rounded-xl border border-gray-200 text-xs">
+              <div class="flex justify-between items-center font-bold text-gray-800">
+                <span>Job Breakthrough (David M.)</span>
+                <span class="text-[10px] text-gray-400">Yesterday</span>
+              </div>
+              <p class="text-gray-500 mt-1">Second interview scheduled for Monday. Believing God for favor.</p>
+              <button onclick="showToast('Marked as Prayed for / Contacted')" class="mt-2 text-indigo-600 font-bold hover:underline">Pray &amp; Mark Completed &rarr;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ================= ROLE VIEW 3: FINANCE & GIVING DASHBOARD ================= -->
+  <div id="view-finance" class="view-container flex-1 bg-gray-100 flex flex-col">
+    <header class="bg-slate-900 text-white px-6 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500 text-white font-extrabold flex items-center justify-center text-xl shadow">
+          💼
+        </div>
+        <div>
+          <h1 class="text-lg font-extrabold leading-tight">Finance &amp; Treasury Portal</h1>
+          <p class="text-xs text-gray-400">Church Treasurer &middot; M-Pesa STK &amp; Bank Reconciliations</p>
+        </div>
+      </div>
+      <button onclick="setRoleView('public')" class="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-bold transition">
+        &larr; Public Church Website
+      </button>
+    </header>
+
+    <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">M-Pesa Collections (Paybill 567935)</span>
+          <p class="text-2xl font-extrabold text-emerald-700 mt-2 font-mono">KES 1,120,400</p>
+          <p class="text-xs text-gray-400 mt-1">Automated real-time IPN matching</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Sanctuary Building Fund</span>
+          <p class="text-2xl font-extrabold text-indigo-700 mt-2 font-mono">KES 530,000</p>
+          <p class="text-xs text-gray-400 mt-1">Earmarked capital account</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Unreconciled Transactions</span>
+          <p class="text-2xl font-extrabold text-gray-900 mt-2 font-mono">0</p>
+          <p class="text-xs text-emerald-600 font-bold mt-1">✓ 100% matched to accounts</p>
+        </div>
+      </div>
+
+      <!-- Real-Time Transaction Table -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+        <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+          <h2 class="font-extrabold text-gray-900 text-base">Recent Giving Ledger (M-Pesa Paybill 567935)</h2>
+          <button onclick="showToast('Exported CSV of M-Pesa statements')" class="text-xs text-indigo-600 font-bold hover:underline">Download CSV &rarr;</button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-gray-50 text-gray-500 font-bold border-b border-gray-200">
+              <tr>
+                <th class="p-4">Receipt No</th>
+                <th class="p-4">Giver Name / Phone</th>
+                <th class="p-4">Fund Line</th>
+                <th class="p-4 text-right">Amount (KES)</th>
+                <th class="p-4">Channel</th>
+                <th class="p-4">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 text-gray-700 font-medium">
+              <tr>
+                <td class="p-4 font-mono font-bold text-indigo-700">QK8472910X</td>
+                <td class="p-4">Mary Kamau (0712***678)</td>
+                <td class="p-4 font-bold text-gray-900">TITHE</td>
+                <td class="p-4 text-right font-mono font-bold">12,500.00</td>
+                <td class="p-4">M-Pesa STK Push</td>
+                <td class="p-4"><span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full font-bold text-[10px]">Verified</span></td>
+              </tr>
+              <tr>
+                <td class="p-4 font-mono font-bold text-indigo-700">QK8472889A</td>
+                <td class="p-4">Peter N. (0722***410)</td>
+                <td class="p-4 font-bold text-gray-900">BUILDING</td>
+                <td class="p-4 text-right font-mono font-bold">5,000.00</td>
+                <td class="p-4">Paybill Direct</td>
+                <td class="p-4"><span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full font-bold text-[10px]">Verified</span></td>
+              </tr>
+              <tr>
+                <td class="p-4 font-mono font-bold text-indigo-700">QK8472714B</td>
+                <td class="p-4">Grace W. (0733***198)</td>
+                <td class="p-4 font-bold text-gray-900">OFFERING</td>
+                <td class="p-4 text-right font-mono font-bold">1,000.00</td>
+                <td class="p-4">M-Pesa STK Push</td>
+                <td class="p-4"><span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full font-bold text-[10px]">Verified</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= ROLE VIEW 4: CHURCH ADMINISTRATOR ================= -->
+  <div id="view-admin" class="view-container flex-1 bg-gray-100 flex flex-col">
+    <header class="bg-gray-900 text-white px-6 py-4 border-b border-gray-800 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white font-extrabold flex items-center justify-center text-xl shadow">
+          ⚡
+        </div>
+        <div>
+          <h1 class="text-lg font-extrabold leading-tight">Church Administration Central</h1>
+          <p class="text-xs text-gray-400">Database &middot; Groups &middot; SMS Communication</p>
+        </div>
+      </div>
+      <button onclick="setRoleView('public')" class="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-bold transition">
+        &larr; Public Church Website
+      </button>
+    </header>
+
+    <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+          <h3 class="font-extrabold text-gray-900 text-base mb-1">Bulk SMS Broadcast</h3>
+          <p class="text-xs text-gray-500 mb-4">Send service reminders or pastoral messages to 1,248 members.</p>
+          <textarea rows="3" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:outline-none mb-3" placeholder="Reminder: Midweek Bible Study starts at 6:30 PM tomorrow..."></textarea>
+          <button onclick="showToast('Bulk SMS dispatched to 1,248 congregants')" class="w-full py-2 bg-indigo-700 text-white text-xs font-bold rounded-lg hover:bg-indigo-800 transition">
+            Dispatch SMS Broadcast
+          </button>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+          <h3 class="font-extrabold text-gray-900 text-base mb-1">Cell Group Rosters</h3>
+          <p class="text-xs text-gray-500 mb-4">Manage the 18 Connected &amp; Anchored estate cells in Kitengela.</p>
+          <ul class="text-xs space-y-2 mb-4">
+            <li class="flex justify-between p-2 bg-gray-50 rounded-lg"><span>Enkasiti Cell</span><strong>24 Members</strong></li>
+            <li class="flex justify-between p-2 bg-gray-50 rounded-lg"><span>Yukos Cell</span><strong>19 Members</strong></li>
+            <li class="flex justify-between p-2 bg-gray-50 rounded-lg"><span>Acacia Cell</span><strong>22 Members</strong></li>
+          </ul>
+          <button onclick="showToast('Opened Full Cell Roster')" class="w-full py-2 border border-gray-300 text-gray-700 text-xs font-bold rounded-lg hover:bg-gray-50 transition">
+            Manage All 18 Cells &rarr;
+          </button>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+          <h3 class="font-extrabold text-gray-900 text-base mb-1">Digital Connect Cards</h3>
+          <p class="text-xs text-gray-500 mb-4">Visitor submissions from public website ready for assimilation.</p>
+          <div class="p-3 bg-indigo-50 border border-indigo-100 rounded-xl text-xs mb-4">
+            <p class="font-bold text-indigo-900">Brian Ochieng (0720***123)</p>
+            <p class="text-gray-500 text-[11px]">Visiting from Yukos Estate. Interested in Men of Valor.</p>
+          </div>
+          <button onclick="showToast('Assigned to Yukos Home Cell Leader')" class="w-full py-2 bg-indigo-700 text-white text-xs font-bold rounded-lg hover:bg-indigo-800 transition">
+            Assign to Cell Leader
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= ROLE VIEW 5: MARY KAMAU (MEMBER PORTAL) ================= -->
+  <div id="view-member" class="view-container flex-1 bg-gray-100 flex flex-col">
+    <header class="bg-white border-b border-gray-200 px-6 py-4 flex flex-wrap items-center justify-between gap-4 shadow-sm">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-700 font-extrabold flex items-center justify-center text-lg">
+          MK
+        </div>
+        <div>
+          <h1 class="text-base font-extrabold text-gray-900 leading-tight">Mary Kamau &middot; Member Portal</h1>
+          <p class="text-xs text-gray-500">ICC Kitengela &middot; Enkasiti Cell Group &middot; Women of Grace</p>
+        </div>
+      </div>
+      <button onclick="setRoleView('public')" class="px-3.5 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg text-xs font-bold transition">
+        &larr; Public Church Website
+      </button>
+    </header>
+
+    <div class="max-w-4xl mx-auto w-full px-4 sm:px-6 py-8 space-y-6 flex-1">
+      <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+        <h2 class="font-extrabold text-gray-900 text-base mb-4">My Church Profile &amp; Ministry Involvement</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 bg-gray-50 rounded-xl">
+            <span class="text-gray-400 block font-semibold">Home Cell Group</span>
+            <strong class="text-gray-900 text-sm mt-1 block">Enkasiti Cell #3</strong>
+            <span class="text-indigo-600">Thursdays @ 6:30 PM</span>
+          </div>
+          <div class="p-4 bg-gray-50 rounded-xl">
+            <span class="text-gray-400 block font-semibold">Ministry Team</span>
+            <strong class="text-gray-900 text-sm mt-1 block">Women of Grace</strong>
+            <span class="text-gray-500">Active Member</span>
+          </div>
+          <div class="p-4 bg-gray-50 rounded-xl">
+            <span class="text-gray-400 block font-semibold">Member Status</span>
+            <strong class="text-emerald-700 text-sm mt-1 block">In Good Standing</strong>
+            <span class="text-gray-500">Baptized &middot; Enkasiti Zone</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-extrabold text-gray-900 text-base">My Verified Giving History</h2>
+          <button onclick="showToast('Downloaded Annual Giving Statement (KRA Compliant)')" class="text-xs text-indigo-600 font-bold hover:underline">Download Giving Statement &rarr;</button>
+        </div>
+        <div class="space-y-2 text-xs">
+          <div class="flex justify-between items-center p-3 bg-gray-50 rounded-xl">
+            <div>
+              <strong class="text-gray-900 block font-mono">QK8472910X</strong>
+              <span class="text-gray-400 text-[11px]">Tithe &middot; 22 Sep 2026</span>
+            </div>
+            <strong class="text-indigo-700 text-sm font-mono">KES 12,500.00</strong>
+          </div>
+          <div class="flex justify-between items-center p-3 bg-gray-50 rounded-xl">
+            <div>
+              <strong class="text-gray-900 block font-mono">QJ1928471M</strong>
+              <span class="text-gray-400 text-[11px]">Sanctuary Building &middot; 05 Sep 2026</span>
+            </div>
+            <strong class="text-indigo-700 text-sm font-mono">KES 5,000.00</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= GLOBAL TOAST NOTIFICATION ================= -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-gray-900 text-white px-5 py-3 rounded-xl shadow-2xl text-xs font-semibold z-50 transition-all duration-300 transform translate-y-16 opacity-0 flex items-center gap-2.5 border border-gray-700">
+    <span class="text-emerald-400 font-bold text-sm">✓</span>
+    <span id="toast-message">Notification</span>
+  </div>
+
+  <!-- ================= JS APPLICATION CONTROLLER ================= -->
+  <script>
+    // Current Active Role & Route
+    let currentRole = 'public';
+    let currentRoute = 'home';
+
+    // Route public views
+    function route(pageId) {
+      if (currentRole !== 'public') {
+        setRoleView('public');
+      }
+
+      currentRoute = pageId;
+
+      // Update Nav Link Styles
+      document.querySelectorAll('.nav-link').forEach(el => {
+        el.classList.remove('text-indigo-600', 'font-bold');
+      });
+      const activeLink = document.getElementById('nav-' + pageId);
+      if (activeLink) {
+        activeLink.classList.add('text-indigo-600', 'font-bold');
+      }
+
+      // Hide all subpages
+      document.querySelectorAll('.public-subpage').forEach(el => {
+        el.classList.add('hidden');
+      });
+
+      // Show target subpage
+      const target = document.getElementById('subpage-' + pageId);
+      if (target) {
+        target.classList.remove('hidden');
+      } else {
+        // Fallback to home
+        document.getElementById('subpage-home').classList.remove('hidden');
+      }
+
+      // Update URL without refresh
+      try {
+        const path = pageId === 'home' ? '/' : '/' + pageId;
+        history.pushState({ page: pageId }, '', path);
+      } catch (e) {}
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Role switcher
+    function setRoleView(role) {
+      currentRole = role;
+
+      // Toggle views
+      document.querySelectorAll('.view-container').forEach(el => el.classList.remove('active'));
+      const activeView = document.getElementById('view-' + role);
+      if (activeView) activeView.classList.add('active');
+
+      // Update pill states
+      document.querySelectorAll('.role-pill').forEach(btn => {
+        btn.classList.remove('bg-indigo-600', 'text-white', 'shadow');
+        btn.classList.add('text-gray-300', 'hover:bg-gray-800');
+      });
+      const activePill = document.getElementById('pill-' + role);
+      if (activePill) {
+        activePill.classList.add('bg-indigo-600', 'text-white', 'shadow');
+        activePill.classList.remove('text-gray-300', 'hover:bg-gray-800');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast('Switched to: ' + role.toUpperCase() + ' VIEW');
+    }
+
+    // Mobile Hamburger
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // Toast utility
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const text = document.getElementById('toast-message');
+      text.innerText = msg;
+      toast.classList.remove('translate-y-16', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-16', 'opacity-0');
+      }, 3200);
+    }
+
+    // Sermon switcher
+    function switchSermon(youtubeId, title, meta) {
+      document.getElementById('main-sermon-player').src = 'https://www.youtube.com/embed/' + youtubeId + '?autoplay=1';
+      document.getElementById('main-sermon-title').innerText = title;
+      document.getElementById('main-sermon-meta').innerText = meta;
+      window.scrollTo({ top: 200, behavior: 'smooth' });
+      showToast('Loaded: ' + title);
+    }
+
+    // M-Pesa STK Simulator
+    function triggerSimulatedSTK() {
+      const phone = document.getElementById('stk-phone').value || '0712345678';
+      const fund = document.getElementById('stk-fund').value;
+      const amount = document.getElementById('stk-amount').value || '1000';
+      const btn = document.getElementById('btn-stk-submit');
+
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳</span> Sending STK Prompt to ' + phone + '...';
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = '<span>📱</span> Trigger M-Pesa STK Prompt';
+        
+        const randomRef = 'QK' + Math.floor(10000000 + Math.random() * 90000000) + 'X';
+        const resultBox = document.getElementById('stk-result');
+        const receiptText = document.getElementById('stk-receipt-text');
+
+        receiptText.innerText = randomRef + ' Confirmed. Ksh ' + Number(amount).toLocaleString() + '.00 received from ' + phone + ' for ' + fund + '. Account: 567935. Thank you for partnering with ICC Kitengela.';
+        resultBox.classList.remove('hidden');
+
+        showToast('M-Pesa Prompt Received on ' + phone + '! Ref: ' + randomRef);
+      }, 1500);
+    }
+
+    // Form handlers
+    function submitPrayerRequest() {
+      const name = document.getElementById('prayer-name').value || 'Anonymous Member';
+      showToast('Thank you ' + name + '. Your prayer request was delivered to Pastor Keya.');
+      document.getElementById('prayer-body').value = '';
+    }
+
+    function submitContactForm() {
+      const name = document.getElementById('contact-name').value || 'Friend';
+      showToast('Thank you ' + name + '! We have received your inquiry.');
+      document.getElementById('contact-msg').value = '';
+    }
+
+    // Handle back/forward navigation
+    window.addEventListener('popstate', (e) => {
+      const path = window.location.pathname.replace('/', '') || 'home';
+      route(path);
+    });
+
+    // Initial Path Route detection
+    document.addEventListener('DOMContentLoaded', () => {
+      const path = window.location.pathname.replace('/', '').toLowerCase();
+      if (['about', 'ministries', 'sermons', 'events', 'donate', 'prayer', 'contact'].includes(path)) {
+        route(path);
+      } else if (path === 'admin' || path === 'executive') {
+        setRoleView('executive');
+      } else if (path === 'finance') {
+        setRoleView('finance');
+      } else if (path === 'member') {
+        setRoleView('member');
+      } else {
+        route('home');
+      }
+    });
+  </script>
+</body>
+</html>
