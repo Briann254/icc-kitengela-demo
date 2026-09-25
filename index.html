@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICC Kitengela — Church Operating System · Interactive Live Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --surface: #121212;
+    --card: #181818;
+    --card-hover: #222222;
+    --gold: #C69239;
+    --gold-light: #E0B062;
+    --gold-glow: rgba(198, 146, 57, 0.25);
+    --ink: #F6F5F4;
+    --muted: #8E8B85;
+    --line: rgba(198, 146, 57, 0.18);
+    --line-subtle: rgba(255, 255, 255, 0.08);
+    --green: #34D399;
+    --green-bg: rgba(52, 211, 153, 0.12);
+    --red: #F87171;
+    --blue: #60A5FA;
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  a { color: var(--gold-light); text-decoration: none; }
+  .accent { color: var(--gold); }
+
+  /* ---------- INTRO SPLASH ---------- */
+  #hero {
+    position: fixed; inset: 0;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 40px 24px;
+    background: radial-gradient(900px 500px at 50% 10%, rgba(198, 146, 57, 0.18), transparent 70%), var(--bg);
+    z-index: 100;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  #hero.hide { opacity: 0; pointer-events: none; transform: scale(0.98); }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--line); color: var(--gold-light);
+    background: rgba(198, 146, 57, 0.08);
+    border-radius: 999px; padding: 6px 16px; font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+  .logo-word {
+    font-size: clamp(38px, 6vw, 64px);
+    font-weight: 800; letter-spacing: -0.02em; line-height: 1.05;
+  }
+  .logo-word span {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-weight: 400; color: var(--gold);
+  }
+  .tagline {
+    margin-top: 18px; font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 600; color: var(--ink);
+  }
+  .tagline span { color: var(--muted); font-weight: 400; }
+  .subhearted {
+    margin-top: 10px; color: var(--muted); font-size: 14px;
+    max-width: 580px; line-height: 1.65;
+  }
+  .verse {
+    margin-top: 24px; color: var(--muted); font-size: 13px;
+    font-style: italic; max-width: 620px; line-height: 1.7;
+    background: rgba(255,255,255,0.02); border: 1px solid var(--line-subtle);
+    padding: 12px 20px; border-radius: 12px;
+  }
+  .verse b { color: var(--gold-light); font-style: normal; }
+  .service-times {
+    margin-top: 16px; font-size: 13px; color: var(--ink); font-weight: 600;
+    display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+  }
+  .service-times span {
+    background: rgba(198, 146, 57, 0.1); border: 1px solid var(--line);
+    padding: 4px 12px; border-radius: 8px; color: var(--gold-light); font-size: 12px;
+  }
+  .cta { margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .btn {
+    border: none; cursor: pointer; border-radius: 12px;
+    padding: 14px 26px; font-size: 14px; font-weight: 700;
+    font-family: inherit; transition: all 0.16s ease;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-gold {
+    background: linear-gradient(135deg, #E0B062, #C69239);
+    color: #151009; box-shadow: 0 8px 24px rgba(198, 146, 57, 0.35);
+  }
+  .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(198, 146, 57, 0.5); }
+  .btn-ghost {
+    background: rgba(255, 255, 255, 0.04); color: var(--ink);
+    border: 1px solid var(--line);
+  }
+  .btn-ghost:hover { background: rgba(198, 146, 57, 0.12); transform: translateY(-2px); }
+  .btn-sm { padding: 9px 16px; font-size: 12px; border-radius: 9px; }
+
+  /* ---------- APP SHELL ---------- */
+  #app { display: none; min-height: 100vh; }
+  #app.show { display: flex; }
+  .shell { display: flex; width: 100%; min-height: 100vh; }
+
+  aside {
+    width: 260px; flex-shrink: 0;
+    border-right: 1px solid var(--line-subtle);
+    background: #0E0E0E; padding: 20px 14px;
+    display: flex; flex-direction: column; gap: 4px;
+    position: sticky; top: 0; height: 100vh;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    padding: 8px 10px 20px; border-bottom: 1px solid var(--line-subtle); margin-bottom: 12px;
+  }
+  .brand-logo {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: linear-gradient(135deg, #E0B062, #C69239);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; color: #1A1208; font-size: 17px;
+  }
+  .brand b { font-size: 14px; display: block; font-weight: 700; }
+  .brand small { color: var(--muted); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .nav-sec {
+    margin: 14px 10px 6px; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; color: var(--muted); text-transform: uppercase;
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 12px; border-radius: 10px; color: var(--muted);
+    font-size: 13.5px; cursor: pointer; transition: all 0.14s ease; font-weight: 500;
+  }
+  .nav-item .ico { width: 18px; text-align: center; font-size: 15px; }
+  .nav-item:hover { background: var(--card); color: var(--ink); }
+  .nav-item.active {
+    background: rgba(198, 146, 57, 0.14); color: var(--gold-light); font-weight: 600;
+  }
+  .nav-item.active .ico { color: var(--gold); }
+  .badge {
+    margin-left: auto; background: var(--gold); color: #160F06;
+    font-size: 10px; font-weight: 800; border-radius: 999px; padding: 2px 8px;
+  }
+  aside .foot {
+    margin-top: auto; border-top: 1px solid var(--line-subtle);
+    padding-top: 14px;
+  }
+  .admin-chip {
+    display: flex; align-items: center; gap: 10px; padding: 6px 8px;
+    border-radius: 10px; background: rgba(255,255,255,0.03);
+  }
+  .avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: rgba(198, 146, 57, 0.2); border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 12px; color: var(--gold-light);
+  }
+  .admin-chip b { font-size: 12.5px; display: block; }
+  .admin-chip small { color: var(--muted); font-size: 11px; }
+
+  /* ---------- MAIN CONTENT ---------- */
+  main { flex: 1; min-width: 0; background: #0A0A0A; }
+  .topbar {
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 28px; border-bottom: 1px solid var(--line-subtle);
+    background: rgba(10, 10, 10, 0.85); position: sticky; top: 0; z-index: 20;
+    backdrop-filter: blur(12px);
+  }
+  .crumb { font-size: 18px; font-weight: 700; }
+  .crumb small { display: block; color: var(--muted); font-weight: 400; font-size: 12px; margin-top: 2px; }
+  .searchbar {
+    margin-left: auto; display: flex; align-items: center; gap: 8px;
+    background: var(--card); border: 1px solid var(--line-subtle);
+    border-radius: 10px; padding: 8px 14px; width: 280px; color: var(--muted); font-size: 13px;
+  }
+  .searchbar input {
+    background: transparent; border: none; outline: none;
+    color: var(--ink); font-family: inherit; font-size: 13px; width: 100%;
+  }
+  .top-chip {
+    display: flex; align-items: center; gap: 10px;
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 6px 14px; font-size: 12px; background: rgba(198,146,57,0.06);
+  }
+  .dot-pulse {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--green);
+    box-shadow: 0 0 0 4px var(--green-bg);
+  }
+
+  .content { padding: 28px 30px 60px; max-width: 1220px; }
+  .page-head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 24px; flex-wrap: wrap; gap: 14px;
+  }
+  .page-head h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+  .page-head p { color: var(--muted); font-size: 13.5px; margin-top: 4px; line-height: 1.5; }
+
+  /* ---------- CARDS & KPI GRID ---------- */
+  .kpi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;
+  }
+  .kpi {
+    background: var(--card); border: 1px solid var(--line-subtle);
+    border-radius: var(--radius-md); padding: 20px; position: relative; overflow: hidden;
+  }
+  .kpi::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+  .kpi .lbl { color: var(--muted); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+  .kpi .val { font-size: 28px; font-weight: 800; margin-top: 8px; }
+  .kpi .delta { font-size: 12px; margin-top: 6px; font-weight: 600; }
+  .kpi .delta.up { color: var(--green); }
+  .kpi .mini { color: var(--muted); font-size: 11.5px; margin-top: 4px; }
+
+  .grid2 {
+    display: grid; grid-template-columns: 1.5fr 1fr; gap: 18px; margin-top: 20px; align-items: start;
+  }
+  .card {
+    background: var(--card); border: 1px solid var(--line-subtle);
+    border-radius: var(--radius-md); padding: 22px;
+  }
+  .card h3 {
+    font-size: 15px; font-weight: 700; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card h3 .sub-note { margin-left: auto; color: var(--muted); font-weight: 400; font-size: 12px; }
+
+  /* BARS */
+  .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 12.5px; }
+  .bar-row .lbl { width: 75px; color: var(--muted); }
+  .bar { flex: 1; height: 20px; background: rgba(255,255,255,0.04); border-radius: 6px; overflow: hidden; }
+  .bar > i {
+    display: block; height: 100%; border-radius: 6px;
+    background: linear-gradient(90deg, #C69239, #E0B062);
+  }
+  .bar-row .num { width: 45px; text-align: right; color: var(--ink); font-weight: 600; }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    text-align: left; color: var(--muted); font-weight: 600;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 10px 12px; border-bottom: 1px solid var(--line-subtle);
+  }
+  td { padding: 12px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  tr:hover td { background: rgba(198, 146, 57, 0.04); }
+  .tag {
+    display: inline-block; font-size: 11px; padding: 3px 10px;
+    border-radius: 999px; font-weight: 600;
+  }
+  .tag.green { background: var(--green-bg); color: var(--green); }
+  .tag.gold { background: rgba(198, 146, 57, 0.15); color: var(--gold-light); }
+  .tag.blue { background: rgba(96, 165, 250, 0.15); color: var(--blue); }
+  .tag.red { background: rgba(248, 113, 113, 0.15); color: var(--red); }
+
+  .feed-item {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px;
+  }
+  .feed-item:last-child { border-bottom: none; }
+  .feed-ic {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: rgba(198, 146, 57, 0.1); border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px;
+  }
+  .feed-item b { font-weight: 600; }
+  .feed-item .t { color: var(--muted); font-size: 11.5px; margin-top: 3px; }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000; opacity: 0; pointer-events: none; transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: auto; }
+  .modal-card {
+    background: #181818; border: 1px solid var(--line);
+    border-radius: var(--radius-lg); width: 90%; max-width: 520px;
+    padding: 28px; box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    transform: translateY(14px); transition: transform 0.25s ease;
+  }
+  .modal-overlay.active .modal-card { transform: translateY(0); }
+  .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .modal-sub { color: var(--muted); font-size: 13px; margin-bottom: 20px; line-height: 1.5; }
+  .whatsapp-bubble {
+    background: #052e16; border: 1px solid #166534;
+    border-radius: 12px; padding: 16px; font-size: 13px;
+    line-height: 1.6; color: #dcfce7; font-family: monospace; white-space: pre-wrap;
+  }
+
+  /* TOAST */
+  #toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: #1F2937; border: 1px solid var(--green);
+    color: var(--ink); padding: 14px 20px; border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6); font-size: 13px;
+    display: flex; align-items: center; gap: 10px; z-index: 2000;
+    transform: translateY(80px); opacity: 0; transition: all 0.3s ease;
+  }
+  #toast.show { transform: translateY(0); opacity: 1; }
+
+  /* VIDEO PLAYER EMBED */
+  .video-container {
+    position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+    border-radius: 12px; border: 1px solid var(--line-subtle); background: #000;
+  }
+  .video-container iframe {
+    position: absolute; top:0; left: 0; width: 100%; height: 100%; border: 0;
+  }
+
+  /* PHONE PREVIEW */
+  .phone-wrap {
+    display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; margin-top: 14px;
+  }
+  .phone-frame {
+    width: 280px; border-radius: 36px; border: 7px solid #262626;
+    background: #000; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.7);
+  }
+  .phone-screen { padding: 16px; background: #111; min-height: 520px; font-size: 13px; }
+  .phone-head {
+    background: linear-gradient(135deg, rgba(198,146,57,0.25), transparent), #161616;
+    border-radius: 14px; padding: 14px; margin-bottom: 12px;
+  }
+
+  .hide-panel { display: none !important; }
+  .fade-in { animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 900px) {
+    aside { display: none; }
+    .grid2 { grid-template-columns: 1fr; }
+    .searchbar { width: auto; flex: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ TOAST NOTIFICATION ============ -->
+<div id="toast">
+  <span style="font-size:18px;">✅</span>
+  <span id="toastMsg">Simulated notification message</span>
+</div>
+
+<!-- ============ WHATSAPP SETLIST MODAL ============ -->
+<div class="modal-overlay" id="waModal" onclick="closeWaModal(event)">
+  <div class="modal-card">
+    <div class="modal-title"><span>📱</span> Worship Team WhatsApp Dispatch</div>
+    <div class="modal-sub">This formatted message is dispatched to the <b>ICC Kitengela Praise &amp; Worship</b> WhatsApp Group via the Cloud API:</div>
+    <div class="whatsapp-bubble" id="waContent">
+🎸 *ICC KITENGELA — PRAISE &amp; WORSHIP ROSTER*
+📅 *Sunday, Oct 4 — 8:15 AM · 10:15 AM · 12:15 PM*
+📍 *Sanctuary Call Time: 7:45 AM (Sound Check)*
+
+*TEAM ASSIGNED:*
+• Worship Lead: Daniel Keya
+• Keys: Grace Mutua
+• Acoustic: Brian Nderitu
+• Drums: Tony Ochieng
+• Vocals: Mary, Faith, Kevin
+
+*SUNDAY SETLIST &amp; CHORDS:*
+1. *Way Maker* (Key E · 68 BPM)
+   ↳ Chord Chart: https://icc.ac.ke/chords/waymaker
+2. *Goodness of God* (Key G · 70 BPM)
+   ↳ Tutorial: https://youtu.be/RDqg7Uvlf9U
+3. *Yahweh (You are Able)* (Key C · 74 BPM)
+4. *Praise Medley* (High Praise)
+
+_Please reply *1* to Confirm or *2* if Unavailable._
+    </div>
+    <div style="margin-top: 20px; display:flex; gap:10px; justify-content:flex-end;">
+      <button class="btn btn-ghost btn-sm" onclick="closeWaModalDirect()">Close Preview</button>
+      <button class="btn btn-gold btn-sm" onclick="triggerWaSim()">Simulate Send to Group →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SPLASH INTRO ============ -->
+<section id="hero">
+  <div class="pill"><span class="pill-dot"></span> ICC Kitengela · Digital Transformation Demo</div>
+  <div class="logo-word">ICC <span>Kitengela</span></div>
+  <div class="tagline">You belong here. <span>Connecting people to God.</span></div>
+  <div class="subhearted">The place for connection and transformation to experience God's love — rooted in Biblical truth, right here in Kitengela.</div>
+  
+  <div class="verse">
+    "Be strong and courageous. Do not be afraid; do not be discouraged, for the LORD your God will be with you wherever you go." — <b>Joshua 1:9</b>
+  </div>
+
+  <div class="service-times">
+    <span>Sundays at 8:15 AM</span>
+    <span>10:15 AM</span>
+    <span>12:15 PM</span>
+    <span>M-Pesa Paybill: <b>567935</b></span>
+  </div>
+
+  <div class="cta">
+    <button class="btn btn-gold" onclick="enterApp()">Explore the Admin Operating System →</button>
+    <button class="btn btn-ghost" onclick="nav('mobile'); enterApp();">View Mobile Member Portal</button>
+  </div>
+  
+  <div style="margin-top: 28px; color: var(--muted); font-size: 12px; letter-spacing: 0.06em;">
+    Loaded with ICC Kitengela's 12 ministries, 29 sermons, Paybill 567935, and real service schedules.
+  </div>
+</section>
+
+<!-- ============ APP SHELL ============ -->
+<div id="app">
+<div class="shell">
+  <aside>
+    <div class="brand">
+      <div class="brand-logo">I</div>
+      <div><b>ICC Kitengela</b><small>Church OS v2.0</small></div>
+    </div>
+    <div class="nav-sec">Executive</div>
+    <div class="nav-item active" data-p="dashboard" onclick="nav('dashboard')"><span class="ico">▦</span> Dashboard</div>
+    <div class="nav-item" data-p="members" onclick="nav('members')"><span class="ico">👥</span> People &amp; Guests</div>
+    <div class="nav-item" data-p="checkin" onclick="nav('checkin')"><span class="ico">🧒</span> Next Gen Check-in</div>
+    
+    <div class="nav-sec">Finance &amp; Stewardship</div>
+    <div class="nav-item" data-p="giving" onclick="nav('giving')"><span class="ico">💳</span> M-Pesa &amp; Giving <span class="badge">Live</span></div>
+    
+    <div class="nav-sec">Operations &amp; Worship</div>
+    <div class="nav-item" data-p="events" onclick="nav('events')"><span class="ico">📅</span> Events &amp; Rosters</div>
+    <div class="nav-item" data-p="sermons" onclick="nav('sermons')"><span class="ico">🎙</span> Sermons &amp; Media</div>
+    
+    <div class="nav-sec">Care &amp; Community</div>
+    <div class="nav-item" data-p="prayer" onclick="nav('prayer')"><span class="ico">🙏</span> Prayer &amp; Follow-up</div>
+    <div class="nav-item" data-p="mobile" onclick="nav('mobile')"><span class="ico">📱</span> Member Mobile View</div>
+    
+    <div class="foot">
+      <div class="admin-chip">
+        <div class="avatar">PK</div>
+        <div><b>Past. Keya</b><small>Senior Administrator</small></div>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <div class="topbar">
+      <div class="crumb">
+        Good morning, Pastor <span class="accent">Keya</span> 👋
+        <small>ICC Kitengela · Assembly of God · All 12 Ministries Connected</small>
+      </div>
+      <div class="searchbar">
+        <span>⌕</span>
+        <input placeholder="Search members, tithes, sermons…">
+      </div>
+      <div class="top-chip">
+        <span class="dot-pulse"></span>
+        <span style="font-weight:600;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;">Paybill 567935 Active</span>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <section class="fade-in" id="p-dashboard">
+        <div class="page-head">
+          <div>
+            <h1>Executive Church Dashboard</h1>
+            <p>One unified console replaces five messy Excel sheets and manual Sunday registers.</p>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <button class="btn btn-ghost btn-sm" onclick="showToast('Simulated: Weekly PDF Summary generated for Pastoral Board!')">📄 Export Weekly Summary</button>
+            <button class="btn btn-gold btn-sm" onclick="nav('giving')">+ Record M-Pesa Tithe</button>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi">
+            <div class="lbl">Total Database</div>
+            <div class="val">2,318</div>
+            <div class="delta up">▲ 214 this month</div>
+            <div class="mini">1,840 Active · 478 Visitors</div>
+          </div>
+          <div class="kpi">
+            <div class="lbl">Sunday Avg. Attendance</div>
+            <div class="val">940</div>
+            <div class="delta up">▲ 9.2% growth</div>
+            <div class="mini">3 Services (8:15 · 10:15 · 12:15)</div>
+          </div>
+          <div class="kpi">
+            <div class="lbl">Giving This Week (KES)</div>
+            <div class="val">1,248,500</div>
+            <div class="delta up">▲ Paybill 567935 (78% M-Pesa)</div>
+            <div class="mini">Tithe 68% · Building 22%</div>
+          </div>
+          <div class="kpi">
+            <div class="lbl">Next Gen Kids Safety</div>
+            <div class="val">312</div>
+            <div class="delta up">100% Verified Pickup</div>
+            <div class="mini">0 Unmatched Guardians</div>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>Attendance Curve <span class="sub-note">Last 8 Sundays</span></h3>
+            <div class="bar-row"><span class="lbl">Jul 06</span><div class="bar"><i style="width:68%"></i></div><span class="num">758</span></div>
+            <div class="bar-row"><span class="lbl">Jul 13</span><div class="bar"><i style="width:72%"></i></div><span class="num">801</span></div>
+            <div class="bar-row"><span class="lbl">Jul 20</span><div class="bar"><i style="width:76%"></i></div><span class="num">844</span></div>
+            <div class="bar-row"><span class="lbl">Jul 27</span><div class="bar"><i style="width:71%"></i></div><span class="num">799</span></div>
+            <div class="bar-row"><span class="lbl">Aug 03</span><div class="bar"><i style="width:78%"></i></div><span class="num">862</span></div>
+            <div class="bar-row"><span class="lbl">Aug 10</span><div class="bar"><i style="width:81%"></i></div><span class="num">898</span></div>
+            <div class="bar-row"><span class="lbl">Aug 17</span><div class="bar"><i style="width:83%"></i></div><span class="num">920</span></div>
+            <div class="bar-row"><span class="lbl">Last Sunday</span><div class="bar"><i style="width:86%"></i></div><span class="num">940</span></div>
+          </div>
+
+          <div class="card">
+            <h3>Live Sunday Feed <span class="sub-note">Real-time Activity</span></h3>
+            <div class="feed-item">
+              <div class="feed-ic">👶</div>
+              <div><b>Next Gen check-in</b> — Yellow Room<div class="t">Jayden Kamau · Guardian Mary Kamau (+254 712...881)</div></div>
+            </div>
+            <div class="feed-item">
+              <div class="feed-ic">💳</div>
+              <div><b>M-Pesa STK Received</b> — KES 12,500<div class="t">Paybill 567935 · James Wambugu · Tithe confirmed</div></div>
+            </div>
+            <div class="feed-item">
+              <div class="feed-ic">🙏</div>
+              <div><b>New Prayer Request</b><div class="t">Maria Njeri · "Family healing" · Assigned to Prayer Dept</div></div>
+            </div>
+            <div class="feed-item">
+              <div class="feed-ic">🎉</div>
+              <div><b>Birthday Today</b> — 14 Members<div class="t">Automated morning SMS greeting dispatched</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MEMBERS -->
+      <section class="fade-in hide-panel" id="p-members">
+        <div class="page-head">
+          <div>
+            <h1>People &amp; Visitor Directory</h1>
+            <p>Searchable membership across all 12 ICC Kitengela ministries and cell groups.</p>
+          </div>
+          <button class="btn btn-gold btn-sm" onclick="showToast('Member addition dialog opened')">+ Register New Member</button>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden;">
+          <table>
+            <thead>
+              <tr><th>Member Name</th><th>Ministry / Group</th><th>Home Cell</th><th>YTD Giving</th><th>Last Attendance</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>James Wambugu</b><br><small style="color:var(--muted)">james.w@gmail.com · +254 722 xxx 104</small></td><td>Creative Arts / Worship</td><td>Connected &amp; Anchored</td><td>KES 84,500</td><td>Last Sunday</td><td><span class="tag green">Active</span></td></tr>
+              <tr><td><b>Mary Kamau</b><br><small style="color:var(--muted)">mary.k@outlook.com · +254 733 xxx 552</small></td><td>Next Gen (Kids Leader)</td><td>Women's Fellowship</td><td>KES 26,300</td><td>Last Sunday</td><td><span class="tag green">Active</span></td></tr>
+              <tr><td><b>Samuel Otieno</b><br><small style="color:var(--muted)">sam.o@gmail.com · +254 711 xxx 388</small></td><td>Ushering &amp; Protocol</td><td>Men's Fellowship</td><td>KES 14,200</td><td>2 wks ago</td><td><span class="tag gold">Regular</span></td></tr>
+              <tr><td><b>Anita Nyambura</b><br><small style="color:var(--muted)">anita.n@icloud.com · +254 799 xxx 901</small></td><td>Teens Ministry / Youth</td><td>Teens Engage</td><td>KES 4,500</td><td>Last Sunday</td><td><span class="tag blue">New Believer</span></td></tr>
+              <tr><td><b>Peter Kimeu</b><br><small style="color:var(--muted)">p.kimeu@gmail.com · +254 720 xxx 440</small></td><td>Prayer Ministry</td><td>Men's Fellowship</td><td>KES 92,000</td><td>Last Sunday</td><td><span class="tag green">Active</span></td></tr>
+              <tr><td><b>Esther Okoth</b><br><small style="color:var(--muted)">esther.o@gmail.com · +254 715 xxx 712</small></td><td>Young Adults</td><td>K-Frontrunnerz</td><td>KES 8,800</td><td>3 wks ago</td><td><span class="tag red">Pastoral Follow-up</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CHECK-IN -->
+      <section class="fade-in hide-panel" id="p-checkin">
+        <div class="page-head">
+          <div>
+            <h1>Next Gen Kids Safe Check-in</h1>
+            <p>Every child is logged with a secure pickup code. Zero mix-ups at release time.</p>
+          </div>
+          <button class="btn btn-gold btn-sm" onclick="simulateCheckin()">+ Fast Check-in (Jayden Kamau)</button>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi"><div class="lbl">Checked-in Today</div><div class="val">312</div><div class="delta up">Across 3 Services</div></div>
+          <div class="kpi"><div class="lbl">Nursery (0–3 yrs)</div><div class="val">84</div><div class="mini">Yellow Room</div></div>
+          <div class="kpi"><div class="lbl">Kids Church (4–9 yrs)</div><div class="val">146</div><div class="mini">Blue Room</div></div>
+          <div class="kpi"><div class="lbl">Pre-teens (10–13 yrs)</div><div class="val">82</div><div class="mini">Green Room</div></div>
+        </div>
+        <div class="card" style="margin-top:20px;padding:0;overflow:hidden;">
+          <table>
+            <thead>
+              <tr><th>Child Name</th><th>Classroom</th><th>Parent / Guardian</th><th>Phone Number</th><th>Pickup Code</th><th>Status</th></tr>
+            </thead>
+            <tbody id="checkinTable">
+              <tr><td><b>Jayden Kamau</b> (7 yrs)</td><td>Blue Room</td><td>Mary Kamau</td><td>+254 712 xxx 881</td><td><b style="color:var(--gold-light)">#KIT-8842</b></td><td><span class="tag green">In Class — Safe</span></td></tr>
+              <tr><td><b>Ruth Wanjiru</b> (2 yrs)</td><td>Nursery (Yellow)</td><td>Peter Wanjiru</td><td>+254 722 xxx 502</td><td><b style="color:var(--gold-light)">#KIT-9120</b></td><td><span class="tag green">In Class — Safe</span></td></tr>
+              <tr><td><b>Grace Otieno</b> (11 yrs)</td><td>Pre-Teens (Green)</td><td>Samuel Otieno</td><td>+254 711 xxx 388</td><td><b style="color:var(--gold-light)">#KIT-3401</b></td><td><span class="tag green">In Class — Safe</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- GIVING -->
+      <section class="fade-in hide-panel" id="p-giving">
+        <div class="page-head">
+          <div>
+            <h1>M-Pesa Giving &amp; Financial Ledger</h1>
+            <p>Direct reconciliation with Safaricom Daraja on Paybill <b>567935</b>. 1-click AGM statements.</p>
+          </div>
+          <button class="btn btn-gold btn-sm" onclick="simulateMpesaGiving()">⚡ Simulate M-Pesa STK Push (KES 1,000)</button>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi"><div class="lbl">Month Collections</div><div class="val">KES 4.28M</div><div class="delta up">▲ 8.4% vs last mo</div></div>
+          <div class="kpi"><div class="lbl">Tithes</div><div class="val">KES 2.91M</div><div class="mini">68% of Total</div></div>
+          <div class="kpi"><div class="lbl">Building Project</div><div class="val">KES 940,000</div><div class="mini">Phase 2 Construction</div></div>
+          <div class="kpi"><div class="lbl">Love Basket (Welfare)</div><div class="val">KES 230,000</div><div class="mini">Benevolence Fund</div></div>
+        </div>
+        <div class="grid2">
+          <div class="card" style="padding:0;overflow:hidden;">
+            <table>
+              <thead>
+                <tr><th>Member</th><th>Category</th><th>Amount</th><th>M-Pesa Ref</th><th>Time</th></tr>
+              </thead>
+              <tbody id="givingTable">
+                <tr><td><b>James Wambugu</b></td><td>Tithe</td><td>KES 12,500</td><td><code style="color:var(--gold-light)">QHG88291KZ</code></td><td>10:14 AM</td></tr>
+                <tr><td><b>Peter Kimeu</b></td><td>Tithe</td><td>KES 18,750</td><td><code style="color:var(--gold-light)">QHG88290FA</code></td><td>09:42 AM</td></tr>
+                <tr><td><b>Mary Kamau</b></td><td>Building Fund</td><td>KES 5,000</td><td><code style="color:var(--gold-light)">QHG88285PL</code></td><td>09:15 AM</td></tr>
+                <tr><td><b>Anita Nyambura</b></td><td>Offering</td><td>KES 2,000</td><td><code style="color:var(--gold-light)">QHG88277MN</code></td><td>08:50 AM</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h3>Financial Governance <span class="sub-note">Audit Guarantee</span></h3>
+            <div class="feed-item">
+              <div class="feed-ic">📄</div>
+              <div><b>1-Click Annual Giving Statements</b><div class="t">Generates signed PDF tax and AGM statements for every tithing family.</div></div>
+            </div>
+            <div class="feed-item">
+              <div class="feed-ic">🔐</div>
+              <div><b>Role Privacy Barrier</b><div class="t">HODs and volunteers cannot see giving records. Only Treasurer and Senior Pastor.</div></div>
+            </div>
+            <div class="feed-item">
+              <div class="feed-ic">🛡</div>
+              <div><b>Immutable Audit Trail</b><div class="t">Every shilling recorded is tamper-proof and matches bank deposits.</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EVENTS -->
+      <section class="fade-in hide-panel" id="p-events">
+        <div class="page-head">
+          <div>
+            <h1>Events &amp; Praise &amp; Worship Roster</h1>
+            <p>Schedule Sunday services, build worship setlists, and ping the band on WhatsApp.</p>
+          </div>
+          <button class="btn btn-gold btn-sm" onclick="openWaModal()">📲 Dispatch Setlist to WhatsApp Group</button>
+        </div>
+        <div class="grid2">
+          <div class="card" style="padding:0;overflow:hidden;">
+            <table>
+              <thead>
+                <tr><th>Upcoming Event</th><th>Date &amp; Time</th><th>Target Ministry</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><b>Sunday Worship (3 Services)</b></td><td>Sunday · 8:15 / 10:15 / 12:15</td><td>All Congregation</td><td><span class="tag green">Roster Ready</span></td></tr>
+                <tr><td><b>Teens Engage Fellowship</b></td><td>Friday · 5:30 PM</td><td>Teens &amp; Youth</td><td><span class="tag blue">48 Confirmed</span></td></tr>
+                <tr><td><b>Creative Arts (CA) Meet-up</b></td><td>Saturday · 2:00 PM</td><td>Worship &amp; Media</td><td><span class="tag gold">Rehearsal</span></td></tr>
+                <tr><td><b>Couples Connect Banquet</b></td><td>Oct 14 · 6:00 PM</td><td>Family Ministry</td><td><span class="tag green">RSVP Open</span></td></tr>
+                <tr><td><b>Ladies Conference 2026</b></td><td>Oct 21–23</td><td>Women's Fellowship</td><td><span class="tag gold">Planning</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h3>Sunday Roster — Oct 4</h3>
+            <div class="feed-item">
+              <div class="feed-ic">🎸</div>
+              <div><b>Praise &amp; Worship Band</b><div class="t">Lead: Daniel · Keys: Grace · Drums: Tony · Acoustic: Brian</div></div>
+            </div>
+            <div class="feed-item">
+              <div class="feed-ic">🚪</div>
+              <div><b>Ushering &amp; Protocol</b><div class="t">Team A (14 confirmed) · Head: Bro. Samuel</div></div>
+            </div>
+            <div class="feed-item">
+              <div class="feed-ic">🎥</div>
+              <div><b>Media, Sound &amp; Live Stream</b><div class="t">FOH Sound: Kevin · ProPresenter: Faith · Stream: Victor</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERMONS -->
+      <section class="fade-in hide-panel" id="p-sermons">
+        <div class="page-head">
+          <div>
+            <h1>Sermons &amp; Media Library</h1>
+            <p>Live stream integration, audio leveling, and YouTube sermon archive with Pastor Keya.</p>
+          </div>
+          <button class="btn btn-gold btn-sm" onclick="showToast('Upload sermon audio/video dialog opened')">+ Upload Sunday Sermon</button>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <h3 id="currentSermonTitle">Walk in as Guest, Leave as Family — Pastor Keya</h3>
+            <div class="video-container" style="margin-top:12px;">
+              <iframe id="sermonIframe" src="https://www.youtube.com/embed/l054ZoKcUGk" allowfullscreen></iframe>
+            </div>
+            <div style="margin-top:14px;display:flex;gap:10px;">
+              <button class="btn btn-ghost btn-sm" onclick="showToast('Simulated: Audio extracted via FFmpeg and published as 64kbps MP3 Podcast!')">🎧 Auto-Publish Podcast MP3</button>
+              <button class="btn btn-gold btn-sm" onclick="showToast('Simulated: AI Sermon Notes & Home Cell Questions generated!')">✨ Generate AI Study Guide</button>
+            </div>
+          </div>
+          <div class="card" style="padding:0;overflow:hidden;">
+            <table>
+              <thead><tr><th>Recent Sermons</th><th>Speaker</th><th>Action</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><b>Walk in as guest, leave as family</b><br><small style="color:var(--muted)">YouTube ID: l054ZoKcUGk</small></td>
+                  <td>Pastor Keya</td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="changeSermon('l054ZoKcUGk', 'Walk in as Guest, Leave as Family — Pastor Keya')">Play ▶</button></td>
+                </tr>
+                <tr>
+                  <td><b>Be Strong and Courageous (Joshua 1:9)</b><br><small style="color:var(--muted)">YouTube ID: RDqg7Uvlf9U</small></td>
+                  <td>Pastor Keya</td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="changeSermon('RDqg7Uvlf9U', 'Be Strong and Courageous — Pastor Keya')">Play ▶</button></td>
+                </tr>
+                <tr>
+                  <td><b>Rooted in Biblical Truth</b><br><small style="color:var(--muted)">YouTube ID: GBMcxgA17Tg</small></td>
+                  <td>Guest Speaker</td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="changeSermon('GBMcxgA17Tg', 'Rooted in Biblical Truth — ICC Kitengela')">Play ▶</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRAYER -->
+      <section class="fade-in hide-panel" id="p-prayer">
+        <div class="page-head">
+          <div>
+            <h1>Pastoral Care &amp; Prayer Requests</h1>
+            <p>Every confidential request is assigned to pastoral staff and tracked to completion.</p>
+          </div>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden;">
+          <table>
+            <thead>
+              <tr><th>Prayer Subject</th><th>Submitted By</th><th>Date Received</th><th>Assigned Minister</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>Family Healing &amp; Recovery</b></td><td>Maria Njeri</td><td>Yesterday</td><td>Prayer Ministry</td><td><span class="tag gold">Under Follow-up</span></td></tr>
+              <tr><td><b>Thanksgiving for New Job</b></td><td>Daniel Mutua</td><td>2 days ago</td><td>Pastor Keya</td><td><span class="tag green">Answered Prayer</span></td></tr>
+              <tr><td><b>Bereavement Support (Welfare)</b></td><td>Wanjiru Family</td><td>Sep 21</td><td>Deacon Care / Love Basket</td><td><span class="tag red">Active Home Visit</span></td></tr>
+              <tr><td><b>Wedding Banns &amp; Premarital Counseling</b></td><td>Kevin &amp; Faith</td><td>Sep 18</td><td>Family Ministry</td><td><span class="tag blue">Counseling Session 3</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- MOBILE VIEW -->
+      <section class="fade-in hide-panel" id="p-mobile">
+        <div class="page-head">
+          <div>
+            <h1>Member Mobile Experience</h1>
+            <p>Congregation members access their giving statements, sermon notes, and small groups from their phones.</p>
+          </div>
+        </div>
+        <div class="phone-wrap">
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <div class="phone-head">
+                <div style="font-size:10px;color:var(--gold-light);font-weight:700;letter-spacing:0.1em;text-transform:uppercase;">ICC Kitengela</div>
+                <div style="font-size:16px;font-weight:800;margin-top:2px;">You Belong Here 🕊</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:2px;">Sundays: 8:15 · 10:15 · 12:15</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid var(--line-subtle);border-radius:12px;padding:12px;margin-bottom:10px;">
+                <div style="font-size:11px;color:var(--muted)">Lipa na M-Pesa (Paybill 567935)</div>
+                <div style="font-size:13px;font-weight:700;margin-top:2px;">Give Tithe / Offering</div>
+                <button class="btn btn-gold btn-sm" style="width:100%;margin-top:8px;justify-content:center;" onclick="simulateMpesaGiving()">Give via M-Pesa STK →</button>
+              </div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid var(--line-subtle);border-radius:12px;padding:12px;margin-bottom:10px;">
+                <div style="font-size:11px;color:var(--muted)">Next Gen Child Safety</div>
+                <div style="font-size:13px;font-weight:700;margin-top:2px;">Digital Drop-off &amp; Pickup</div>
+                <div style="font-size:11px;color:var(--green);margin-top:4px;">✓ Code #KIT-8842 Active</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.04);border:1px solid var(--line-subtle);border-radius:12px;padding:12px;">
+                <div style="font-size:11px;color:var(--muted)">Your Home Cell Group</div>
+                <div style="font-size:13px;font-weight:700;margin-top:2px;">Connected &amp; Anchored</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:4px;">Next meeting: Wednesday 6:30 PM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<script>
+  function nav(panelId) {
+    document.querySelectorAll('.nav-item').forEach(el => {
+      el.classList.toggle('active', el.getAttribute('data-p') === panelId);
+    });
+    document.querySelectorAll('.content > section').forEach(sec => {
+      if (sec.id === 'p-' + panelId) {
+        sec.classList.remove('hide-panel');
+      } else {
+        sec.classList.add('hide-panel');
+      }
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function enterApp() {
+    document.getElementById('hero').classList.add('hide');
+    document.getElementById('app').classList.add('show');
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toastMsg').innerText = msg;
+    t.classList.add('show');
+    setTimeout(() => { t.classList.remove('show'); }, 4000);
+  }
+
+  function openWaModal() {
+    document.getElementById('waModal').classList.add('active');
+  }
+
+  function closeWaModal(e) {
+    if (e.target.id === 'waModal') {
+      document.getElementById('waModal').classList.remove('active');
+    }
+  }
+
+  function closeWaModalDirect() {
+    document.getElementById('waModal').classList.remove('active');
+  }
+
+  function triggerWaSim() {
+    closeWaModalDirect();
+    showToast('🚀 Simulated WhatsApp Cloud API: Setlist dispatched to ICC Kitengela Worship Team group!');
+  }
+
+  function simulateMpesaGiving() {
+    showToast('📲 Safaricom Daraja STK Push prompt sent to member phone for KES 1,000 on Paybill 567935...');
+    setTimeout(() => {
+      const tbody = document.getElementById('givingTable');
+      if (tbody) {
+        const row = document.createElement('tr');
+        row.innerHTML = '<td><b>New Donor (Demo)</b></td><td>Tithe</td><td>KES 1,000</td><td><code style="color:var(--gold-light)">QHG88' + Math.floor(Math.random()*9000+1000) + 'XY</code></td><td>Just now</td>';
+        tbody.insertBefore(row, tbody.firstChild);
+      }
+      showToast('💰 M-Pesa STK Verified: KES 1,000 received! Instant SMS receipt dispatched.');
+    }, 2000);
+  }
+
+  function simulateCheckin() {
+    showToast('🧒 Jayden Kamau checked in! Safety Pickup Badge #KIT-8842 issued and SMS sent to Mary Kamau.');
+  }
+
+  function changeSermon(youtubeId, title) {
+    document.getElementById('sermonIframe').src = 'https://www.youtube.com/embed/' + youtubeId;
+    document.getElementById('currentSermonTitle').innerText = title;
+    showToast('▶ Playing sermon: ' + title);
+  }
+</script>
+</body>
+</html>
