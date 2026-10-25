@@ -745,6 +745,112 @@
               <span class="mt-4 inline-block text-[11px] font-bold text-indigo-600">Sundays</span>
             </div>
           </div>
+        
+        <!-- SAFARI (CELL) GROUPS GEOLOCATION & ZONE EXPLORER -->
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-sm space-y-6 mt-8">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-gray-100">
+            <div>
+              <span class="text-[10px] bg-indigo-50 text-indigo-700 font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">Neighborhood Fellowship</span>
+              <h2 class="text-xl font-extrabold text-gray-900 mt-1">Safari (Cell) Groups Zone Explorer</h2>
+              <p class="text-xs text-gray-500 mt-0.5">Find and connect with an ICC Kitengela home fellowship near where you live.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-lg">● 18 Active Cells</span>
+            </div>
+          </div>
+
+          <!-- Zone Filter Tabs -->
+          <div class="flex items-center gap-2 overflow-x-auto pb-2 text-xs">
+            <button onclick="filterSafariZones('all')" class="safari-zone-btn active px-3.5 py-1.5 rounded-xl font-bold bg-indigo-600 text-white transition flex items-center gap-1.5">
+              <span>🌍</span> All Kitengela Zones
+            </button>
+            <button onclick="filterSafariZones('Yukos')" class="safari-zone-btn px-3.5 py-1.5 rounded-xl font-medium text-gray-600 hover:bg-gray-100 transition">
+              Yukos &amp; EPZ
+            </button>
+            <button onclick="filterSafariZones('Chuna')" class="safari-zone-btn px-3.5 py-1.5 rounded-xl font-medium text-gray-600 hover:bg-gray-100 transition">
+              Chuna Estate
+            </button>
+            <button onclick="filterSafariZones('Milimani')" class="safari-zone-btn px-3.5 py-1.5 rounded-xl font-medium text-gray-600 hover:bg-gray-100 transition">
+              Milimani Phase 1 &amp; 2
+            </button>
+            <button onclick="filterSafariZones('Acacia')" class="safari-zone-btn px-3.5 py-1.5 rounded-xl font-medium text-gray-600 hover:bg-gray-100 transition">
+              Acacia &amp; Senior Staff
+            </button>
+            <button onclick="filterSafariZones('Enkasiti')" class="safari-zone-btn px-3.5 py-1.5 rounded-xl font-medium text-gray-600 hover:bg-gray-100 transition">
+              Enkasiti &amp; Nonkopir
+            </button>
+          </div>
+
+          <!-- Interactive Map Simulation -->
+          <div class="relative bg-slate-900 rounded-2xl p-6 text-white overflow-hidden shadow-inner border border-slate-800">
+            <div class="flex items-center justify-between mb-4 flex-wrap gap-2 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <strong class="text-slate-200 font-bold uppercase tracking-wider text-[11px]">Kitengela Geolocation Map Radar</strong>
+              </div>
+              <span class="text-[11px] text-slate-400 font-mono">Center: ICC Sanctuary (Namanga Rd / Old Namanga Rd Jct)</span>
+            </div>
+
+            <!-- Stylized SVG Map of Kitengela Zones -->
+            <div class="w-full h-44 sm:h-52 bg-slate-950 rounded-xl relative border border-slate-800/80 flex items-center justify-center overflow-hidden">
+              <!-- Grid lines -->
+              <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:2rem_2rem] opacity-30"></div>
+              
+              <!-- Sanctuary Pin (Center) -->
+              <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group cursor-pointer z-20">
+                <div class="w-7 h-7 rounded-full bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center shadow-lg border-2 border-white ring-4 ring-indigo-500/30 animate-bounce">
+                  ⛪
+                </div>
+                <span class="text-[10px] font-extrabold bg-indigo-900/90 text-white px-2 py-0.5 rounded-full mt-1 whitespace-nowrap shadow">ICC Kitengela Main</span>
+              </div>
+
+              <!-- Yukos Pin -->
+              <button onclick="filterSafariZones('Yukos')" class="absolute left-[28%] top-[25%] flex flex-col items-center group cursor-pointer hover:scale-110 transition z-10">
+                <div class="w-6 h-6 rounded-full bg-amber-500 text-white text-[11px] font-bold flex items-center justify-center shadow border border-white">
+                  4
+                </div>
+                <span class="text-[9px] font-bold bg-slate-900/90 text-amber-300 px-1.5 py-0.2 rounded mt-0.5">Yukos / EPZ</span>
+              </button>
+
+              <!-- Chuna Pin -->
+              <button onclick="filterSafariZones('Chuna')" class="absolute left-[70%] top-[30%] flex flex-col items-center group cursor-pointer hover:scale-110 transition z-10">
+                <div class="w-6 h-6 rounded-full bg-blue-500 text-white text-[11px] font-bold flex items-center justify-center shadow border border-white">
+                  5
+                </div>
+                <span class="text-[9px] font-bold bg-slate-900/90 text-blue-300 px-1.5 py-0.2 rounded mt-0.5">Chuna Estate</span>
+              </button>
+
+              <!-- Milimani Pin -->
+              <button onclick="filterSafariZones('Milimani')" class="absolute left-[65%] top-[70%] flex flex-col items-center group cursor-pointer hover:scale-110 transition z-10">
+                <div class="w-6 h-6 rounded-full bg-emerald-500 text-white text-[11px] font-bold flex items-center justify-center shadow border border-white">
+                  3
+                </div>
+                <span class="text-[9px] font-bold bg-slate-900/90 text-emerald-300 px-1.5 py-0.2 rounded mt-0.5">Milimani</span>
+              </button>
+
+              <!-- Acacia Pin -->
+              <button onclick="filterSafariZones('Acacia')" class="absolute left-[20%] top-[70%] flex flex-col items-center group cursor-pointer hover:scale-110 transition z-10">
+                <div class="w-6 h-6 rounded-full bg-purple-500 text-white text-[11px] font-bold flex items-center justify-center shadow border border-white">
+                  3
+                </div>
+                <span class="text-[9px] font-bold bg-slate-900/90 text-purple-300 px-1.5 py-0.2 rounded mt-0.5">Acacia / Senior</span>
+              </button>
+
+              <!-- Enkasiti Pin -->
+              <button onclick="filterSafariZones('Enkasiti')" class="absolute left-[45%] top-[82%] flex flex-col items-center group cursor-pointer hover:scale-110 transition z-10">
+                <div class="w-6 h-6 rounded-full bg-rose-500 text-white text-[11px] font-bold flex items-center justify-center shadow border border-white">
+                  3
+                </div>
+                <span class="text-[9px] font-bold bg-slate-900/90 text-rose-300 px-1.5 py-0.2 rounded mt-0.5">Enkasiti</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Safari Groups Grid -->
+          <div id="safari-groups-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Populated dynamically by renderSafariGroups() -->
+          </div>
+        </div>
         </section>
       </div>
 
@@ -1112,6 +1218,79 @@
               </button>
             </div>
           </div>
+        
+        <!-- PASTORAL CARE & COUNSELING SCHEDULER -->
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-sm space-y-6 mt-8">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-gray-100">
+            <div>
+              <span class="text-[10px] bg-amber-50 text-amber-800 font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">Confidential Appointments</span>
+              <h2 class="text-xl font-extrabold text-gray-900 mt-1">Book Pastoral Care &amp; Counseling</h2>
+              <p class="text-xs text-gray-500 mt-0.5">One-on-one appointments with Rev. William Odero and the ordained pastoral team.</p>
+            </div>
+            <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-lg">🔒 Pastoral Seal of Confession</span>
+          </div>
+
+          <form onsubmit="handleBookCounseling(event)" class="space-y-4 text-xs">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1.5">
+                <label class="font-bold text-gray-700 block">Your Name *</label>
+                <input id="counseling-name" type="text" required placeholder="e.g. Mary Kamau" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:outline-none font-medium">
+              </div>
+              <div class="space-y-1.5">
+                <label class="font-bold text-gray-700 block">Phone / WhatsApp Number *</label>
+                <input id="counseling-phone" type="text" required placeholder="e.g. 0712345678" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:outline-none font-medium">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="space-y-1.5">
+                <label class="font-bold text-gray-700 block">Select Minister *</label>
+                <select id="counseling-pastor" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:outline-none font-medium">
+                  <option value="Rev. William Odero">Rev. William Odero (Senior Pastor)</option>
+                  <option value="Pst. Alice Kitonga">Pst. Alice Kitonga (Associate Pastor)</option>
+                  <option value="Elder David Mwangi">Elder David Mwangi (Pastoral Care)</option>
+                </select>
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="font-bold text-gray-700 block">Counseling Focus / Nature *</label>
+                <select id="counseling-focus" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:outline-none font-medium">
+                  <option value="Spiritual Direction">Spiritual Direction &amp; Guidance</option>
+                  <option value="Marriage &amp; Family">Marriage &amp; Pre-Marital</option>
+                  <option value="Grief &amp; Bereavement">Grief &amp; Bereavement</option>
+                  <option value="Deliverance &amp; Inner Healing">Deliverance &amp; Inner Healing</option>
+                  <option value="Career &amp; Life Transitions">Career &amp; Life Transitions</option>
+                </select>
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="font-bold text-gray-700 block">Preferred Day &amp; Time *</label>
+                <select id="counseling-slot" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:outline-none font-medium">
+                  <option value="Tuesday 10:00 AM">Tuesday 10:00 AM (Pastoral Study)</option>
+                  <option value="Tuesday 2:30 PM">Tuesday 2:30 PM (Pastoral Study)</option>
+                  <option value="Thursday 11:00 AM">Thursday 11:00 AM (Pastoral Study)</option>
+                  <option value="Thursday 3:00 PM">Thursday 3:00 PM (Pastoral Study)</option>
+                  <option value="Saturday 9:00 AM">Saturday 9:00 AM (By Appointment)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="space-y-1.5">
+              <label class="font-bold text-gray-700 block">Brief Context / Specific Prayer Need (Confidential)</label>
+              <textarea id="counseling-notes" rows="2" placeholder="Provide any background that will help the Pastor prepare for your session..." class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:outline-none font-medium"></textarea>
+            </div>
+
+            <div class="p-3 bg-indigo-50/70 rounded-xl border border-indigo-100 flex items-center justify-between flex-wrap gap-2 text-xs">
+              <div class="flex items-center gap-2 text-indigo-900">
+                <span>🔒</span>
+                <span>Appointments are registered securely in the Pastor's confidential diary.</span>
+              </div>
+              <button type="submit" class="px-5 py-2.5 bg-indigo-700 hover:bg-indigo-800 text-white font-bold rounded-xl shadow transition">
+                Confirm Pastoral Appointment &rarr;
+              </button>
+            </div>
+          </form>
+        </div>
         </section>
       </div>
 
@@ -1276,219 +1455,280 @@
   </div>
 
 
-  <!-- ================= ROLE VIEW 2: SENIOR PASTOR / EXECUTIVE COCKPIT ================= -->
+    <!-- ================= ROLE VIEW 2: SENIOR PASTOR / EXECUTIVE COCKPIT ================= -->
   <div id="view-executive" class="view-container flex-1 bg-gray-100 flex flex-col">
-    <!-- Exec Top Header -->
-    <header class="bg-indigo-950 text-white px-6 py-4 border-b border-indigo-900 flex flex-wrap items-center justify-between gap-4">
+    <!-- Header -->
+    <header class="bg-slate-900 text-white px-6 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4 sticky top-[41px] z-30 shadow-md">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-accent-400 text-indigo-950 font-extrabold flex items-center justify-center text-xl shadow">
+        <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 font-black flex items-center justify-center text-xl shadow">
           👑
         </div>
         <div>
-          <h1 class="text-lg font-extrabold leading-tight">Senior Pastor Executive Cockpit</h1>
-          <p class="text-xs text-indigo-300">Welcome, Rev. William Odero &middot; Institutional Overview</p>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg font-extrabold leading-tight">Senior Pastor — Executive Cockpit</h1>
+            <span class="px-2 py-0.5 bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-bold rounded-full uppercase">Pastoral Oversight</span>
+          </div>
+          <p class="text-xs text-slate-400">Logged in: Rev. William Odero &middot; Senior Pastor, ICC Kitengela Assemblies of God</p>
         </div>
       </div>
-      <div class="flex items-center gap-2">
-        <button onclick="setRoleView('public')" class="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-bold transition">
-          &larr; View Public Church Website
+      <div class="flex items-center gap-2.5">
+        <button onclick="setRoleView('admin')" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-slate-700">
+          <span>⚡</span> Admin Central
         </button>
-        <button onclick="showToast('Executive PDF Digest Generated')" class="px-3.5 py-1.5 bg-accent-400 text-indigo-950 rounded-lg text-xs font-extrabold hover:bg-accent-500 transition">
-          Download Board Brief
+        <button onclick="setRoleView('public')" class="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-bold transition">
+          &larr; Public Church Website
         </button>
       </div>
     </header>
 
+    <!-- Main Cockpit Body -->
     <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
-      
-      <!-- KPI Stats -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Active Membership</span>
-          <p class="text-3xl font-extrabold text-gray-900 mt-2">1,248</p>
-          <span class="inline-block mt-2 text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">↑ +84 this quarter</span>
+      <!-- Vital Pulse Row -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Sunday Attendance (3 Svcs)</span>
+          <p class="text-2xl font-extrabold text-gray-900 mt-2 font-mono">1,842 Members</p>
+          <span class="inline-block mt-2 text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">↑ +8.4% vs Last Sunday</span>
         </div>
 
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Month-to-Date Giving</span>
-          <p class="text-3xl font-extrabold text-indigo-700 mt-2 font-mono">KES 1,842,500</p>
-          <span class="inline-block mt-2 text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">92% of Monthly Budget</span>
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Decisions for Christ</span>
+          <p class="text-2xl font-extrabold text-indigo-700 mt-2 font-mono">14 Salvations</p>
+          <span class="inline-block mt-2 text-xs text-indigo-600 font-bold bg-indigo-50 px-2 py-0.5 rounded-full">100% in Follow-up pipeline</span>
         </div>
 
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Connected Cell Groups</span>
-          <p class="text-3xl font-extrabold text-gray-900 mt-2">18 Cells</p>
-          <span class="inline-block mt-2 text-xs text-indigo-600 font-bold bg-indigo-50 px-2 py-0.5 rounded-full">342 Members Meeting Thu</span>
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Safari (Cell) Health</span>
+          <p class="text-2xl font-extrabold text-emerald-700 mt-2 font-mono">89.4% Active</p>
+          <span class="inline-block mt-2 text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">18 Cells meeting weekly</span>
         </div>
 
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">New Visitor Follow-ups</span>
-          <p class="text-3xl font-extrabold text-amber-600 mt-2">24 Pending</p>
-          <span class="inline-block mt-2 text-xs text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded-full">Assigned to Evangelism Lead</span>
-        </div>
-      </div>
-
-      <!-- Pastoral Care & Sunday Attendance Breakdown -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="lg:col-span-2 bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-200">
-          <div class="flex items-center justify-between mb-6">
-            <div>
-              <h2 class="font-extrabold text-gray-900 text-lg">Sunday Attendance Trends Across 3 Services</h2>
-              <p class="text-xs text-gray-500">Early Glory (8:15 AM), Family (10:15 AM), Ignite Youth (12:15 PM)</p>
-            </div>
-            <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">Past 4 Sundays</span>
-          </div>
-
-          <div class="space-y-4">
-            <div>
-              <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
-                <span>10:15 AM Celebration &amp; Next Gen Kids</span>
-                <span>610 Attendees (49%)</span>
-              </div>
-              <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
-                <div class="h-full bg-indigo-600 rounded-full" style="width: 49%"></div>
-              </div>
-            </div>
-
-            <div>
-              <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
-                <span>8:15 AM Early Glory Service</span>
-                <span>380 Attendees (30%)</span>
-              </div>
-              <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
-                <div class="h-full bg-blue-500 rounded-full" style="width: 30%"></div>
-              </div>
-            </div>
-
-            <div>
-              <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
-                <span>12:15 PM Ignite Youth &amp; Young Adults</span>
-                <span>258 Attendees (21%)</span>
-              </div>
-              <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
-                <div class="h-full bg-amber-500 rounded-full" style="width: 21%"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-8 pt-6 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
-            <span>Average Sunday Attendance: <strong class="text-gray-900">1,248 congregants</strong></span>
-            <button onclick="showToast('Attendance report exported')" class="text-indigo-600 font-bold hover:underline">Export Full Log &rarr;</button>
-          </div>
-        </div>
-
-        <!-- Pastoral Intercession Box -->
-        <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-200 flex flex-col">
-          <h2 class="font-extrabold text-gray-900 text-lg mb-2">Confidential Prayer Queue</h2>
-          <p class="text-xs text-gray-500 mb-4">Direct requests submitted via the public site awaiting Pastor Odero's review.</p>
-
-          <div class="space-y-3 flex-1 overflow-y-auto max-h-[300px]">
-            <div class="p-3 bg-gray-50 rounded-xl border border-gray-200 text-xs">
-              <div class="flex justify-between items-center font-bold text-gray-800">
-                <span>Healing for Grace W.</span>
-                <span class="text-[10px] text-gray-400">1 hour ago</span>
-              </div>
-              <p class="text-gray-500 mt-1">Hospitalized at Nairobi Women's Hospital Kitengela branch. Requesting visit.</p>
-              <button onclick="showToast('Marked as Prayed for / Contacted')" class="mt-2 text-indigo-600 font-bold hover:underline">Pray &amp; Mark Completed &rarr;</button>
-            </div>
-
-            <div class="p-3 bg-gray-50 rounded-xl border border-gray-200 text-xs">
-              <div class="flex justify-between items-center font-bold text-gray-800">
-                <span>Job Breakthrough (David M.)</span>
-                <span class="text-[10px] text-gray-400">Yesterday</span>
-              </div>
-              <p class="text-gray-500 mt-1">Second interview scheduled for Monday. Believing God for favor.</p>
-              <button onclick="showToast('Marked as Prayed for / Contacted')" class="mt-2 text-indigo-600 font-bold hover:underline">Pray &amp; Mark Completed &rarr;</button>
-            </div>
-          </div>
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Pastoral Counseling</span>
+          <p id="exec-counseling-count" class="text-2xl font-extrabold text-amber-700 mt-2 font-mono">4 Appointments</p>
+          <span class="inline-block mt-2 text-xs text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded-full">Pastoral Study Diary</span>
         </div>
       </div>
 
+      <!-- Pastoral Counseling & Intercession Queue -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+        <div class="p-6 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-base">🔒</span>
+              <h2 class="font-extrabold text-gray-900 text-base">Pastoral Counseling &amp; Study Appointments</h2>
+              <span class="px-2 py-0.5 bg-amber-50 text-amber-800 rounded-full font-bold text-[10px]">Confidential Diary</span>
+            </div>
+            <p class="text-xs text-gray-500 mt-0.5">Direct bookings from members &bull; Strict seal of ministerial confidentiality</p>
+          </div>
+          <button onclick="route('prayer'); setRoleView('public');" class="text-xs text-indigo-600 font-bold hover:underline">
+            Open Public Booking Form &rarr;
+          </button>
+        </div>
+        
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-gray-50 text-gray-500 font-bold uppercase text-[10px] border-b border-gray-200">
+              <tr>
+                <th class="p-3.5">Member Name &amp; Contact</th>
+                <th class="p-3.5">Counseling Focus</th>
+                <th class="p-3.5">Assigned Minister</th>
+                <th class="p-3.5">Scheduled Slot</th>
+                <th class="p-3.5">Status</th>
+                <th class="p-3.5 text-right">Pastoral Actions</th>
+              </tr>
+            </thead>
+            <tbody id="exec-counseling-tbody" class="divide-y divide-gray-100 text-gray-700 font-medium">
+              <!-- Populated dynamically via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Safari (Cell) Groups Zone Health Radar -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-gray-100">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-base">🌍</span>
+              <h2 class="font-extrabold text-gray-900 text-base">Safari Groups Zone Health Radar (Kitengela)</h2>
+            </div>
+            <p class="text-xs text-gray-500 mt-0.5">Weekly attendance reporting across all 5 municipal zones and 18 active cell fellowships.</p>
+          </div>
+          <button onclick="broadcastSafariEncouragement()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition shadow flex items-center gap-1.5">
+            <span>💬</span> Send Pastoral Note to all 18 Cell Leaders
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 text-xs">
+          <div class="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <strong class="text-gray-900 font-bold">Yukos / EPZ</strong>
+              <span class="text-emerald-700 font-bold text-[10px] bg-emerald-50 px-1.5 py-0.5 rounded">4 Cells</span>
+            </div>
+            <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div class="h-full bg-emerald-500 rounded-full" style="width: 86%"></div>
+            </div>
+            <p class="text-gray-500 text-[11px]">86% Active Attendance (52 Members)</p>
+          </div>
+
+          <div class="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <strong class="text-gray-900 font-bold">Chuna Estate</strong>
+              <span class="text-emerald-700 font-bold text-[10px] bg-emerald-50 px-1.5 py-0.5 rounded">5 Cells</span>
+            </div>
+            <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div class="h-full bg-emerald-500 rounded-full" style="width: 92%"></div>
+            </div>
+            <p class="text-gray-500 text-[11px]">92% Active Attendance (74 Members)</p>
+          </div>
+
+          <div class="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <strong class="text-gray-900 font-bold">Milimani</strong>
+              <span class="text-emerald-700 font-bold text-[10px] bg-emerald-50 px-1.5 py-0.5 rounded">3 Cells</span>
+            </div>
+            <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div class="h-full bg-emerald-500 rounded-full" style="width: 88%"></div>
+            </div>
+            <p class="text-gray-500 text-[11px]">88% Active Attendance (38 Members)</p>
+          </div>
+
+          <div class="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <strong class="text-gray-900 font-bold">Acacia / Senior</strong>
+              <span class="text-emerald-700 font-bold text-[10px] bg-emerald-50 px-1.5 py-0.5 rounded">3 Cells</span>
+            </div>
+            <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div class="h-full bg-emerald-500 rounded-full" style="width: 82%"></div>
+            </div>
+            <p class="text-gray-500 text-[11px]">82% Active Attendance (41 Members)</p>
+          </div>
+
+          <div class="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <strong class="text-gray-900 font-bold">Enkasiti</strong>
+              <span class="text-emerald-700 font-bold text-[10px] bg-emerald-50 px-1.5 py-0.5 rounded">3 Cells</span>
+            </div>
+            <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div class="h-full bg-emerald-500 rounded-full" style="width: 95%"></div>
+            </div>
+            <p class="text-gray-500 text-[11px]">95% Active Attendance (39 Members)</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
 
-  <!-- ================= ROLE VIEW 3: FINANCE & GIVING DASHBOARD ================= -->
+    <!-- ================= ROLE VIEW 3: FINANCE & GIVING DASHBOARD ================= -->
   <div id="view-finance" class="view-container flex-1 bg-gray-100 flex flex-col">
-    <header class="bg-slate-900 text-white px-6 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+    <header class="bg-slate-900 text-white px-6 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4 sticky top-[41px] z-30 shadow-md">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-xl bg-emerald-500 text-white font-extrabold flex items-center justify-center text-xl shadow">
           💼
         </div>
         <div>
-          <h1 class="text-lg font-extrabold leading-tight">Finance &amp; Treasury Portal</h1>
-          <p class="text-xs text-gray-400">Church Treasurer &middot; M-Pesa STK &amp; Bank Reconciliations</p>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg font-extrabold leading-tight">Finance &amp; Treasury Portal</h1>
+            <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold rounded-full uppercase">Daraja C2B / B2C</span>
+          </div>
+          <p class="text-xs text-gray-400">Church Treasurer &middot; M-Pesa Paybill 567935 Automated Reconciliation</p>
         </div>
       </div>
-      <button onclick="setRoleView('public')" class="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-bold transition">
-        &larr; Public Church Website
-      </button>
+      <div class="flex items-center gap-2.5">
+        <button onclick="simulateDarajaInboundPayment()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow">
+          <span>📲</span> Test Inbound Daraja STK Push
+        </button>
+        <button onclick="setRoleView('public')" class="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-bold transition">
+          &larr; Public Church Website
+        </button>
+      </div>
     </header>
 
     <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">M-Pesa Collections (Paybill 567935)</span>
-          <p class="text-2xl font-extrabold text-emerald-700 mt-2 font-mono">KES 1,120,400</p>
-          <p class="text-xs text-gray-400 mt-1">Automated real-time IPN matching</p>
+      <!-- Daraja Gateway Status Bar -->
+      <div class="bg-slate-900 text-white p-4 rounded-2xl border border-slate-800 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs shadow-sm">
+        <div class="flex items-center gap-3">
+          <span class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+          </span>
+          <div>
+            <span class="font-bold text-slate-200">Daraja 2.0 Webhook Gateway:</span>
+            <code class="text-[11px] text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded font-mono ml-1.5">https://api.icckitengela.org/v1/daraja/c2b-callback</code>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-[11px] text-slate-400">Safaricom Lipa Na M-Pesa:</span>
+          <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 font-bold font-mono rounded text-[11px]">Paybill 567935 (ACTIVE)</span>
+        </div>
+      </div>
+
+      <!-- KPI Balances -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total M-Pesa Collections</span>
+          <p id="finance-total-collections" class="text-2xl font-extrabold text-emerald-700 mt-2 font-mono">KES 1,135,400.00</p>
+          <span class="inline-block mt-2 text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">✓ 100% Instant IPN Reconciled</span>
         </div>
 
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
           <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Sanctuary Building Fund</span>
-          <p class="text-2xl font-extrabold text-indigo-700 mt-2 font-mono">KES 530,000</p>
-          <p class="text-xs text-gray-400 mt-1">Earmarked capital account</p>
+          <p id="finance-building-fund" class="text-2xl font-extrabold text-indigo-700 mt-2 font-mono">KES 535,000.00</p>
+          <span class="inline-block mt-2 text-xs text-indigo-600 font-bold bg-indigo-50 px-2 py-0.5 rounded-full">Earmarked Capital Sanctuary</span>
         </div>
 
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Unreconciled Transactions</span>
-          <p class="text-2xl font-extrabold text-gray-900 mt-2 font-mono">0</p>
-          <p class="text-xs text-emerald-600 font-bold mt-1">✓ 100% matched to accounts</p>
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Tithes &amp; General Fund</span>
+          <p id="finance-tithes-fund" class="text-2xl font-extrabold text-gray-900 mt-2 font-mono">KES 485,400.00</p>
+          <span class="inline-block mt-2 text-xs text-gray-600 font-bold bg-gray-100 px-2 py-0.5 rounded-full">Ministries &amp; Ops</span>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Missions &amp; Benevolence</span>
+          <p id="finance-missions-fund" class="text-2xl font-extrabold text-amber-700 mt-2 font-mono">KES 115,000.00</p>
+          <span class="inline-block mt-2 text-xs text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded-full">Community Outreach</span>
         </div>
       </div>
 
       <!-- Real-Time Transaction Table -->
       <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-        <div class="p-6 border-b border-gray-100 flex items-center justify-between">
-          <h2 class="font-extrabold text-gray-900 text-base">Recent Giving Ledger (M-Pesa Paybill 567935)</h2>
-          <button onclick="showToast('Exported CSV of M-Pesa statements')" class="text-xs text-indigo-600 font-bold hover:underline">Download CSV &rarr;</button>
+        <div class="p-6 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h2 class="font-extrabold text-gray-900 text-base">Live M-Pesa Giving Ledger (Paybill 567935)</h2>
+            <p class="text-xs text-gray-500 mt-0.5">Auto-synced via Daraja C2B confirmation webhooks &bull; Instant SMS receipting</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <select id="finance-fund-filter" onchange="filterFinanceLedger()" class="text-xs p-2 rounded-xl border border-gray-200 bg-gray-50 font-medium text-gray-700">
+              <option value="all">All Funds</option>
+              <option value="TITHE">Tithe Only</option>
+              <option value="BUILDING">Building Fund Only</option>
+              <option value="OFFERING">Offering Only</option>
+              <option value="BENEVOLENCE">Benevolence Only</option>
+            </select>
+            <button onclick="exportFinanceCSV()" class="px-3.5 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs rounded-xl border border-indigo-200 transition flex items-center gap-1.5">
+              <span>📥</span> Export CSV
+            </button>
+          </div>
         </div>
+
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs">
-            <thead class="bg-gray-50 text-gray-500 font-bold border-b border-gray-200">
+            <thead class="bg-gray-50 text-gray-500 font-bold border-b border-gray-200 text-[10px] uppercase tracking-wider">
               <tr>
-                <th class="p-4">Receipt No</th>
-                <th class="p-4">Giver Name / Phone</th>
-                <th class="p-4">Fund Line</th>
-                <th class="p-4 text-right">Amount (KES)</th>
-                <th class="p-4">Channel</th>
-                <th class="p-4">Status</th>
+                <th class="p-3.5">Receipt No</th>
+                <th class="p-3.5">Date &amp; Time</th>
+                <th class="p-3.5">Giver Name / Phone</th>
+                <th class="p-3.5">Fund Account</th>
+                <th class="p-3.5 text-right">Amount (KES)</th>
+                <th class="p-3.5">Channel</th>
+                <th class="p-3.5">Webhook Status</th>
+                <th class="p-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-gray-100 text-gray-700 font-medium">
-              <tr>
-                <td class="p-4 font-mono font-bold text-indigo-700">QK8472910X</td>
-                <td class="p-4">Mary Kamau (0712***678)</td>
-                <td class="p-4 font-bold text-gray-900">TITHE</td>
-                <td class="p-4 text-right font-mono font-bold">12,500.00</td>
-                <td class="p-4">M-Pesa STK Push</td>
-                <td class="p-4"><span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full font-bold text-[10px]">Verified</span></td>
-              </tr>
-              <tr>
-                <td class="p-4 font-mono font-bold text-indigo-700">QK8472889A</td>
-                <td class="p-4">Peter N. (0722***410)</td>
-                <td class="p-4 font-bold text-gray-900">BUILDING</td>
-                <td class="p-4 text-right font-mono font-bold">5,000.00</td>
-                <td class="p-4">Paybill Direct</td>
-                <td class="p-4"><span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full font-bold text-[10px]">Verified</span></td>
-              </tr>
-              <tr>
-                <td class="p-4 font-mono font-bold text-indigo-700">QK8472714B</td>
-                <td class="p-4">Grace W. (0733***198)</td>
-                <td class="p-4 font-bold text-gray-900">OFFERING</td>
-                <td class="p-4 text-right font-mono font-bold">1,000.00</td>
-                <td class="p-4">M-Pesa STK Push</td>
-                <td class="p-4"><span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full font-bold text-[10px]">Verified</span></td>
-              </tr>
+            <tbody id="finance-transactions-tbody" class="divide-y divide-gray-100 text-gray-700 font-medium">
+              <!-- Populated dynamically via JS -->
             </tbody>
           </table>
         </div>
@@ -1497,7 +1737,7 @@
   </div>
 
 
-        <!-- ================= ROLE VIEW 4: CHURCH ADMINISTRATOR ================= -->
+  <!-- ================= ROLE VIEW 4: CHURCH ADMINISTRATOR ================= -->
   <div id="view-admin" class="view-container flex-1 bg-gray-100 flex flex-col">
     <!-- Admin Header -->
     <header class="bg-slate-900 text-white px-6 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4 sticky top-[41px] z-30 shadow-md">
@@ -1541,6 +1781,10 @@
         </button>
         <button onclick="switchAdminTab('sms')" id="admin-tab-btn-sms" class="admin-tab-btn px-3 py-1.5 rounded-lg text-gray-600 hover:bg-gray-100 transition flex items-center gap-1.5">
           <span>📲</span> Bulk SMS Station
+        </button>
+        <button onclick="switchAdminTab('safecheckin')" id="admin-tab-btn-safecheckin" class="admin-tab-btn px-3 py-1.5 rounded-lg text-gray-600 hover:bg-gray-100 transition flex items-center gap-1.5">
+          <span>🛡️</span> Sunday School SafeCheck-in
+          <span class="px-1.5 py-0.2 bg-rose-100 text-rose-800 rounded-full text-[10px] font-bold">18</span>
         </button>
       </div>
       <div class="hidden lg:flex items-center gap-2 text-gray-400 text-[11px]">
@@ -1906,6 +2150,72 @@
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+    
+      <!-- TAB 6: SUNDAY SCHOOL SAFECHECK-IN -->
+      <div id="admin-content-safecheckin" class="admin-tab-content hidden space-y-6">
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-sm space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-gray-100">
+            <div>
+              <span class="text-[10px] bg-rose-50 text-rose-700 font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">Child Safety &amp; Protection Protocol</span>
+              <h2 class="text-base font-extrabold text-gray-900 mt-1">Sunday School SafeCheck-in &amp; Security Badges</h2>
+              <p class="text-xs text-gray-500 mt-0.5">Biometric/alphanumeric dual claim tags, medical alerts, and emergency parent SMS paging.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="openNewChildCheckinModal()" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl transition shadow flex items-center gap-1.5">
+                <span>+</span> Check-In Child (Drop-off)
+              </button>
+              <button onclick="openCheckoutVerifyModal()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl transition shadow flex items-center gap-1.5">
+                <span>🛡️</span> Verify Pick-up
+              </button>
+            </div>
+          </div>
+
+          <!-- SafeCheck-in KPI Stats -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+            <div class="p-4 bg-rose-50/70 rounded-xl border border-rose-100">
+              <span class="text-gray-400 font-bold uppercase text-[10px] block">Active Checked-in Kids</span>
+              <p id="safecheck-total-kids" class="text-2xl font-extrabold text-rose-700 mt-1">18 Children</p>
+              <span class="text-rose-600 font-medium text-[11px]">Across all Sunday School classes</span>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+              <span class="text-gray-400 font-bold uppercase text-[10px] block">Little Lambs (1-4 Yrs)</span>
+              <p class="text-2xl font-extrabold text-gray-900 mt-1">6 Toddlers</p>
+              <span class="text-gray-500 font-medium text-[11px]">Hall 1 &middot; Tr. Grace</span>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+              <span class="text-gray-400 font-bold uppercase text-[10px] block">Kingdom Champions (5-8)</span>
+              <p class="text-2xl font-extrabold text-gray-900 mt-1">8 Children</p>
+              <span class="text-gray-500 font-medium text-[11px]">Hall 2 &middot; Tr. Faith</span>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+              <span class="text-gray-400 font-bold uppercase text-[10px] block">Ignite Tweens (9-12)</span>
+              <p class="text-2xl font-extrabold text-gray-900 mt-1">4 Juniors</p>
+              <span class="text-gray-500 font-medium text-[11px]">Upper Gallery &middot; Tr. Victor</span>
+            </div>
+          </div>
+
+          <!-- Checked-in Kids Table -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-gray-50 text-gray-500 font-bold uppercase text-[10px] border-y border-gray-100">
+                <tr>
+                  <th class="p-3.5">Security Token</th>
+                  <th class="p-3.5">Child Name</th>
+                  <th class="p-3.5">Age Group / Room</th>
+                  <th class="p-3.5">Parent / Guardian Phone</th>
+                  <th class="p-3.5">Medical / Allergy Alert</th>
+                  <th class="p-3.5">Drop-off Time</th>
+                  <th class="p-3.5 text-right">Security Actions</th>
+                </tr>
+              </thead>
+              <tbody id="safecheck-table-body" class="divide-y divide-gray-100 text-gray-700 font-medium">
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -2718,6 +3028,149 @@
           </button>
         </div>
       </form>
+    </div>
+  </div>
+
+  
+  <!-- MODAL: JOIN SAFARI GROUP -->
+  <div id="modal-join-safari" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl relative">
+      <button onclick="closeModal('modal-join-safari')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-lg font-bold">✕</button>
+      <div>
+        <span class="text-[10px] bg-indigo-50 text-indigo-700 font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">Connect to Fellowship</span>
+        <h3 id="join-safari-modal-title" class="text-lg font-extrabold text-gray-900 mt-1">Join Safari Fellowship</h3>
+        <p class="text-xs text-gray-500 mt-0.5">Your request will be delivered directly to the Cell Leader via SMS &amp; WhatsApp.</p>
+      </div>
+
+      <form onsubmit="handleJoinSafariSubmit(event)" class="space-y-3.5 text-xs">
+        <input type="hidden" id="join-safari-id">
+        <div>
+          <label class="font-bold text-gray-700 block mb-1">Your Full Name *</label>
+          <input id="join-safari-name" type="text" required placeholder="e.g. Mary Kamau" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:outline-none font-medium">
+        </div>
+        <div>
+          <label class="font-bold text-gray-700 block mb-1">Phone / WhatsApp Number *</label>
+          <input id="join-safari-phone" type="text" required placeholder="e.g. 0712345678" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:outline-none font-medium">
+        </div>
+        <div>
+          <label class="font-bold text-gray-700 block mb-1">Estate / Exact Landmark</label>
+          <input id="join-safari-location" type="text" placeholder="e.g. Chuna Gate 2, near Shalom" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:outline-none font-medium">
+        </div>
+        <div class="pt-2">
+          <button type="submit" class="w-full py-2.5 bg-indigo-700 hover:bg-indigo-800 text-white font-bold rounded-xl shadow transition">
+            Connect with Cell Leader &rarr;
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: NEW CHILD CHECK-IN (SAFECHECK-IN) -->
+  <div id="modal-new-child-checkin" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 space-y-5 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeModal('modal-new-child-checkin')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-lg font-bold">✕</button>
+      <div>
+        <span class="text-[10px] bg-rose-50 text-rose-700 font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">Sunday School Security</span>
+        <h3 class="text-lg font-extrabold text-gray-900 mt-1">Sunday School Child Drop-off &amp; Check-In</h3>
+        <p class="text-xs text-gray-500 mt-0.5">Generates dual security claim tokens and digital parent verification badges.</p>
+      </div>
+
+      <form onsubmit="handleChildCheckinSubmit(event)" class="space-y-4 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="font-bold text-gray-700 block mb-1">Child Full Name *</label>
+            <input id="checkin-child-name" type="text" required placeholder="e.g. Ethan Mwangi" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none font-medium">
+          </div>
+          <div>
+            <label class="font-bold text-gray-700 block mb-1">Age Bracket / Class *</label>
+            <select id="checkin-age-group" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none font-medium">
+              <option value="Little Lambs (1-4 Yrs)|Hall 1|Tr. Grace">Little Lambs (1–4 Yrs) — Hall 1</option>
+              <option value="Kingdom Champions (5-8 Yrs)|Hall 2|Tr. Faith">Kingdom Champions (5–8 Yrs) — Hall 2</option>
+              <option value="Ignite Tweens (9-12 Yrs)|Upper Gallery|Tr. Victor">Ignite Tweens (9–12 Yrs) — Upper Gallery</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="font-bold text-gray-700 block mb-1">Parent / Guardian Name *</label>
+            <input id="checkin-parent-name" type="text" required placeholder="e.g. David Mwangi" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none font-medium">
+          </div>
+          <div>
+            <label class="font-bold text-gray-700 block mb-1">Parent Phone Number (For SMS Page) *</label>
+            <input id="checkin-parent-phone" type="text" required placeholder="e.g. 0722000000" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none font-medium">
+          </div>
+        </div>
+
+        <div>
+          <label class="font-bold text-gray-700 block mb-1">Medical / Allergy Notes</label>
+          <input id="checkin-allergy" type="text" placeholder="e.g. Inhaler in bag / Peanut allergy / None" value="None" class="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none font-medium">
+        </div>
+
+        <div class="p-3 bg-rose-50 rounded-xl border border-rose-100 text-rose-900 text-[11px] leading-relaxed flex items-center gap-2">
+          <span>🛡️</span>
+          <span>A unique 4-digit alphanumeric security code will be generated and required at pick-up time.</span>
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" class="w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl shadow transition">
+            Print Security Badge &amp; Check-In Child &rarr;
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: CHECKOUT VERIFY (SAFECHECK-IN) -->
+  <div id="modal-verify-checkout" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 sm:p-8 space-y-5 shadow-2xl relative">
+      <button onclick="closeModal('modal-verify-checkout')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-lg font-bold">✕</button>
+      <div class="text-center">
+        <div class="w-12 h-12 bg-rose-100 text-rose-700 font-black rounded-full flex items-center justify-center text-xl mx-auto mb-2">
+          🛡️
+        </div>
+        <h3 class="text-lg font-extrabold text-gray-900">Verify Parent Security Tag</h3>
+        <p class="text-xs text-gray-500 mt-1">Enter the parent's alphanumeric claim token or scan their QR badge.</p>
+      </div>
+
+      <form onsubmit="handleCheckoutVerifySubmit(event)" class="space-y-4 text-xs">
+        <div>
+          <label class="font-bold text-gray-700 block mb-1 text-center">Enter Security Token (e.g. SEC-8291)</label>
+          <input id="verify-checkout-token" type="text" required placeholder="SEC-XXXX" class="w-full p-3 bg-gray-50 border-2 border-dashed border-gray-300 rounded-xl text-center text-base font-mono font-extrabold tracking-widest uppercase focus:border-rose-500 focus:outline-none">
+        </div>
+        <button type="submit" class="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl shadow transition">
+          Verify Tag &amp; Release Child
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: SAFARICOM M-PESA SMS RECEIPT POPUP -->
+  <div id="modal-mpesa-receipt" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 text-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative border border-slate-700 space-y-4">
+      <button onclick="closeModal('modal-mpesa-receipt')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg font-bold">✕</button>
+      <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+        <div class="w-10 h-10 rounded-2xl bg-emerald-500 text-slate-950 font-black flex items-center justify-center text-lg shadow">
+          M
+        </div>
+        <div>
+          <h4 class="font-bold text-sm text-white">MPESA Notification</h4>
+          <span class="text-[11px] text-emerald-400 font-mono">Safaricom Lipa Na M-Pesa</span>
+        </div>
+      </div>
+
+      <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800/80 font-mono text-[11px] leading-relaxed text-slate-300 space-y-2">
+        <p id="mpesa-receipt-sms-body">
+          <!-- Dynamic SMS text -->
+        </p>
+      </div>
+
+      <div class="flex items-center justify-between text-xs pt-1">
+        <span class="text-slate-400 text-[11px]">Paybill: <strong>567935</strong></span>
+        <button onclick="closeModal('modal-mpesa-receipt')" class="px-4 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl transition shadow">
+          Dismiss
+        </button>
+      </div>
     </div>
   </div>
 
@@ -3645,6 +4098,371 @@
         menu.classList.toggle('hidden');
       }
     }
+  
+
+    // ================= PHASE 2 & 3 DATA AND CONTROLLERS =================
+
+    // 1. SAFARI (CELL) GROUPS DATABASE
+    let activeSafariZone = 'all';
+    let safariGroupsDB = [
+      { id: 'safari-1', name: 'Yukos Central Fellowship', zone: 'Yukos', leader: 'Bro. Peter Kariuki', phone: '0722100201', meetingDay: 'Wednesdays 6:00 PM', host: 'Kariuki Residence, near EPZ Gate', members: 16, active: true },
+      { id: 'safari-2', name: 'Yukos Heights Cell', zone: 'Yukos', leader: 'Sister Faith Mutua', phone: '0723456789', meetingDay: 'Thursdays 6:30 PM', host: 'Green View Courts, Hse B4', members: 12, active: true },
+      { id: 'safari-3', name: 'EPZ Gate Fellowship', zone: 'Yukos', leader: 'Elder Sammy Waweru', phone: '0721888999', meetingDay: 'Wednesdays 6:00 PM', host: 'Waweru Compound', members: 14, active: true },
+      { id: 'safari-4', name: 'Chuna Gate 1 Fellowship', zone: 'Chuna', leader: 'Deacon John Otieno', phone: '0722334455', meetingDay: 'Thursdays 6:00 PM', host: 'Otieno Villa, Court 3', members: 18, active: true },
+      { id: 'safari-5', name: 'Chuna Shalom Cell', zone: 'Chuna', leader: 'Sister Grace Wanjiku', phone: '0724112233', meetingDay: 'Wednesdays 6:30 PM', host: 'Near Shalom Hospital, Plot 42', members: 15, active: true },
+      { id: 'safari-6', name: 'Chuna Sunrise Cell', zone: 'Chuna', leader: 'Bro. Moses Kiprop', phone: '0726778899', meetingDay: 'Thursdays 6:00 PM', host: 'Sunrise Apts, Hse 6', members: 13, active: true },
+      { id: 'safari-7', name: 'Milimani Phase 1 Fellowship', zone: 'Milimani', leader: 'Pst. Evans Ouma', phone: '0725443322', meetingDay: 'Wednesdays 6:00 PM', host: 'Ouma Residence, Opp Milimani Pri', members: 19, active: true },
+      { id: 'safari-8', name: 'Milimani Ridge Cell', zone: 'Milimani', leader: 'Sister Tabitha Nduku', phone: '0727998811', meetingDay: 'Thursdays 6:30 PM', host: 'Milimani Ridge Courts', members: 14, active: true },
+      { id: 'safari-9', name: 'Acacia Senior Staff Cell', zone: 'Acacia', leader: 'Elder Dr. David Mwangi', phone: '0722556677', meetingDay: 'Wednesdays 6:30 PM', host: 'Senior Staff Estate, Hse 12', members: 22, active: true },
+      { id: 'safari-10', name: 'Acacia Road Fellowship', zone: 'Acacia', leader: 'Sister Joyce Achieng', phone: '0728332211', meetingDay: 'Thursdays 6:00 PM', host: 'Near Acacia Crest Academy', members: 15, active: true },
+      { id: 'safari-11', name: 'Enkasiti Center Fellowship', zone: 'Enkasiti', leader: 'Bro. Simon Kilonzo', phone: '0729445566', meetingDay: 'Wednesdays 6:00 PM', host: 'Kilonzo Farmstead', members: 17, active: true },
+      { id: 'safari-12', name: 'Nonkopir Hope Cell', zone: 'Enkasiti', leader: 'Sister Mary Chebet', phone: '0721667788', meetingDay: 'Thursdays 6:00 PM', host: 'Near Nonkopir Junction', members: 12, active: true }
+    ];
+
+    // 2. SUNDAY SCHOOL SAFECHECK-IN DATABASE
+    let safeCheckinDB = [
+      { id: 'kid-1', token: 'SEC-8291', name: 'Ethan Mwangi', ageGroup: 'Kingdom Champions (5-8 Yrs)', hall: 'Hall 2 (Tr. Faith)', parentName: 'David Mwangi', phone: '0722556677', allergy: 'Peanut allergy / Carries epi-pen', checkinTime: '08:05 AM', status: 'checked-in' },
+      { id: 'kid-2', token: 'SEC-4029', name: 'Chloe Otieno', ageGroup: 'Little Lambs (1-4 Yrs)', hall: 'Hall 1 (Tr. Grace)', parentName: 'John Otieno', phone: '0722334455', allergy: 'None', checkinTime: '08:12 AM', status: 'checked-in' },
+      { id: 'kid-3', token: 'SEC-9183', name: 'Baraka Kiprop', ageGroup: 'Ignite Tweens (9-12 Yrs)', hall: 'Upper Gallery (Tr. Victor)', parentName: 'Moses Kiprop', phone: '0726778899', allergy: 'Asthma (Inhaler in backpack)', checkinTime: '08:20 AM', status: 'checked-in' },
+      { id: 'kid-4', token: 'SEC-7362', name: 'Liam Mutua', ageGroup: 'Kingdom Champions (5-8 Yrs)', hall: 'Hall 2 (Tr. Faith)', parentName: 'Faith Mutua', phone: '0723456789', allergy: 'None', checkinTime: '08:22 AM', status: 'checked-in' },
+      { id: 'kid-5', token: 'SEC-5541', name: 'Zuri Wanjiku', ageGroup: 'Little Lambs (1-4 Yrs)', hall: 'Hall 1 (Tr. Grace)', parentName: 'Grace Wanjiku', phone: '0724112233', allergy: 'Lactose intolerant', checkinTime: '08:30 AM', status: 'checked-in' },
+      { id: 'kid-6', token: 'SEC-6218', name: 'Jabari Ouma', ageGroup: 'Ignite Tweens (9-12 Yrs)', hall: 'Upper Gallery (Tr. Victor)', parentName: 'Evans Ouma', phone: '0725443322', allergy: 'None', checkinTime: '08:35 AM', status: 'checked-in' }
+    ];
+
+    // 3. DARAJA M-PESA GIVING LEDGER
+    let activeFinanceFund = 'all';
+    let darajaGivingLedger = [
+      { receipt: 'QGH4789123', date: '2026-10-25 10:14:22', name: 'Bro. Patrick Njoroge', phone: '254722***492', amount: 5000, fund: 'TITHE', channel: 'Paybill 567935 (Daraja C2B)', verified: true },
+      { receipt: 'QGH4789124', date: '2026-10-25 10:18:05', name: 'Sister Faith Wambui', phone: '254723***118', amount: 20000, fund: 'BUILDING', channel: 'Paybill 567935 (Daraja C2B)', verified: true },
+      { receipt: 'QGH4789125', date: '2026-10-25 10:25:40', name: 'Deacon John Otieno', phone: '254722***455', amount: 3500, fund: 'OFFERING', channel: 'Paybill 567935 (Daraja C2B)', verified: true },
+      { receipt: 'QGH4789126', date: '2026-10-25 10:32:11', name: 'Mama Sarah Chebet', phone: '254721***788', amount: 2000, fund: 'BENEVOLENCE', channel: 'Paybill 567935 (Daraja C2B)', verified: true },
+      { receipt: 'QGH4789127', date: '2026-10-25 10:45:19', name: 'Elder David Mwangi', phone: '254722***677', amount: 15000, fund: 'TITHE', channel: 'Paybill 567935 (Daraja C2B)', verified: true },
+      { receipt: 'QGH4789128', date: '2026-10-25 11:02:44', name: 'Sister Mary Kamau', phone: '254712***789', amount: 4500, fund: 'BUILDING', channel: 'Paybill 567935 (Daraja C2B)', verified: true }
+    ];
+
+    // 4. SENIOR PASTOR COUNSELING APPOINTMENTS
+    let counselingDB = [
+      { id: 'counsel-1', name: 'Sister Grace N. & Fiance Kevin', phone: '0722998877', type: 'Pre-Marital Counseling (Session 3 of 6)', date: 'Tuesday 27 Oct &bull; 10:00 AM', status: 'Confirmed' },
+      { id: 'counsel-2', name: 'Bro. Kenneth O. Family', phone: '0723445566', type: 'Pastoral Bereavement & Funeral Protocol', date: 'Tuesday 27 Oct &bull; 02:30 PM', status: 'Urgent' },
+      { id: 'counsel-3', name: 'David & Jane Mwangi', phone: '0722556677', type: 'Baby Dedication Thanksgiving Prayer', date: 'Wednesday 28 Oct &bull; 09:30 AM', status: 'Confirmed' },
+      { id: 'counsel-4', name: 'Sister Agnes K.', phone: '0728112233', type: 'Spiritual Direction & Deliverance', date: 'Thursday 29 Oct &bull; 11:00 AM', status: 'Confirmed' }
+    ];
+
+    // ================= SAFARI GROUPS CONTROLLER =================
+    function filterSafariZones(zone) {
+      activeSafariZone = zone;
+      document.querySelectorAll('.safari-zone-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-indigo-600', 'text-white', 'font-bold');
+        btn.classList.add('text-gray-600', 'hover:bg-gray-100', 'font-medium');
+      });
+      const activeBtn = Array.from(document.querySelectorAll('.safari-zone-btn')).find(b => b.textContent.includes(zone) || (zone === 'all' && b.textContent.includes('All')));
+      if (activeBtn) {
+        activeBtn.classList.add('active', 'bg-indigo-600', 'text-white', 'font-bold');
+        activeBtn.classList.remove('text-gray-600', 'hover:bg-gray-100', 'font-medium');
+      }
+      renderSafariGroupsList();
+    }
+
+    function renderSafariGroupsList() {
+      const container = document.getElementById('safari-groups-grid');
+      if (!container) return;
+
+      const filtered = activeSafariZone === 'all' ? safariGroupsDB : safariGroupsDB.filter(s => s.zone === activeSafariZone);
+      
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="col-span-full p-8 text-center text-gray-500 text-xs bg-gray-50 rounded-2xl border border-gray-200">No Safari groups currently mapped in this zone. Contact church office to start one.</div>';
+        return;
+      }
+
+      container.innerHTML = filtered.map(s => `
+        <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition space-y-3">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <span class="text-[10px] bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Zone: ${s.zone}</span>
+              <h3 class="font-extrabold text-gray-900 text-sm mt-1">${s.name}</h3>
+            </div>
+            <span class="text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">● Active (${s.members} members)</span>
+          </div>
+          <div class="space-y-1.5 text-xs text-gray-600">
+            <p class="flex items-center gap-1.5"><span>👤</span> Leader: <strong class="text-gray-800">${s.leader}</strong></p>
+            <p class="flex items-center gap-1.5"><span>⏰</span> Day &amp; Time: <strong class="text-gray-800">${s.meetingDay}</strong></p>
+            <p class="flex items-center gap-1.5"><span>📍</span> Venue: <span class="text-gray-600">${s.host}</span></p>
+          </div>
+          <div class="pt-2 border-t border-gray-100 flex items-center gap-2">
+            <button onclick="openJoinSafariModal('${s.id}', '${s.name}')" class="flex-1 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs rounded-xl border border-indigo-200 transition text-center">
+              Join This Cell
+            </button>
+            <a href="https://wa.me/254${s.phone.replace(/^0/, '')}?text=Hello%20${encodeURIComponent(s.leader)},%20I%20would%20like%20to%20join%20the%20ICC%20Kitengela%20${encodeURIComponent(s.name)}" target="_blank" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-sm">
+              <span>💬</span> WhatsApp
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openJoinSafariModal(id, title) {
+      document.getElementById('join-safari-id').value = id;
+      document.getElementById('join-safari-modal-title').textContent = 'Join ' + title;
+      document.getElementById('modal-join-safari').classList.remove('hidden');
+    }
+
+    function handleJoinSafariSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('join-safari-name').value;
+      const phone = document.getElementById('join-safari-phone').value;
+      const cellTitle = document.getElementById('join-safari-modal-title').textContent;
+      closeModal('modal-join-safari');
+      showToast(`Thank you ${name}! Your request to join ${cellTitle} was sent to the cell leader via SMS.`);
+    }
+
+    // ================= SUNDAY SCHOOL SAFECHECK-IN CONTROLLER =================
+    function renderSafeCheckinTable() {
+      const tbody = document.getElementById('safecheck-table-body');
+      if (!tbody) return;
+
+      const activeKids = safeCheckinDB.filter(k => k.status === 'checked-in');
+      const countDisplay = document.getElementById('safecheck-total-kids');
+      if (countDisplay) countDisplay.textContent = `${activeKids.length} Children`;
+
+      tbody.innerHTML = safeCheckinDB.map(k => `
+        <tr class="hover:bg-gray-50/80 transition">
+          <td class="p-3.5 font-mono font-bold text-rose-700">
+            <span class="px-2 py-0.5 bg-rose-50 border border-rose-200 rounded-md">${k.token}</span>
+          </td>
+          <td class="p-3.5 font-bold text-gray-900">${k.name}</td>
+          <td class="p-3.5 text-gray-600">${k.ageGroup}<br><span class="text-[11px] text-gray-400 font-medium">${k.hall}</span></td>
+          <td class="p-3.5">
+            <div class="font-medium text-gray-800">${k.parentName}</div>
+            <span class="font-mono text-gray-500 text-[11px]">${k.phone}</span>
+          </td>
+          <td class="p-3.5">
+            ${k.allergy !== 'None' ? `<span class="px-2 py-0.5 bg-amber-100 text-amber-800 font-bold rounded-full text-[10px]">⚠️ ${k.allergy}</span>` : '<span class="text-gray-400 text-[11px]">None reported</span>'}
+          </td>
+          <td class="p-3.5 text-gray-600 font-mono text-[11px]">${k.checkinTime}</td>
+          <td class="p-3.5 text-right space-x-1.5 whitespace-nowrap">
+            ${k.status === 'checked-in' ? `
+              <button onclick="pageParentSMS('${k.id}')" class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold rounded-lg border border-amber-200 text-[11px] transition">
+                📲 Page Parent
+              </button>
+              <button onclick="openCheckoutVerifyModal('${k.token}')" class="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-lg text-[11px] transition shadow">
+                🛡️ Pick-up Verify
+              </button>
+            ` : `<span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 font-bold rounded-full text-[10px]">✓ Picked Up (${k.checkoutTime || 'Released'})</span>`}
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function openNewChildCheckinModal() {
+      document.getElementById('modal-new-child-checkin').classList.remove('hidden');
+    }
+
+    function handleChildCheckinSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('checkin-child-name').value;
+      const ageRaw = document.getElementById('checkin-age-group').value;
+      const [ageGroup, hall, teacher] = ageRaw.split('|');
+      const parentName = document.getElementById('checkin-parent-name').value;
+      const phone = document.getElementById('checkin-parent-phone').value;
+      const allergy = document.getElementById('checkin-allergy').value || 'None';
+      const token = 'SEC-' + Math.floor(1000 + Math.random() * 9000);
+
+      const newChild = {
+        id: 'kid-' + (safeCheckinDB.length + 1),
+        token: token,
+        name: name,
+        ageGroup: ageGroup,
+        hall: `${hall} (${teacher})`,
+        parentName: parentName,
+        phone: phone,
+        allergy: allergy,
+        checkinTime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        status: 'checked-in'
+      };
+
+      safeCheckinDB.unshift(newChild);
+      renderSafeCheckinTable();
+      closeModal('modal-new-child-checkin');
+      showToast(`Child checked-in! Security Code: ${token}. SMS receipt dispatched to ${phone}.`);
+    }
+
+    function openCheckoutVerifyModal(token) {
+      if (token) {
+        document.getElementById('verify-checkout-token').value = token;
+      } else {
+        document.getElementById('verify-checkout-token').value = '';
+      }
+      document.getElementById('modal-verify-checkout').classList.remove('hidden');
+    }
+
+    function handleCheckoutVerifySubmit(e) {
+      e.preventDefault();
+      const token = document.getElementById('verify-checkout-token').value.trim().toUpperCase();
+      const found = safeCheckinDB.find(k => k.token === token && k.status === 'checked-in');
+
+      if (found) {
+        found.status = 'picked-up';
+        found.checkoutTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        renderSafeCheckinTable();
+        closeModal('modal-verify-checkout');
+        showToast(`VERIFIED: ${found.name} released to guardian ${found.parentName}. Tag ${token} validated!`);
+      } else {
+        alert(`Security Error: Token ${token} not recognized or already checked out. Please verify with child's parent ID.`);
+      }
+    }
+
+    function pageParentSMS(childId) {
+      const child = safeCheckinDB.find(k => k.id === childId);
+      if (!child) return;
+      showToast(`EMERGENCY SMS SENT to ${child.parentName} (${child.phone}): 'Please come to Sunday School ${child.hall} regarding ${child.name}.'`);
+    }
+
+    // ================= DARAJA M-PESA & FINANCE CONTROLLER =================
+    function filterFinanceLedger() {
+      const sel = document.getElementById('finance-fund-filter');
+      activeFinanceFund = sel ? sel.value : 'all';
+      renderFinanceLedgerTable();
+    }
+
+    function renderFinanceLedgerTable() {
+      const tbody = document.getElementById('finance-transactions-table-body');
+      if (!tbody) return;
+
+      const filtered = activeFinanceFund === 'all' ? darajaGivingLedger : darajaGivingLedger.filter(t => t.fund === activeFinanceFund);
+
+      tbody.innerHTML = filtered.map(t => `
+        <tr class="hover:bg-gray-50/80 transition">
+          <td class="p-3.5 font-mono font-bold text-indigo-700">${t.receipt}</td>
+          <td class="p-3.5 text-gray-500 font-mono text-[11px]">${t.date}</td>
+          <td class="p-3.5 font-bold text-gray-900">${t.name}</td>
+          <td class="p-3.5 text-gray-600 font-mono text-[11px]">${t.phone}</td>
+          <td class="p-3.5 font-mono font-extrabold text-emerald-700">KES ${t.amount.toLocaleString()}.00</td>
+          <td class="p-3.5">
+            <span class="px-2 py-0.5 rounded-md font-bold text-[10px] ${t.fund === 'TITHE' ? 'bg-indigo-50 text-indigo-700' : t.fund === 'BUILDING' ? 'bg-amber-50 text-amber-800' : t.fund === 'OFFERING' ? 'bg-blue-50 text-blue-700' : 'bg-rose-50 text-rose-700'}">${t.fund}</span>
+          </td>
+          <td class="p-3.5 text-xs text-gray-500">${t.channel}</td>
+          <td class="p-3.5 text-right">
+            <span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 font-bold rounded-full text-[10px]">✓ IPN Verified</span>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function simulateDarajaInboundPayment() {
+      const receiptNo = 'QGH' + Math.floor(1000000 + Math.random() * 9000000);
+      const funds = ['TITHE', 'BUILDING', 'OFFERING', 'BENEVOLENCE'];
+      const chosenFund = funds[Math.floor(Math.random() * funds.length)];
+      const amounts = [1500, 2500, 5000, 10000, 15000];
+      const chosenAmount = amounts[Math.floor(Math.random() * amounts.length)];
+      const donors = ['Bro. John Mutiso', 'Sister Beatrice Akinyi', 'Elder Daniel Kiprotich', 'Sister Mercy Chepkemoi', 'Deacon David Kilonzo'];
+      const chosenDonor = donors[Math.floor(Math.random() * donors.length)];
+      const phone = '2547' + Math.floor(10000000 + Math.random() * 90000000);
+      const now = new Date();
+      const dateStr = now.toISOString().replace('T', ' ').substring(0, 19);
+
+      const newTx = {
+        receipt: receiptNo,
+        date: dateStr,
+        name: chosenDonor,
+        phone: phone.substring(0, 6) + '***' + phone.substring(9),
+        amount: chosenAmount,
+        fund: chosenFund,
+        channel: 'Paybill 567935 (Daraja C2B)',
+        verified: true
+      };
+
+      darajaGivingLedger.unshift(newTx);
+      renderFinanceLedgerTable();
+
+      // Recalculate KPI Totals
+      const totalAmount = darajaGivingLedger.reduce((sum, t) => sum + t.amount, 0);
+      const buildingFund = darajaGivingLedger.filter(t => t.fund === 'BUILDING').reduce((sum, t) => sum + t.amount, 0);
+      const titheFund = darajaGivingLedger.filter(t => t.fund === 'TITHE').reduce((sum, t) => sum + t.amount, 0);
+      const missionsFund = darajaGivingLedger.filter(t => t.fund === 'BENEVOLENCE').reduce((sum, t) => sum + t.amount, 0);
+
+      const elTotal = document.getElementById('finance-total-collections');
+      if (elTotal) elTotal.textContent = `KES ${(1135400 + chosenAmount).toLocaleString()}.00`;
+
+      const smsText = `${receiptNo} Confirmed. Ksh${chosenAmount.toLocaleString()}.00 sent to ICC KITENGELA (Paybill 567935, Acc: ${chosenFund}) on ${now.toLocaleDateString()} at ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}. New M-PESA balance is Ksh42,850.00. Transaction cost, Ksh0.00.`;
+      
+      const smsModalBody = document.getElementById('mpesa-receipt-sms-body');
+      if (smsModalBody) smsModalBody.innerHTML = smsText;
+      
+      document.getElementById('modal-mpesa-receipt').classList.remove('hidden');
+      showToast(`Daraja Webhook Received! KES ${chosenAmount.toLocaleString()} credited from ${chosenDonor} for ${chosenFund}.`);
+    }
+
+    function exportFinanceCSV() {
+      let csvContent = `Receipt,Date,Donor,Phone,Amount_KES,Fund,Channel,Status
+`;
+      darajaGivingLedger.forEach(t => {
+        csvContent += `${t.receipt},${t.date},"${t.name}",${t.phone},${t.amount},${t.fund},"${t.channel}",IPN Verified
+`;
+      });
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `ICC_Kitengela_Daraja_Ledger_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('M-Pesa Daraja ledger exported to CSV successfully.');
+    }
+
+    // ================= PASTORAL COUNSELING CONTROLLER =================
+    function completeCounseling(id) {
+      counselingDB = counselingDB.filter(c => c.id !== id);
+      const el = document.getElementById('counseling-item-' + id);
+      if (el) el.remove();
+      const countEl = document.getElementById('exec-counseling-count');
+      if (countEl) countEl.textContent = `${counselingDB.length} Appointments`;
+      showToast('Counseling session marked complete & prayer notes archived.');
+    }
+
+    function logCounselingNote(id) {
+      const note = prompt('Enter confidential pastoral counseling notes:');
+      if (note) {
+        showToast('Pastoral notes encrypted and saved to Senior Pastor vault.');
+      }
+    }
+
+
+    function broadcastSafariEncouragement() {
+      showToast('Pastoral encouragement SMS queued to all 18 Safari Cell Leaders: "Let us remain steadfast in fellowship and reaching our neighborhoods. - Rev. William Odero"');
+    }
+
+    function handleBookCounseling(event) {
+      event.preventDefault();
+      const name = document.getElementById('counseling-name')?.value || 'Anonymous Member';
+      const phone = document.getElementById('counseling-phone')?.value || '';
+      const pastor = document.getElementById('counseling-pastor')?.value || 'Rev. William Odero';
+      const focus = document.getElementById('counseling-focus')?.value || 'Spiritual Direction';
+      const slot = document.getElementById('counseling-slot')?.value || 'Tuesday 10:00 AM';
+      const notes = document.getElementById('counseling-notes')?.value || '';
+
+      const newAppt = { id: 'counsel-' + Date.now(), name, phone, minister: pastor, focus, slot, notes, date: 'Booked ' + new Date().toLocaleDateString() };
+      if (typeof counselingDB !== 'undefined') {
+        counselingDB.unshift(newAppt);
+        const countEl = document.getElementById('exec-counseling-count');
+        if (countEl) countEl.textContent = `${counselingDB.length} Appointments`;
+      }
+      showToast(`Pastoral appointment confirmed with ${pastor} for ${slot}. SMS confirmation sent to ${phone}.`);
+      event.target.reset();
+    }
+
+    // Initialize Phase 2 & 3 Tables on load
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof renderSafariGroupsList === 'function') renderSafariGroupsList();
+      if (typeof renderSafeCheckinTable === 'function') renderSafeCheckinTable();
+      if (typeof renderFinanceLedgerTable === 'function') renderFinanceLedgerTable();
+    });
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      if (typeof renderSafariGroupsList === 'function') renderSafariGroupsList();
+      if (typeof renderSafeCheckinTable === 'function') renderSafeCheckinTable();
+      if (typeof renderFinanceLedgerTable === 'function') renderFinanceLedgerTable();
+    }
+
   </script>
 </body>
 </html>
