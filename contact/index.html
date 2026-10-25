@@ -39,9 +39,9 @@
     }
   </script>
   <style>
-    /* Subtle transitions */
-    .view-container { display: none; }
-    .view-container.active { display: block; animation: fadeIn 0.18s ease-in-out; }
+    /* Department View Container Transitions */
+    .view-container { display: none !important; }
+    .view-container.active { display: flex !important; animation: fadeIn 0.18s ease-in-out; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
     .modal-backdrop { display: none; }
     .modal-backdrop.open { display: flex; }
@@ -3421,21 +3421,29 @@
     // ================= INITIALIZATION =================
     window.addEventListener('DOMContentLoaded', () => {
       // Route check from hash or path
-      const path = window.location.pathname.replace(/^\/+|\/+$/g, '');
-      const validRoutes = ['home', 'about', 'ministries', 'sermons', 'events', 'prayer', 'donate', 'contact'];
+      const path = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+      const validPublicRoutes = ['home', 'about', 'ministries', 'sermons', 'events', 'prayer', 'donate', 'contact'];
+      const validRoles = ['admin', 'media', 'finance', 'executive', 'member'];
       
-      if (validRoutes.includes(path)) {
+      if (validRoles.includes(path)) {
+        setRoleView(path);
+      } else if (validPublicRoutes.includes(path)) {
+        setRoleView('public');
         route(path);
       } else {
+        setRoleView('public');
         route('home');
       }
 
-      // Render dynamic grids
-      renderSermonsGrid();
-      renderAdminBookingsTable();
-      renderRequisitionsList();
-      renderVisitorAssimilationTable();
-      renderRunOfShowTable();
+      // Render dynamic grids & department tables
+      if (typeof renderSermonsGrid === 'function') renderSermonsGrid();
+      if (typeof renderAdminBookingsTable === 'function') renderAdminBookingsTable();
+      if (typeof renderRequisitionsList === 'function') renderRequisitionsList();
+      if (typeof renderVisitorAssimilationTable === 'function') renderVisitorAssimilationTable();
+      if (typeof renderRunOfShowTable === 'function') renderRunOfShowTable();
+      if (typeof renderSafariGroupsList === 'function') renderSafariGroupsList();
+      if (typeof renderSafeCheckinTable === 'function') renderSafeCheckinTable();
+      if (typeof renderFinanceLedgerTable === 'function') renderFinanceLedgerTable();
     });
 
     // ================= NAVIGATION & ROUTING =================
@@ -3480,10 +3488,14 @@
     function setRoleView(role) {
       currentRole = role;
 
-      // Toggle view containers
-      document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden'));
+      // Toggle view containers using .active class and hidden
+      document.querySelectorAll('.view-container').forEach(el => {
+        el.classList.remove('active');
+        el.classList.add('hidden');
+      });
       const targetView = document.getElementById('view-' + role);
       if (targetView) {
+        targetView.classList.add('active');
         targetView.classList.remove('hidden');
       }
 
@@ -3497,6 +3509,26 @@
         activePill.classList.remove('text-gray-300', 'font-medium');
         activePill.classList.add('bg-indigo-600', 'text-white', 'font-bold', 'shadow');
       }
+
+      // Department specific renders
+      if (role === 'media') {
+        if (typeof renderRunOfShowTable === 'function') renderRunOfShowTable();
+      } else if (role === 'admin') {
+        if (typeof renderAdminBookingsTable === 'function') renderAdminBookingsTable();
+        if (typeof renderRequisitionsList === 'function') renderRequisitionsList();
+        if (typeof renderVisitorAssimilationTable === 'function') renderVisitorAssimilationTable();
+        if (typeof renderSafeCheckinTable === 'function') renderSafeCheckinTable();
+      } else if (role === 'finance') {
+        if (typeof renderFinanceLedgerTable === 'function') renderFinanceLedgerTable();
+      } else if (role === 'executive') {
+        if (typeof renderSafariGroupsList === 'function') renderSafariGroupsList();
+      }
+
+      // Update browser URL without reload
+      try {
+        const path = role === 'public' ? (currentRoute === 'home' ? '/' : '/' + currentRoute) : '/' + role;
+        history.pushState({ role: role, route: currentRoute }, '', path);
+      } catch (e) {}
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
