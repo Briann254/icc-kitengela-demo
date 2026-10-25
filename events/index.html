@@ -57,7 +57,7 @@
       <span class="text-gray-400 hidden sm:inline">&middot; System Live Preview</span>
     </div>
 
-        <!-- Role Switcher Pills -->
+            <!-- Role Switcher Pills -->
     <div class="flex items-center gap-1.5 flex-wrap">
       <span class="text-gray-400 font-semibold mr-1 hidden md:inline uppercase tracking-wider text-[10px]">Switch View:</span>
       <button onclick="setRoleView('public')" id="pill-public" class="role-pill px-3 py-1 rounded-md font-bold transition flex items-center gap-1.5 bg-indigo-600 text-white shadow">
@@ -80,6 +80,28 @@
       </button>
     </div>
   </header>
+
+    <!-- DYNAMIC LIVE STREAM BANNER (SYNCED WITH MEDIA CONSOLE) -->
+    <div id="global-live-banner" class="hidden bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white px-4 py-3 shadow-lg z-30 transition-all">
+      <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-3 text-xs">
+        <div class="flex items-center gap-2.5">
+          <span class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+          </span>
+          <span class="font-extrabold uppercase tracking-wider text-[10px] bg-black/20 px-2 py-0.5 rounded">Live Now</span>
+          <span id="live-banner-service-name" class="font-bold">Sunday Service is Streaming Live from ICC Kitengela Sanctuary</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="route('sermons'); scrollToSermonPlayer();" class="px-3.5 py-1.5 bg-white text-red-700 font-extrabold rounded-lg hover:bg-red-50 transition shadow-sm flex items-center gap-1.5">
+            <span>▶</span> Watch Live Stream
+          </button>
+          <button onclick="setRoleView('media')" class="px-3 py-1.5 bg-black/20 hover:bg-black/30 text-white font-medium rounded-lg transition text-[11px]">
+            Media Booth &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- DYNAMIC LIVE STREAM BANNER (SYNCED WITH MEDIA CONSOLE) -->
     <div id="global-live-banner" class="hidden bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white px-4 py-3 shadow-lg z-30 transition-all">
@@ -704,7 +726,7 @@
         </section>
       </div>
 
-            <!-- PAGE: SERMONS -->
+                  <!-- PAGE: SERMONS -->
       <div id="subpage-sermons" class="public-subpage hidden">
         <section class="bg-indigo-900 text-white py-14 text-center relative overflow-hidden">
           <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#facc15_1px,transparent_1px)] [background-size:16px_16px]"></div>
@@ -1453,7 +1475,7 @@
   </div>
 
 
-    <!-- ================= ROLE VIEW 4: CHURCH ADMINISTRATOR ================= -->
+      <!-- ================= ROLE VIEW 4: CHURCH ADMINISTRATOR ================= -->
   <div id="view-admin" class="view-container flex-1 bg-gray-100 flex flex-col">
     <!-- Admin Header -->
     <header class="bg-slate-900 text-white px-6 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4 sticky top-[41px] z-30 shadow-md">
@@ -2271,6 +2293,141 @@
     </div>
   </div>
 
+
+    <!-- ================= PHASE 1 INTERACTIVE MODALS ================= -->
+  
+  <!-- Modal: Study Notes View / Download -->
+  <div id="modal-study-notes" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden border border-gray-200 animate-fadeIn">
+      <div class="bg-indigo-900 text-white p-5 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] uppercase font-bold text-accent-400 tracking-wider">ICC Kitengela Discipleship &amp; Sermon Notes</span>
+          <h3 id="modal-notes-title" class="text-base font-extrabold">Kingdom Greatness — Study Guide</h3>
+        </div>
+        <button onclick="closeModal('modal-study-notes')" class="text-gray-300 hover:text-white text-lg p-1">✕</button>
+      </div>
+      <div class="p-6 max-h-[70vh] overflow-y-auto space-y-4 text-xs text-gray-700 leading-relaxed">
+        <div class="p-3.5 bg-indigo-50/70 rounded-xl border border-indigo-100 flex items-center justify-between text-indigo-900 font-medium">
+          <span><strong>Scripture:</strong> Matthew 18:1-5</span>
+          <span><strong>Preacher:</strong> Pst. Alice Kitonga</span>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-900 text-sm mb-1.5">1. The Childlike Posture of Faith</h4>
+          <p>
+            In the Kingdom of God, greatness is measured not by earthly status, leverage, or prominence, but by humility and complete dependence on the Father. A child does not boast of self-sufficiency; they look entirely to their parent for sustenance and guidance.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-900 text-sm mb-1.5">2. Unmasking Spiritual Pride</h4>
+          <p>
+            The disciples disputed among themselves about who would be the greatest. Jesus responded by positioning a small child in their midst. True spiritual maturity manifests as servant-hearted posture in your family, Safari group, and workplace.
+          </p>
+        </div>
+        <div class="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-2">
+          <h4 class="font-bold text-gray-900 text-xs uppercase tracking-wide">Safari Group Reflection Questions</h4>
+          <ul class="list-disc list-inside space-y-1 text-gray-600">
+            <li>In what areas of your career or family are you struggling to surrender control to God?</li>
+            <li>How can our fellowship group hold each other accountable to servant leadership this week?</li>
+          </ul>
+        </div>
+      </div>
+      <div class="p-4 bg-gray-50 border-t border-gray-100 flex items-center justify-end gap-2.5">
+        <button onclick="downloadSermonGuide()" class="px-4 py-2 bg-indigo-700 hover:bg-indigo-800 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5">
+          <span>⬇</span> Download PDF Notes
+        </button>
+        <button onclick="closeModal('modal-study-notes')" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-xs rounded-xl transition">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: New Venue Reservation -->
+  <div id="modal-new-booking" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden border border-gray-200 animate-fadeIn">
+      <div class="bg-slate-900 text-white p-5 flex items-center justify-between">
+        <div>
+          <h3 class="text-base font-extrabold">Reserve Campus Facility / Asset</h3>
+          <p class="text-xs text-slate-400">Prevents clashes across sanctuary, halls and church transport.</p>
+        </div>
+        <button onclick="closeModal('modal-new-booking')" class="text-gray-300 hover:text-white text-lg p-1">✕</button>
+      </div>
+      <form onsubmit="handleNewBookingSubmit(event)" class="p-6 space-y-4 text-xs">
+        <div class="space-y-1">
+          <label class="font-bold text-gray-700">Facility / Space *</label>
+          <select id="booking-facility" required class="w-full p-2.5 border border-gray-200 rounded-xl bg-gray-50 font-medium">
+            <option value="Main Sanctuary">Main Sanctuary (2,000 seats)</option>
+            <option value="Enkasiti Hall">Enkasiti Hall (250 seats)</option>
+            <option value="Youth Center">Youth Center (400 seats)</option>
+            <option value="Executive Boardroom">Executive Boardroom (20 seats)</option>
+            <option value="Church 33-Seater Minibus">Church 33-Seater Minibus</option>
+          </select>
+        </div>
+        <div class="space-y-1">
+          <label class="font-bold text-gray-700">Event / Purpose Title *</label>
+          <input id="booking-event" type="text" required placeholder="e.g. Couples Ministry Dinner" class="w-full p-2.5 border border-gray-200 rounded-xl bg-gray-50">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="space-y-1">
+            <label class="font-bold text-gray-700">Department *</label>
+            <select id="booking-dept" class="w-full p-2.5 border border-gray-200 rounded-xl bg-gray-50">
+              <option value="Family &amp; Couples">Family &amp; Couples</option>
+              <option value="Youth &amp; Teens">Youth &amp; Teens</option>
+              <option value="Men of Valor">Men of Valor</option>
+              <option value="Women of Grace">Women of Grace</option>
+              <option value="Music Ministry">Music Ministry</option>
+            </select>
+          </div>
+          <div class="space-y-1">
+            <label class="font-bold text-gray-700">Date &amp; Time Window *</label>
+            <input id="booking-time" type="text" required placeholder="e.g. Sat, Nov 7 &middot; 4pm - 8pm" class="w-full p-2.5 border border-gray-200 rounded-xl bg-gray-50">
+          </div>
+        </div>
+        <div class="pt-3 flex items-center justify-end gap-2.5">
+          <button type="button" onclick="closeModal('modal-new-booking')" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl">Cancel</button>
+          <button type="submit" class="px-5 py-2 bg-indigo-700 hover:bg-indigo-800 text-white font-bold rounded-xl shadow">Confirm Reservation</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Bulk SMS Quick Blast -->
+  <div id="modal-admin-sms" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden border border-gray-200 animate-fadeIn">
+      <div class="bg-indigo-900 text-white p-5 flex items-center justify-between">
+        <div>
+          <h3 class="text-base font-extrabold">📲 ICC Kitengela SMS Gateway</h3>
+          <p class="text-xs text-indigo-200">AfricasTalking / SMSLeopard &middot; Sender ID: ICC-KTG</p>
+        </div>
+        <button onclick="closeModal('modal-admin-sms')" class="text-gray-300 hover:text-white text-lg p-1">✕</button>
+      </div>
+      <form onsubmit="handleAdminSendSMS(event)" class="p-6 space-y-4 text-xs">
+        <div class="space-y-1">
+          <label class="font-bold text-gray-700">Recipient Target Segment *</label>
+          <select id="admin-sms-recipient" class="w-full p-2.5 border border-gray-200 rounded-xl bg-gray-50 font-medium">
+            <option value="All Sunday Duty Roster (48 Staff)">All Sunday Duty Roster (48 Staff &amp; Volunteers)</option>
+            <option value="First-Time Visitors (Past 30 Days - 14 Guests)">First-Time Visitors (Past 30 Days - 14 Guests)</option>
+            <option value="Safari (Cell) Group Leaders (22 Leaders)">Safari (Cell) Group Leaders (22 Leaders)</option>
+            <option value="Whole Registered Church Congregation (1,840 Members)">Whole Registered Church Congregation (1,840 Members)</option>
+          </select>
+        </div>
+        <div class="space-y-1">
+          <label class="font-bold text-gray-700">SMS Message Content *</label>
+          <textarea id="admin-sms-text" rows="3" required oninput="updateSmsCharCount(this.value)" class="w-full p-3 border border-gray-200 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-600">Reminder: Sunday service briefing begins at 7:15 AM sharp in Enkasiti Hall. Please be on time for prayer and station check. God bless you.</textarea>
+          <div class="flex justify-between text-[11px] text-gray-400 font-mono mt-1">
+            <span id="sms-char-counter">145 / 160 characters (1 SMS)</span>
+            <span>Sender: ICC-KTG</span>
+          </div>
+        </div>
+        <div class="pt-3 flex items-center justify-end gap-2.5">
+          <button type="button" onclick="closeModal('modal-admin-sms')" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl">Cancel</button>
+          <button type="submit" class="px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl shadow flex items-center gap-1.5">
+            <span>🚀</span> Send Broadcast Now
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 
     <!-- ================= PHASE 1 INTERACTIVE MODALS ================= -->
   
