@@ -57,7 +57,7 @@
       <span class="text-gray-400 hidden sm:inline">&middot; System Live Preview</span>
     </div>
 
-    <!-- Role Switcher Pills -->
+        <!-- Role Switcher Pills -->
     <div class="flex items-center gap-1.5 flex-wrap">
       <span class="text-gray-400 font-semibold mr-1 hidden md:inline uppercase tracking-wider text-[10px]">Switch View:</span>
       <button onclick="setRoleView('public')" id="pill-public" class="role-pill px-3 py-1 rounded-md font-bold transition flex items-center gap-1.5 bg-indigo-600 text-white shadow">
@@ -66,22 +66,42 @@
       <button onclick="setRoleView('executive')" id="pill-executive" class="role-pill px-3 py-1 rounded-md font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition flex items-center gap-1.5">
         <span>👑</span> Senior Pastor / Executive
       </button>
-      <button onclick="setRoleView('finance')" id="pill-finance" class="role-pill px-3 py-1 rounded-md font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition flex items-center gap-1.5">
-        <span>💼</span> Finance / Treasurer
-      </button>
       <button onclick="setRoleView('admin')" id="pill-admin" class="role-pill px-3 py-1 rounded-md font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition flex items-center gap-1.5">
         <span>⚡</span> Church Administrator
+      </button>
+      <button onclick="setRoleView('media')" id="pill-media" class="role-pill px-3 py-1 rounded-md font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition flex items-center gap-1.5">
+        <span>🎬</span> Media &amp; Production
+      </button>
+      <button onclick="setRoleView('finance')" id="pill-finance" class="role-pill px-3 py-1 rounded-md font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition flex items-center gap-1.5">
+        <span>💼</span> Finance / Treasurer
       </button>
       <button onclick="setRoleView('member')" id="pill-member" class="role-pill px-3 py-1 rounded-md font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition flex items-center gap-1.5">
         <span>🙏</span> Mary Kamau (Member)
       </button>
     </div>
-
-    <div class="hidden lg:flex items-center gap-3 text-gray-400 text-[11px]">
-      <span>Paybill: <strong class="text-accent-400">567935</strong></span>
-      <span>Joshua 1:9</span>
-    </div>
   </header>
+
+    <!-- DYNAMIC LIVE STREAM BANNER (SYNCED WITH MEDIA CONSOLE) -->
+    <div id="global-live-banner" class="hidden bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white px-4 py-3 shadow-lg z-30 transition-all">
+      <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-3 text-xs">
+        <div class="flex items-center gap-2.5">
+          <span class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+          </span>
+          <span class="font-extrabold uppercase tracking-wider text-[10px] bg-black/20 px-2 py-0.5 rounded">Live Now</span>
+          <span id="live-banner-service-name" class="font-bold">Sunday Service is Streaming Live from ICC Kitengela Sanctuary</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="route('sermons'); scrollToSermonPlayer();" class="px-3.5 py-1.5 bg-white text-red-700 font-extrabold rounded-lg hover:bg-red-50 transition shadow-sm flex items-center gap-1.5">
+            <span>▶</span> Watch Live Stream
+          </button>
+          <button onclick="setRoleView('media')" class="px-3 py-1.5 bg-black/20 hover:bg-black/30 text-white font-medium rounded-lg transition text-[11px]">
+            Media Booth &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
 
   <!-- ================= PUBLIC CHURCH WEBSITE (SYSTEM DEFAULT LOOK) ================= -->
   <div id="view-public" class="view-container active flex-1 flex flex-col">
@@ -684,57 +704,160 @@
         </section>
       </div>
 
-      <!-- PAGE: SERMONS -->
+            <!-- PAGE: SERMONS -->
       <div id="subpage-sermons" class="public-subpage hidden">
-        <section class="bg-indigo-900 text-white py-14 text-center">
-          <div class="max-w-4xl mx-auto px-4">
-            <span class="text-xs uppercase tracking-wider text-accent-400 font-bold">Watch &amp; Grow</span>
-            <h1 class="text-3xl sm:text-5xl font-extrabold mt-2">Sermons &amp; Teachings</h1>
-            <p class="text-indigo-200 text-sm mt-3">Stream sermons preached by Senior Pastor Rev. William Odero &amp; pastors on YouTube.</p>
+        <section class="bg-indigo-900 text-white py-14 text-center relative overflow-hidden">
+          <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#facc15_1px,transparent_1px)] [background-size:16px_16px]"></div>
+          <div class="max-w-4xl mx-auto px-4 relative z-10">
+            <span class="text-xs uppercase tracking-wider text-accent-400 font-bold bg-accent-400/10 px-3 py-1 rounded-full border border-accent-400/20">Watch &middot; Listen &middot; Grow</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold mt-3 tracking-tight">Sermons &amp; Teachings</h1>
+            <p class="text-indigo-200 text-sm mt-3 max-w-2xl mx-auto leading-relaxed">
+              Empowering messages from Senior Pastor Rev. William Odero and ICC Kitengela ministerial team. Stream Sunday sermons on video or listen to audio podcasts on your commute.
+            </p>
+            <div class="flex items-center justify-center gap-3 mt-5 text-xs text-indigo-300">
+              <span class="flex items-center gap-1.5"><span>📹</span> 85+ Recorded Teachings</span>
+              <span>&middot;</span>
+              <span class="flex items-center gap-1.5"><span>🎧</span> Audio Podcasts</span>
+              <span>&middot;</span>
+              <span class="flex items-center gap-1.5"><span>📄</span> Study Notes Included</span>
+            </div>
           </div>
         </section>
 
-        <section class="py-12 max-w-6xl mx-auto px-4 sm:px-6">
-          <!-- Featured Sermon Player -->
-          <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12">
-            <div class="aspect-video bg-gray-950 w-full max-h-[500px]">
-              <iframe id="main-sermon-player" class="w-full h-full" src="https://www.youtube.com/embed/l054ZoKcUGk" title="Featured Sermon" allowfullscreen></iframe>
-            </div>
-            <div class="p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div>
-                <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Now Playing &middot; ICC Kitengela YouTube</span>
-                <h2 id="main-sermon-title" class="text-xl sm:text-2xl font-extrabold text-gray-900 mt-1">NEXT GEN SUNDAY | KINGDOM GREATNESS</h2>
-                <p id="main-sermon-meta" class="text-xs text-gray-500 mt-1">Speaker: Pst. Alice Kitonga &middot; Scripture: Matthew 18:1-5</p>
+        <section class="py-10 max-w-6xl mx-auto px-4 sm:px-6 space-y-8">
+          <!-- Live Stream Active Callout (Auto-toggled when Media Team goes Live) -->
+          <div id="sermons-live-alert" class="hidden bg-gradient-to-r from-red-500 to-rose-600 text-white p-4 sm:p-5 rounded-2xl shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4 border border-red-400">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-xl flex-shrink-0">
+                🔴
               </div>
-              <button onclick="showToast('Sermon study notes downloaded (PDF)')" class="px-5 py-2.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 font-bold text-xs rounded-xl transition border border-indigo-200 flex items-center gap-2">
-                <span>📄</span> Download Sermon Notes
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 bg-white text-red-700 font-black text-[10px] uppercase rounded-full tracking-wider">Live Now</span>
+                  <h3 id="sermons-live-title" class="font-extrabold text-sm sm:text-base">2nd Sunday Service — Rev. William Odero</h3>
+                </div>
+                <p class="text-xs text-red-100 mt-0.5">Broadcasting live from the ICC Kitengela Sanctuary. Praise &amp; Worship &amp; Preaching.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="switchSermonToLive()" class="px-4 py-2 bg-white text-red-700 text-xs font-bold rounded-xl shadow hover:bg-red-50 transition">
+                Stream Live Player
+              </button>
+              <button onclick="route('donate')" class="px-3.5 py-2 bg-red-800/60 hover:bg-red-800 text-white text-xs font-semibold rounded-xl transition">
+                Give via M-Pesa
               </button>
             </div>
           </div>
 
-          <!-- Sermon Grid -->
-          <h3 class="text-lg font-bold text-gray-900 mb-6">More Teachings from Rev. William Odero &amp; Ministers</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div onclick="switchSermon('RDqg7Uvlf9U', 'Worship Experience | Encountering His Presence', 'ICC Kitengela Music Team')" class="cursor-pointer bg-white rounded-xl border border-gray-200 p-5 hover:border-indigo-400 hover:shadow-md transition">
-              <span class="text-xs bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded font-bold">Worship Night</span>
-              <h4 class="font-bold text-gray-900 mt-2 text-sm">Worship Experience | ICC Kitengela</h4>
-              <p class="text-xs text-gray-500 mt-1">An extended night of worship and surrender.</p>
-              <span class="text-xs text-indigo-600 font-bold mt-3 inline-block">▶ Play Video</span>
+          <!-- Featured Sermon Player Section -->
+          <div id="featured-sermon-container" class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="aspect-video bg-gray-950 w-full max-h-[520px] relative">
+              <iframe id="main-sermon-player" class="w-full h-full" src="https://www.youtube.com/embed/l054ZoKcUGk" title="Featured Sermon" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="p-6 sm:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6 bg-white">
+              <div class="space-y-2 flex-1">
+                <div class="flex items-center gap-2 flex-wrap text-xs">
+                  <span id="main-sermon-series" class="px-2.5 py-0.5 bg-indigo-50 text-indigo-700 font-bold rounded-full">Series: Kingdom Greatness</span>
+                  <span id="main-sermon-scripture" class="px-2.5 py-0.5 bg-amber-50 text-amber-800 font-bold rounded-full font-mono">Matthew 18:1-5</span>
+                  <span class="text-gray-400">&middot;</span>
+                  <span id="main-sermon-date" class="text-gray-500 font-medium">ICC Kitengela Sanctuary</span>
+                </div>
+                <h2 id="main-sermon-title" class="text-xl sm:text-2xl font-extrabold text-gray-900 leading-snug">NEXT GEN SUNDAY | KINGDOM GREATNESS</h2>
+                <p id="main-sermon-meta" class="text-xs text-gray-500 font-medium">Speaker: Pst. Alice Kitonga &middot; Pastoral Staff</p>
+              </div>
+              
+              <div class="flex flex-wrap items-center gap-2.5 flex-shrink-0">
+                <button onclick="playActiveAudioSermon()" class="px-4 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs rounded-xl border border-indigo-200 flex items-center gap-2 transition shadow-sm">
+                  <span>🎧</span> Listen Audio
+                </button>
+                <button onclick="openStudyNotesModal()" class="px-4 py-2.5 bg-gray-50 hover:bg-gray-100 text-gray-700 font-bold text-xs rounded-xl border border-gray-200 flex items-center gap-2 transition">
+                  <span>📄</span> Sermon Notes
+                </button>
+                <button onclick="downloadSermonGuide()" class="px-4 py-2.5 bg-indigo-700 hover:bg-indigo-800 text-white font-bold text-xs rounded-xl transition shadow flex items-center gap-2">
+                  <span>⬇</span> Study Guide
+                </button>
+              </div>
             </div>
 
-            <div onclick="switchSermon('BUG6aHzPK3s', 'Understanding Ministry Gifts in the Body of Christ', 'Rev. William Odero')" class="cursor-pointer bg-white rounded-xl border border-gray-200 p-5 hover:border-indigo-400 hover:shadow-md transition">
-              <span class="text-xs bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded font-bold">Ministry Gifts</span>
-              <h4 class="font-bold text-gray-900 mt-2 text-sm">Understanding Ministry Gifts</h4>
-              <p class="text-xs text-gray-500 mt-1">Equipping believers for the work of service.</p>
-              <span class="text-xs text-indigo-600 font-bold mt-3 inline-block">▶ Play Video</span>
+            <!-- Embedded Interactive Audio Player Bar -->
+            <div id="audio-player-drawer" class="hidden border-t border-indigo-100 bg-indigo-950 text-white p-4 px-6 flex flex-wrap items-center justify-between gap-4 text-xs animate-fadeIn">
+              <div class="flex items-center gap-3">
+                <button id="audio-play-toggle-btn" onclick="toggleAudioPlayback()" class="w-10 h-10 rounded-full bg-accent-400 hover:bg-accent-500 text-indigo-950 font-black flex items-center justify-center text-sm shadow transition">
+                  ▶
+                </button>
+                <div>
+                  <span class="text-[10px] text-accent-300 font-bold uppercase tracking-wider block">Audio Podcast Stream</span>
+                  <strong id="audio-player-title" class="text-white font-bold text-xs block truncate max-w-xs sm:max-w-md">NEXT GEN SUNDAY | KINGDOM GREATNESS</strong>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 flex-1 max-w-md mx-auto w-full sm:w-auto">
+                <span id="audio-current-time" class="text-[11px] font-mono text-gray-400 w-10 text-right">00:00</span>
+                <input id="audio-scrubber" type="range" min="0" max="100" value="0" oninput="scrubAudio(this.value)" class="w-full accent-accent-400 cursor-pointer h-1.5 bg-gray-800 rounded-lg">
+                <span id="audio-total-duration" class="text-[11px] font-mono text-gray-400 w-10">42:15</span>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button onclick="cyclePlaybackSpeed()" id="audio-speed-btn" class="px-2.5 py-1 bg-white/10 hover:bg-white/20 text-white text-[11px] font-bold rounded-md font-mono">
+                  1.0x
+                </button>
+                <button onclick="closeAudioDrawer()" class="p-1.5 text-gray-400 hover:text-white rounded-lg text-sm">
+                  ✕
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sermon Filter & Search Bar -->
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-gray-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0">
+              <span class="text-xs text-gray-400 font-bold mr-1 uppercase tracking-wider text-[10px]">Filter:</span>
+              <button onclick="filterSermonsBySeries('all')" class="sermon-filter-pill active px-3.5 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white transition">All Messages</button>
+              <button onclick="filterSermonsBySeries('Dominion')" class="sermon-filter-pill px-3.5 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-gray-100 transition">Walking in Dominion</button>
+              <button onclick="filterSermonsBySeries('Kingdom')" class="sermon-filter-pill px-3.5 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-gray-100 transition">Kingdom Greatness</button>
+              <button onclick="filterSermonsBySeries('Encounter')" class="sermon-filter-pill px-3.5 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-gray-100 transition">Encounter Series</button>
+              <button onclick="filterSermonsBySeries('Worship')" class="sermon-filter-pill px-3.5 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-gray-100 transition">Worship Nights</button>
             </div>
 
-            <div onclick="switchSermon('a7W_uq_lB1Q', 'Encounter Service | Understanding the Church', 'Rev. William Odero')" class="cursor-pointer bg-white rounded-xl border border-gray-200 p-5 hover:border-indigo-400 hover:shadow-md transition">
-              <span class="text-xs bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded font-bold">Encounter Service</span>
-              <h4 class="font-bold text-gray-900 mt-2 text-sm">Understanding the Church</h4>
-              <p class="text-xs text-gray-500 mt-1">God's eternal blueprint for the local assembly.</p>
-              <span class="text-xs text-indigo-600 font-bold mt-3 inline-block">▶ Play Video</span>
+            <div class="flex items-center gap-2 w-full md:w-auto">
+              <select id="sermon-speaker-select" onchange="applySermonFilters()" class="text-xs p-2 rounded-xl border border-gray-200 focus:outline-none bg-gray-50 font-medium text-gray-700">
+                <option value="all">All Speakers</option>
+                <option value="Rev. William Odero">Rev. William Odero</option>
+                <option value="Pst. Alice Kitonga">Pst. Alice Kitonga</option>
+                <option value="Music Team">Music &amp; Worship Team</option>
+              </select>
+              <div class="relative flex-1 md:w-56">
+                <input id="sermon-search-query" oninput="applySermonFilters()" type="text" placeholder="Search sermon or scripture..." class="w-full pl-8 pr-3 py-2 text-xs bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                <span class="absolute left-2.5 top-2 text-gray-400 text-xs">🔍</span>
+              </div>
             </div>
+          </div>
+
+          <!-- Dynamic Sermon Cards Grid (Populated via JS) -->
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-base font-extrabold text-gray-900">Recent Teachings &amp; Video Archive</h3>
+              <span id="sermon-count-badge" class="text-xs text-gray-500 font-semibold">Showing all sermons</span>
+            </div>
+            <div id="sermons-dynamic-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <!-- Populated by renderSermonsGrid() -->
+            </div>
+          </div>
+
+          <!-- Media Team Ingestion Callout -->
+          <div class="p-6 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white font-extrabold flex items-center justify-center text-lg flex-shrink-0">
+                🎬
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-900 text-sm">Media &amp; Technical Production Team Console</h4>
+                <p class="text-xs text-gray-500">Manage Sunday service run-of-show, trigger YouTube live sync, and publish new sermons directly.</p>
+              </div>
+            </div>
+            <button onclick="setRoleView('media')" class="px-4 py-2 bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-bold rounded-xl transition shadow flex-shrink-0">
+              Open Media Console &rarr;
+            </button>
           </div>
         </section>
       </div>
@@ -1330,64 +1453,761 @@
   </div>
 
 
-  <!-- ================= ROLE VIEW 4: CHURCH ADMINISTRATOR ================= -->
+    <!-- ================= ROLE VIEW 4: CHURCH ADMINISTRATOR ================= -->
   <div id="view-admin" class="view-container flex-1 bg-gray-100 flex flex-col">
-    <header class="bg-gray-900 text-white px-6 py-4 border-b border-gray-800 flex flex-wrap items-center justify-between gap-4">
+    <!-- Admin Header -->
+    <header class="bg-slate-900 text-white px-6 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4 sticky top-[41px] z-30 shadow-md">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white font-extrabold flex items-center justify-center text-xl shadow">
           ⚡
         </div>
         <div>
-          <h1 class="text-lg font-extrabold leading-tight">Church Administration Central</h1>
-          <p class="text-xs text-gray-400">Database &middot; Groups &middot; SMS Communication</p>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg font-extrabold leading-tight">Church Administration Central</h1>
+            <span class="px-2 py-0.5 bg-indigo-500/30 text-indigo-300 border border-indigo-500/40 text-[10px] font-bold rounded-full uppercase">Staff Ops</span>
+          </div>
+          <p class="text-xs text-slate-400">Logged in: Elder David Mwangi &middot; Operations &amp; Ministry Facilities Lead</p>
         </div>
       </div>
-      <button onclick="setRoleView('public')" class="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-bold transition">
-        &larr; Public Church Website
-      </button>
+      <div class="flex items-center gap-2.5">
+        <button onclick="setRoleView('media')" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-slate-700">
+          <span>🎬</span> Media Hub
+        </button>
+        <button onclick="setRoleView('public')" class="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-bold transition">
+          &larr; Public Church Website
+        </button>
+      </div>
     </header>
 
+    <!-- Admin Sub-Navigation Bar -->
+    <div class="bg-white border-b border-gray-200 px-6 py-2.5 flex items-center justify-between gap-4 overflow-x-auto text-xs font-semibold">
+      <div class="flex items-center gap-2">
+        <button onclick="switchAdminTab('bookings')" id="admin-tab-btn-bookings" class="admin-tab-btn px-3 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 font-bold transition flex items-center gap-1.5">
+          <span>🏢</span> Facility &amp; Venues
+        </button>
+        <button onclick="switchAdminTab('roster')" id="admin-tab-btn-roster" class="admin-tab-btn px-3 py-1.5 rounded-lg text-gray-600 hover:bg-gray-100 transition flex items-center gap-1.5">
+          <span>👥</span> Sunday Duty Roster
+        </button>
+        <button onclick="switchAdminTab('requisitions')" id="admin-tab-btn-requisitions" class="admin-tab-btn px-3 py-1.5 rounded-lg text-gray-600 hover:bg-gray-100 transition flex items-center gap-1.5">
+          <span>💸</span> Requisitions &amp; Petty Cash
+          <span id="admin-req-count-badge" class="px-1.5 py-0.2 bg-amber-100 text-amber-800 rounded-full text-[10px] font-bold">3</span>
+        </button>
+        <button onclick="switchAdminTab('assimilation')" id="admin-tab-btn-assimilation" class="admin-tab-btn px-3 py-1.5 rounded-lg text-gray-600 hover:bg-gray-100 transition flex items-center gap-1.5">
+          <span>🤝</span> Visitor Assimilation
+        </button>
+        <button onclick="switchAdminTab('sms')" id="admin-tab-btn-sms" class="admin-tab-btn px-3 py-1.5 rounded-lg text-gray-600 hover:bg-gray-100 transition flex items-center gap-1.5">
+          <span>📲</span> Bulk SMS Station
+        </button>
+      </div>
+      <div class="hidden lg:flex items-center gap-2 text-gray-400 text-[11px]">
+        <span>Namanga Road Campus</span>
+        <span>&middot;</span>
+        <span>Assemblies of God</span>
+      </div>
+    </div>
+
+    <!-- Admin Main Body Container -->
     <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-          <h3 class="font-extrabold text-gray-900 text-base mb-1">Bulk SMS Broadcast</h3>
-          <p class="text-xs text-gray-500 mb-4">Send service reminders or pastoral messages to 1,248 members.</p>
-          <textarea rows="3" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:outline-none mb-3" placeholder="Reminder: Midweek Bible Study starts at 6:30 PM tomorrow..."></textarea>
-          <button onclick="showToast('Bulk SMS dispatched to 1,248 congregants')" class="w-full py-2 bg-indigo-700 text-white text-xs font-bold rounded-lg hover:bg-indigo-800 transition">
-            Dispatch SMS Broadcast
-          </button>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-          <h3 class="font-extrabold text-gray-900 text-base mb-1">Cell Group Rosters</h3>
-          <p class="text-xs text-gray-500 mb-4">Manage the 18 Connected &amp; Anchored estate cells in Kitengela.</p>
-          <ul class="text-xs space-y-2 mb-4">
-            <li class="flex justify-between p-2 bg-gray-50 rounded-lg"><span>Enkasiti Cell</span><strong>24 Members</strong></li>
-            <li class="flex justify-between p-2 bg-gray-50 rounded-lg"><span>Yukos Cell</span><strong>19 Members</strong></li>
-            <li class="flex justify-between p-2 bg-gray-50 rounded-lg"><span>Acacia Cell</span><strong>22 Members</strong></li>
-          </ul>
-          <button onclick="showToast('Opened Full Cell Roster')" class="w-full py-2 border border-gray-300 text-gray-700 text-xs font-bold rounded-lg hover:bg-gray-50 transition">
-            Manage All 18 Cells &rarr;
-          </button>
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-          <h3 class="font-extrabold text-gray-900 text-base mb-1">Digital Connect Cards</h3>
-          <p class="text-xs text-gray-500 mb-4">Visitor submissions from public website ready for assimilation.</p>
-          <div class="p-3 bg-indigo-50 border border-indigo-100 rounded-xl text-xs mb-4">
-            <p class="font-bold text-indigo-900">Brian Ochieng (0720***123)</p>
-            <p class="text-gray-500 text-[11px]">Visiting from Yukos Estate. Interested in Men of Valor.</p>
+      
+      <!-- Admin KPI Row -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Campus Venues</span>
+            <span class="p-1 bg-indigo-50 text-indigo-700 rounded-lg text-xs">5 Spaces</span>
           </div>
-          <button onclick="showToast('Assigned to Yukos Home Cell Leader')" class="w-full py-2 bg-indigo-700 text-white text-xs font-bold rounded-lg hover:bg-indigo-800 transition">
-            Assign to Cell Leader
-          </button>
+          <p class="text-2xl font-extrabold text-gray-900 mt-2">Sanctuary &amp; 4 Halls</p>
+          <span class="inline-block mt-2 text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">✓ 0 Schedule Clashes</span>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Sunday Roster</span>
+            <span class="p-1 bg-blue-50 text-blue-700 rounded-lg text-xs">3 Services</span>
+          </div>
+          <p class="text-2xl font-extrabold text-gray-900 mt-2">48 Volunteers On Duty</p>
+          <span class="inline-block mt-2 text-xs text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded-full">Media, Ushers, Choir</span>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Petty Cash Fund</span>
+            <span class="p-1 bg-emerald-50 text-emerald-700 rounded-lg text-xs">Oct 2026</span>
+          </div>
+          <p id="admin-petty-cash-display" class="text-2xl font-extrabold text-indigo-700 mt-2 font-mono">KES 35,300.00</p>
+          <span class="inline-block mt-2 text-xs text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded-full">3 Requisitions Pending</span>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Visitor Pipeline</span>
+            <span class="p-1 bg-amber-50 text-amber-700 rounded-lg text-xs">Assimilation</span>
+          </div>
+          <p class="text-2xl font-extrabold text-amber-600 mt-2">14 Guests Active</p>
+          <span class="inline-block mt-2 text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">5 Plugged in this month</span>
         </div>
       </div>
+
+      <!-- TAB 1: FACILITY & VENUE BOOKINGS -->
+      <div id="admin-content-bookings" class="admin-tab-content space-y-6">
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-sm space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-gray-100">
+            <div>
+              <h2 class="text-base font-extrabold text-gray-900">Campus Facility &amp; Asset Booking Schedule</h2>
+              <p class="text-xs text-gray-500 mt-0.5">Manage sanctuary, ministry halls, vehicles, and avoid departmental booking collisions.</p>
+            </div>
+            <button onclick="openNewBookingModal()" class="px-4 py-2 bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-bold rounded-xl transition shadow flex items-center gap-1.5 flex-shrink-0">
+              <span>+</span> New Venue Reservation
+            </button>
+          </div>
+
+          <!-- Facility Quick Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+            <div class="p-3.5 bg-gray-50 rounded-xl border border-gray-200">
+              <span class="text-gray-400 font-bold uppercase text-[10px] block">Main Sanctuary</span>
+              <strong class="text-gray-900 block mt-1">Cap: 2,000 Seats</strong>
+              <span class="text-emerald-700 text-[11px] font-semibold mt-1 block">✓ Available Sat PM</span>
+            </div>
+            <div class="p-3.5 bg-gray-50 rounded-xl border border-gray-200">
+              <span class="text-gray-400 font-bold uppercase text-[10px] block">Enkasiti Hall</span>
+              <strong class="text-gray-900 block mt-1">Cap: 250 Seats</strong>
+              <span class="text-indigo-600 text-[11px] font-semibold mt-1 block">Midweek Prayer Thu</span>
+            </div>
+            <div class="p-3.5 bg-gray-50 rounded-xl border border-gray-200">
+              <span class="text-gray-400 font-bold uppercase text-[10px] block">Youth Center</span>
+              <strong class="text-gray-900 block mt-1">Cap: 400 Seats</strong>
+              <span class="text-indigo-600 text-[11px] font-semibold mt-1 block">Teens Engage Sat 3pm</span>
+            </div>
+            <div class="p-3.5 bg-gray-50 rounded-xl border border-gray-200">
+              <span class="text-gray-400 font-bold uppercase text-[10px] block">Executive Boardroom</span>
+              <strong class="text-gray-900 block mt-1">Cap: 20 Seats</strong>
+              <span class="text-emerald-700 text-[11px] font-semibold mt-1 block">Pastoral Board Tue 9am</span>
+            </div>
+            <div class="p-3.5 bg-gray-50 rounded-xl border border-gray-200">
+              <span class="text-gray-400 font-bold uppercase text-[10px] block">Church Van / Bus</span>
+              <strong class="text-gray-900 block mt-1">33-Seater Minibus</strong>
+              <span class="text-indigo-600 text-[11px] font-semibold mt-1 block">Chuna/Acacia Route</span>
+            </div>
+          </div>
+
+          <!-- Bookings Table -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-gray-50 text-gray-500 font-bold uppercase text-[10px] border-y border-gray-100">
+                <tr>
+                  <th class="p-3">Facility / Asset</th>
+                  <th class="p-3">Event / Purpose</th>
+                  <th class="p-3">Ministry Department</th>
+                  <th class="p-3">Date &amp; Time Window</th>
+                  <th class="p-3">Status</th>
+                  <th class="p-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-bookings-table-body" class="divide-y divide-gray-100 text-gray-700 font-medium">
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: SUNDAY DUTY ROSTER -->
+      <div id="admin-content-roster" class="admin-tab-content hidden space-y-6">
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-sm space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-gray-100">
+            <div>
+              <h2 class="text-base font-extrabold text-gray-900">Sunday Service Operational Duty Roster</h2>
+              <p class="text-xs text-gray-500 mt-0.5">Departmental assignments across 1st Service (8:15 AM), 2nd Service (10:15 AM), and 3rd Service (12:15 PM).</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="broadcastRosterAlert()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-xl transition shadow flex items-center gap-1.5">
+                <span>📱</span> Send SMS &amp; WhatsApp Roster Alert
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-xs">
+            <!-- Pastoral & Preaching -->
+            <div class="p-5 bg-gray-50 rounded-2xl border border-gray-200 space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="font-bold text-gray-900 text-sm flex items-center gap-2"><span>👑</span> Pastoral Team</h3>
+                <span class="text-[10px] bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded">All 3 Services</span>
+              </div>
+              <div class="space-y-2 text-gray-600">
+                <div class="p-2.5 bg-white rounded-xl border border-gray-100 shadow-xs">
+                  <strong class="text-gray-900 block">Rev. William Odero</strong>
+                  <span class="text-gray-500 text-[11px]">The Word &middot; 2nd &amp; 3rd Service</span>
+                </div>
+                <div class="p-2.5 bg-white rounded-xl border border-gray-100 shadow-xs">
+                  <strong class="text-gray-900 block">Pst. Alice Kitonga</strong>
+                  <span class="text-gray-500 text-[11px]">1st Service Preaching &middot; Pastoral Prayer</span>
+                </div>
+                <div class="p-2.5 bg-white rounded-xl border border-gray-100 shadow-xs">
+                  <strong class="text-gray-900 block">Elder David Mwangi</strong>
+                  <span class="text-gray-500 text-[11px]">Service Leader / MC (1st &amp; 2nd)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Media & Livestream Booth -->
+            <div class="p-5 bg-gray-50 rounded-2xl border border-gray-200 space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="font-bold text-gray-900 text-sm flex items-center gap-2"><span>🎬</span> Media &amp; Tech Booth</h3>
+                <span class="text-[10px] bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded">Sanctuary Gallery</span>
+              </div>
+              <div class="space-y-2 text-gray-600">
+                <div class="p-2.5 bg-white rounded-xl border border-gray-100 shadow-xs">
+                  <strong class="text-gray-900 block">Kevin Otieno</strong>
+                  <span class="text-gray-500 text-[11px]">Main Audio Desk &amp; IEM Mix</span>
+                </div>
+                <div class="p-2.5 bg-white rounded-xl border border-gray-100 shadow-xs">
+                  <strong class="text-gray-900 block">Brian Mumo</strong>
+                  <span class="text-gray-500 text-[11px]">Camera 1 &amp; YouTube Livestream Switcher</span>
+                </div>
+                <div class="p-2.5 bg-white rounded-xl border border-gray-100 shadow-xs">
+                  <strong class="text-gray-900 block">Mercy Kamau</strong>
+                  <span class="text-gray-500 text-[11px]">ProPresenter Lyrics &amp; Video Loops</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Praise & Worship -->
+            <div class="p-5 bg-gray-50 rounded-2xl border border-gray-200 space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="font-bold text-gray-900 text-sm flex items-center gap-2"><span>🎸</span> Praise &amp; Worship Band</h3>
+                <span class="text-[10px] bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded">Soundcheck 7:15 AM</span>
+              </div>
+              <div class="space-y-2 text-gray-600">
+                <div class="p-2.5 bg-white rounded-xl border border-gray-100 shadow-xs">
+                  <strong class="text-gray-900 block">Worship Leader Ruth</strong>
+                  <span class="text-gray-500 text-[11px]">Lead Vocals (Praise Set)</span>
+                </div>
+                <div class="p-2.5 bg-white rounded-xl border border-gray-100 shadow-xs">
+                  <strong class="text-gray-900 block">Samuel O. &middot; Keys / Pad</strong>
+                  <span class="text-gray-500 text-[11px]">Keyboardist &amp; Altar Call Instrumental</span>
+                </div>
+                <div class="p-2.5 bg-white rounded-xl border border-gray-100 shadow-xs">
+                  <strong class="text-gray-900 block">Dennis K. &middot; Drums</strong>
+                  <span class="text-gray-500 text-[11px]">Percussion &amp; Rhythm Section</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ushers & Hospitality -->
+            <div class="p-5 bg-gray-50 rounded-2xl border border-gray-200 space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="font-bold text-gray-900 text-sm flex items-center gap-2"><span>🤝</span> Ushers &amp; Protocol</h3>
+                <span class="text-[10px] bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded">12 Marshals</span>
+              </div>
+              <div class="space-y-2 text-gray-600">
+                <div class="p-2.5 bg-white rounded-xl border border-gray-100 shadow-xs">
+                  <strong class="text-gray-900 block">John Kariuki (Head Usher)</strong>
+                  <span class="text-gray-500 text-[11px]">Main Sanctuary Left Aisle &amp; Tithe buckets</span>
+                </div>
+                <div class="p-2.5 bg-white rounded-xl border border-gray-100 shadow-xs">
+                  <strong class="text-gray-900 block">Agnes Wambui</strong>
+                  <span class="text-gray-500 text-[11px]">Main Foyer Connect Card Welcome Desk</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Children / Next Gen -->
+            <div class="p-5 bg-gray-50 rounded-2xl border border-gray-200 space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="font-bold text-gray-900 text-sm flex items-center gap-2"><span>🎨</span> Next Gen Children Church</h3>
+                <span class="text-[10px] bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded">Enkasiti Hall 1 &amp; 2</span>
+              </div>
+              <div class="space-y-2 text-gray-600">
+                <div class="p-2.5 bg-white rounded-xl border border-gray-100 shadow-xs">
+                  <strong class="text-gray-900 block">Teacher Faith N.</strong>
+                  <span class="text-gray-500 text-[11px]">Toddlers &amp; Pre-school (Ages 3-6)</span>
+                </div>
+                <div class="p-2.5 bg-white rounded-xl border border-gray-100 shadow-xs">
+                  <strong class="text-gray-900 block">Teacher Dennis M.</strong>
+                  <span class="text-gray-500 text-[11px]">Primary &amp; Pre-Teens (Ages 7-12)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Security & Traffic -->
+            <div class="p-5 bg-gray-50 rounded-2xl border border-gray-200 space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="font-bold text-gray-900 text-sm flex items-center gap-2"><span>🛡️</span> Security &amp; Parking</h3>
+                <span class="text-[10px] bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded">Namanga Road Gate</span>
+              </div>
+              <div class="space-y-2 text-gray-600">
+                <div class="p-2.5 bg-white rounded-xl border border-gray-100 shadow-xs">
+                  <strong class="text-gray-900 block">Officer James M.</strong>
+                  <span class="text-gray-500 text-[11px]">Gate 1 Vehicle Entry &amp; Flow</span>
+                </div>
+                <div class="p-2.5 bg-white rounded-xl border border-gray-100 shadow-xs">
+                  <strong class="text-gray-900 block">Parking Team Alpha</strong>
+                  <span class="text-gray-500 text-[11px]">Compound Parking Bays 1 &ndash; 80</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: REQUISITIONS & PETTY CASH -->
+      <div id="admin-content-requisitions" class="admin-tab-content hidden space-y-6">
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-sm space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-gray-100">
+            <div>
+              <h2 class="text-base font-extrabold text-gray-900">Internal Department Requisitions &amp; Petty Cash</h2>
+              <p class="text-xs text-gray-500 mt-0.5">Digital chit approval flow: Submit &rarr; Department Head Sign-off &rarr; Admin Verification &rarr; M-Pesa B2C Disburse.</p>
+            </div>
+            <button onclick="openNewRequisitionModal()" class="px-4 py-2 bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-bold rounded-xl transition shadow flex items-center gap-1.5 flex-shrink-0">
+              <span>+</span> Submit Requisition Chit
+            </button>
+          </div>
+
+          <!-- Requisitions Table -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-gray-50 text-gray-500 font-bold uppercase text-[10px] border-y border-gray-100">
+                <tr>
+                  <th class="p-3">Req Ref</th>
+                  <th class="p-3">Purpose / Items</th>
+                  <th class="p-3">Department</th>
+                  <th class="p-3">Requested By</th>
+                  <th class="p-3 text-right">Amount (KES)</th>
+                  <th class="p-3">Status</th>
+                  <th class="p-3 text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-requisitions-table-body" class="divide-y divide-gray-100 text-gray-700 font-medium">
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: VISITOR ASSIMILATION PIPELINE -->
+      <div id="admin-content-assimilation" class="admin-tab-content hidden space-y-6">
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-sm space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-gray-100">
+            <div>
+              <h2 class="text-base font-extrabold text-gray-900">First-Time Visitor Assimilation Pipeline</h2>
+              <p class="text-xs text-gray-500 mt-0.5">Keep new guests from falling through the cracks. Connect Card &rarr; 24h SMS &rarr; Pastoral Call &rarr; Cell Plug-in.</p>
+            </div>
+            <button onclick="showToast('Exported Assimilation Digest to Pastoral Team')" class="px-3.5 py-1.5 border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-lg text-xs font-bold transition">
+              Export Follow-up Digest
+            </button>
+          </div>
+
+          <!-- Pipeline Stages Grid -->
+          <div id="admin-visitors-pipeline-grid" class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: BULK SMS STATION -->
+      <div id="admin-content-sms" class="admin-tab-content hidden space-y-6">
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-sm space-y-6">
+          <div>
+            <h2 class="text-base font-extrabold text-gray-900">Targeted Bulk SMS Broadcast Station</h2>
+            <p class="text-xs text-gray-500 mt-0.5">Carrier-grade delivery across Safaricom, Airtel, and Telkom via AfricasTalking gateway.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="md:col-span-2 space-y-4">
+              <div>
+                <label class="text-xs font-bold text-gray-700 block mb-1.5">Recipient Audience</label>
+                <select id="admin-sms-audience" onchange="updateSmsAudienceCount()" class="w-full p-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-600 bg-gray-50 font-medium">
+                  <option value="1248">All Registered Congregants (1,248 Members)</option>
+                  <option value="18">Cell Group Leaders (18 Leaders &middot; Kitengela Zones)</option>
+                  <option value="48">Sunday On-Duty Roster Volunteers (48 Staff)</option>
+                  <option value="312">Next Gen Sunday School Parents (312 Contacts)</option>
+                  <option value="14">Active New Visitors in Assimilation (14 Contacts)</option>
+                </select>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center mb-1.5">
+                  <label class="text-xs font-bold text-gray-700">SMS Message Body</label>
+                  <span id="admin-sms-counter" class="text-[11px] text-gray-400 font-mono">0 / 160 chars (1 SMS unit)</span>
+                </div>
+                <textarea id="admin-sms-text" oninput="updateSmsCharCount()" rows="4" class="w-full p-3 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-600 leading-relaxed" placeholder="Dear ICC Kitengela family, reminder that Midweek Encounter Service begins tomorrow at 6:30 PM. Come expecting a mighty touch from God. Joshua 1:9."></textarea>
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <div class="text-xs text-gray-500">
+                  <span>Estimated Units: <strong id="admin-sms-units-est" class="text-gray-900 font-mono">1,248 units</strong></span>
+                </div>
+                <button onclick="sendAdminBulkSms()" class="px-5 py-2.5 bg-indigo-700 hover:bg-indigo-800 text-white font-bold text-xs rounded-xl transition shadow flex items-center gap-2">
+                  <span>🚀</span> Dispatch SMS Broadcast
+                </button>
+              </div>
+            </div>
+
+            <!-- Preset Quick Templates -->
+            <div class="bg-gray-50 p-5 rounded-2xl border border-gray-200 space-y-3">
+              <h3 class="font-bold text-gray-900 text-xs uppercase tracking-wider">Quick Message Templates</h3>
+              <div class="space-y-2">
+                <button onclick="loadSmsTemplate('sunday')" class="w-full text-left p-2.5 bg-white hover:bg-indigo-50 border border-gray-200 rounded-xl text-xs transition">
+                  <strong class="text-gray-900 block">Sunday 3-Service Reminder</strong>
+                  <span class="text-gray-500 text-[11px]">8:15 AM &middot; 10:15 AM &middot; 12:15 PM</span>
+                </button>
+                <button onclick="loadSmsTemplate('cell')" class="w-full text-left p-2.5 bg-white hover:bg-indigo-50 border border-gray-200 rounded-xl text-xs transition">
+                  <strong class="text-gray-900 block">Thursday Cell Group Invite</strong>
+                  <span class="text-gray-500 text-[11px]">Fellowship in estate zones at 6:30 PM</span>
+                </button>
+                <button onclick="loadSmsTemplate('giving')" class="w-full text-left p-2.5 bg-white hover:bg-indigo-50 border border-gray-200 rounded-xl text-xs transition">
+                  <strong class="text-gray-900 block">Building Project Thanksgiving</strong>
+                  <span class="text-gray-500 text-[11px]">Paybill 567935 Acct: BUILDING</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
 
-  <!-- ================= ROLE VIEW 5: MARY KAMAU (MEMBER PORTAL) ================= -->
+  <!-- ================= ROLE VIEW: MEDIA & TECHNICAL PRODUCTION ================= -->
+  <div id="view-media" class="view-container flex-1 bg-slate-950 text-slate-100 flex flex-col">
+    <!-- Media Control Header -->
+    <header class="bg-slate-900 border-b border-slate-800 px-6 py-4 flex flex-wrap items-center justify-between gap-4 sticky top-[41px] z-30 shadow-xl">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-red-600 text-white font-black flex items-center justify-center text-xl shadow-lg shadow-red-900/40">
+          🎬
+        </div>
+        <div>
+          <div class="flex items-center gap-2.5">
+            <h1 class="text-lg font-extrabold text-white leading-tight">Media &amp; Production Command Center</h1>
+            <span id="media-broadcast-indicator-pill" class="px-2.5 py-0.5 bg-gray-800 text-gray-400 border border-gray-700 text-[10px] font-black rounded-full uppercase tracking-wider flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-gray-500"></span> Offline / Rehearsal
+            </span>
+          </div>
+          <p class="text-xs text-slate-400">Sanctuary AV Desk &middot; ProPresenter &middot; YouTube/FB Stream &middot; Audio Multi-Track</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- Live Stream One-Click Broadcaster -->
+        <button id="media-toggle-stream-btn" onclick="toggleLiveStreamFromConsole()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-black rounded-xl shadow-lg shadow-red-900/30 transition flex items-center gap-2 border border-red-500">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+          </span>
+          <span id="media-stream-btn-label">GO LIVE (TRIGGER STREAM)</span>
+        </button>
+
+        <button onclick="setRoleView('admin')" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition border border-slate-700">
+          Church Admin &rarr;
+        </button>
+        <button onclick="setRoleView('public')" class="px-3.5 py-2 bg-slate-800/60 hover:bg-slate-800 text-slate-300 rounded-xl text-xs font-semibold transition border border-slate-700/60">
+          &larr; Public Site
+        </button>
+      </div>
+    </header>
+
+    <!-- Media Navigation Sub-bar -->
+    <div class="bg-slate-900/80 backdrop-blur border-b border-slate-800 px-6 py-2.5 flex items-center justify-between gap-4 overflow-x-auto text-xs font-semibold">
+      <div class="flex items-center gap-2">
+        <button onclick="switchMediaTab('runofshow')" id="media-tab-btn-runofshow" class="media-tab-btn px-3 py-1.5 rounded-lg bg-red-600 text-white font-bold transition flex items-center gap-1.5 shadow">
+          <span>⏱</span> Live Run-of-Show
+        </button>
+        <button onclick="switchMediaTab('ingest')" id="media-tab-btn-ingest" class="media-tab-btn px-3 py-1.5 rounded-lg text-slate-300 hover:bg-slate-800 transition flex items-center gap-1.5">
+          <span>📹</span> Sermon Ingestion &amp; Publish
+        </button>
+        <button onclick="switchMediaTab('assets')" id="media-tab-btn-assets" class="media-tab-btn px-3 py-1.5 rounded-lg text-slate-300 hover:bg-slate-800 transition flex items-center gap-1.5">
+          <span>📁</span> Slide Assets &amp; ProPresenter
+        </button>
+        <button onclick="switchMediaTab('hardware')" id="media-tab-btn-hardware" class="media-tab-btn px-3 py-1.5 rounded-lg text-slate-300 hover:bg-slate-800 transition flex items-center gap-1.5">
+          <span>🎧</span> Audio Desk &amp; Stream Health
+        </button>
+      </div>
+      <div class="flex items-center gap-3 text-[11px] text-slate-400 font-mono">
+        <span id="stream-health-indicator" class="flex items-center gap-1.5 text-emerald-400">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> 1080p60 &middot; 4,800 Kbps
+        </span>
+        <span class="text-slate-600">|</span>
+        <span id="stream-viewers-count">0 Live Viewers</span>
+      </div>
+    </div>
+
+    <!-- Media Main Content -->
+    <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+
+      <!-- TAB 1: LIVE RUN-OF-SHOW (SERVICE CUEING) -->
+      <div id="media-content-runofshow" class="media-tab-content space-y-6">
+        <!-- Current Service Live Timer Banner -->
+        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-indigo-900/60 p-6 rounded-2xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="space-y-1.5 text-center md:text-left">
+            <span class="text-[11px] font-mono uppercase tracking-widest text-indigo-400 font-bold">Current Live Cue &middot; 2nd Sunday Service</span>
+            <h2 id="ros-current-item-title" class="text-2xl sm:text-3xl font-black text-white">Praise &amp; Worship (Full Band)</h2>
+            <p id="ros-current-item-notes" class="text-xs text-indigo-200">Led by Worship Leader Ruth &middot; Song 3: 'Yahweh' (Bridge repeat) &middot; ProPresenter: Pack 4</p>
+          </div>
+
+          <div class="flex items-center gap-6">
+            <div class="text-center">
+              <span class="text-[10px] uppercase font-mono text-slate-400 font-bold block">Segment Timer</span>
+              <span id="ros-countdown-clock" class="text-3xl sm:text-4xl font-black font-mono text-emerald-400">14:22</span>
+            </div>
+            <div class="h-10 w-px bg-slate-800"></div>
+            <div class="flex items-center gap-2">
+              <button onclick="advanceRunOfShowPrev()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition">
+                &larr; Prev
+              </button>
+              <button onclick="advanceRunOfShowNext()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black shadow-lg transition flex items-center gap-1.5">
+                Next Cue &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Run-of-Show Cue Schedule Table -->
+        <div class="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden shadow-sm">
+          <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-extrabold text-white">Sunday Order of Service (10:15 AM – 11:45 AM)</h3>
+              <p class="text-xs text-slate-400">Synchronized cue sheet for Audio Desk, ProPresenter Operator, Cameras, and Preacher.</p>
+            </div>
+            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 font-mono text-xs rounded-lg">Total Target: 90 Min</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-950/60 text-slate-400 font-mono uppercase text-[10px] border-b border-slate-800">
+                <tr>
+                  <th class="p-3.5">Cue #</th>
+                  <th class="p-3.5">Service Segment</th>
+                  <th class="p-3.5">Leader / Person</th>
+                  <th class="p-3.5">Duration</th>
+                  <th class="p-3.5">AV / ProPresenter Cues</th>
+                  <th class="p-3.5">Status</th>
+                </tr>
+              </thead>
+              <tbody id="media-ros-table-body" class="divide-y divide-slate-800/60 font-medium">
+                <!-- Populated via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: SERMON INGESTION & PUBLISHING -->
+      <div id="media-content-ingest" class="media-tab-content hidden space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Ingestion Form (Left 2 cols) -->
+          <div class="lg:col-span-2 bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-800 shadow-sm space-y-6">
+            <div>
+              <h2 class="text-base font-extrabold text-white flex items-center gap-2">
+                <span>📹</span> Publish New Sermon / Media Teaching
+              </h2>
+              <p class="text-xs text-slate-400 mt-1">
+                Immediately updates the public website sermons feed, audio player, mobile apps, and study guides repository.
+              </p>
+            </div>
+
+            <form onsubmit="handleSermonIngestSubmit(event)" class="space-y-4 text-xs">
+              <div class="space-y-1.5">
+                <label class="font-bold text-slate-300 uppercase tracking-wider text-[10px]">Sermon Title *</label>
+                <input id="ingest-title" type="text" required placeholder="e.g. Walking in Dominion | Part 4" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-indigo-500 font-medium">
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <label class="font-bold text-slate-300 uppercase tracking-wider text-[10px]">Preacher / Speaker *</label>
+                  <select id="ingest-speaker" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-indigo-500 font-medium">
+                    <option value="Rev. William Odero">Rev. William Odero (Senior Pastor)</option>
+                    <option value="Pst. Alice Kitonga">Pst. Alice Kitonga (Pastoral Staff)</option>
+                    <option value="Elder David Mwangi">Elder David Mwangi</option>
+                    <option value="Guest Speaker">Guest Minister</option>
+                  </select>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="font-bold text-slate-300 uppercase tracking-wider text-[10px]">Sermon Series *</label>
+                  <input id="ingest-series" type="text" required placeholder="e.g. Dominion Series" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-indigo-500 font-medium">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <label class="font-bold text-slate-300 uppercase tracking-wider text-[10px]">Primary Scripture Reading *</label>
+                  <input id="ingest-scripture" type="text" required placeholder="e.g. Genesis 1:26-28" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-indigo-500 font-medium">
+                </div>
+                <div class="space-y-1.5">
+                  <label class="font-bold text-slate-300 uppercase tracking-wider text-[10px]">Service Date *</label>
+                  <input id="ingest-date" type="date" value="2026-10-25" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-indigo-500 font-medium">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <label class="font-bold text-slate-300 uppercase tracking-wider text-[10px]">YouTube Embed URL or Video ID *</label>
+                  <input id="ingest-youtube" type="text" required placeholder="e.g. l054ZoKcUGk or full YouTube URL" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-indigo-500 font-mono text-xs">
+                </div>
+                <div class="space-y-1.5">
+                  <label class="font-bold text-slate-300 uppercase tracking-wider text-[10px]">Audio Podcast MP3 URL</label>
+                  <input id="ingest-audio" type="text" placeholder="https://cdn.icckitengela.org/podcasts/sermon.mp3" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-indigo-500 font-mono text-xs">
+                </div>
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="font-bold text-slate-300 uppercase tracking-wider text-[10px]">Study Guide / Bullet Points (Markdown / Text)</label>
+                <textarea id="ingest-notes" rows="3" placeholder="Key sermon points, Greek/Hebrew exegesis, Safari group discussion questions..." class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-indigo-500"></textarea>
+              </div>
+
+              <div class="pt-2 flex items-center justify-end gap-3">
+                <button type="button" onclick="resetIngestForm()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl transition">
+                  Clear Form
+                </button>
+                <button type="submit" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-black rounded-xl transition shadow-lg shadow-indigo-900/30 flex items-center gap-2">
+                  <span>✅</span> Publish Live to Platform
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Live Feeds & Metadata Status (Right col) -->
+          <div class="space-y-6">
+            <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 space-y-4 text-xs">
+              <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                <span>🔗</span> Connected Distribution Endpoints
+              </h3>
+              <div class="space-y-2.5">
+                <div class="flex items-center justify-between p-3 bg-slate-950 rounded-xl border border-slate-800/80">
+                  <span class="text-slate-300 font-medium">YouTube Channel</span>
+                  <span class="text-emerald-400 font-mono text-[11px] font-bold">@ICCKitengela &middot; Connected</span>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-slate-950 rounded-xl border border-slate-800/80">
+                  <span class="text-slate-300 font-medium">Apple Podcasts RSS</span>
+                  <span class="text-emerald-400 font-mono text-[11px] font-bold">Syncd &middot; 85 Episodes</span>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-slate-950 rounded-xl border border-slate-800/80">
+                  <span class="text-slate-300 font-medium">Spotify for Podcasters</span>
+                  <span class="text-emerald-400 font-mono text-[11px] font-bold">Active</span>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-slate-950 rounded-xl border border-slate-800/80">
+                  <span class="text-slate-300 font-medium">Public Vercel Portal</span>
+                  <span class="text-emerald-400 font-mono text-[11px] font-bold">Instant Refresh</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-indigo-950/60 to-purple-950/40 p-6 rounded-2xl border border-indigo-900/50 space-y-3 text-xs">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-400">Quick Action</span>
+              <h4 class="font-bold text-white text-sm">Feature Sermon on Front Page</h4>
+              <p class="text-slate-400 leading-relaxed text-[11px]">
+                Select any recently ingested sermon to set it as the primary video header across the public sermons archive.
+              </p>
+              <button onclick="syncLatestToPublicFeature()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition text-xs shadow">
+                Set Most Recent as Primary Feature
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: SLIDE ASSETS & PROPRESENTER -->
+      <div id="media-content-assets" class="media-tab-content hidden space-y-6">
+        <div class="bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-800 shadow-sm space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-800">
+            <div>
+              <h2 class="text-base font-extrabold text-white">Sunday Slide Decks, Lyrics &amp; Video Loops</h2>
+              <p class="text-xs text-slate-400 mt-0.5">Central repository for ProPresenter bundles, lower thirds, sermon graphics, and announcement reels.</p>
+            </div>
+            <button onclick="openUploadAssetModal()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl transition shadow flex items-center gap-1.5">
+              <span>+</span> Upload AV Asset
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+            <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center justify-between text-slate-400">
+                <span class="text-[10px] font-mono uppercase font-bold">Lyrics Bundle</span>
+                <span>🎵</span>
+              </div>
+              <strong class="text-white block font-bold text-sm">Sunday 3-Service Lyrics</strong>
+              <p class="text-slate-400 text-[11px]">ProPresenter 7 (.probundle) &middot; 8 Songs</p>
+              <a href="#" onclick="showToast('Downloading Sunday Lyrics Bundle (.pro)...'); return false;" class="inline-block text-indigo-400 hover:underline font-bold text-[11px] pt-1">Download .pro &darr;</a>
+            </div>
+
+            <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center justify-between text-slate-400">
+                <span class="text-[10px] font-mono uppercase font-bold">Sermon Graphics</span>
+                <span>🖼️</span>
+              </div>
+              <strong class="text-white block font-bold text-sm">Kingdom Greatness 4K</strong>
+              <p class="text-slate-400 text-[11px]">Title Slide, Scripture Slate, Lower Thirds</p>
+              <a href="#" onclick="showToast('Downloading Sermon Slide Pack (ZIP)...'); return false;" class="inline-block text-indigo-400 hover:underline font-bold text-[11px] pt-1">Download 4K Pack &darr;</a>
+            </div>
+
+            <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center justify-between text-slate-400">
+                <span class="text-[10px] font-mono uppercase font-bold">Video Loop</span>
+                <span>🎦</span>
+              </div>
+              <strong class="text-white block font-bold text-sm">Weekly Announcements</strong>
+              <p class="text-slate-400 text-[11px]">MP4 1080p60 &middot; Safari Groups + Youth Camp</p>
+              <a href="#" onclick="showToast('Downloading Announcements MP4 reel...'); return false;" class="inline-block text-indigo-400 hover:underline font-bold text-[11px] pt-1">Download Video &darr;</a>
+            </div>
+
+            <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center justify-between text-slate-400">
+                <span class="text-[10px] font-mono uppercase font-bold">Giving Slate</span>
+                <span>💳</span>
+              </div>
+              <strong class="text-white block font-bold text-sm">M-Pesa 567935 Slide</strong>
+              <p class="text-slate-400 text-[11px]">Paybill, Accounts, Bank Info Animated</p>
+              <a href="#" onclick="showToast('Downloading Tithe & Offering Graphic...'); return false;" class="inline-block text-indigo-400 hover:underline font-bold text-[11px] pt-1">Download Graphic &darr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: AUDIO DESK & HARDWARE MONITOR -->
+      <div id="media-content-hardware" class="media-tab-content hidden space-y-6">
+        <div class="bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-800 shadow-sm space-y-6">
+          <div>
+            <h2 class="text-base font-extrabold text-white">Sanctuary Audio &amp; Video Routing Status</h2>
+            <p class="text-xs text-slate-400 mt-0.5">Real-time status of sanctuary digital mixers (Behringer X32), PTZ cameras, and encoder feeds.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs">
+            <div class="p-5 bg-slate-950 rounded-2xl border border-slate-800 space-y-3">
+              <span class="text-[10px] font-mono uppercase text-slate-400 font-bold block">Main Mixer (X32)</span>
+              <div class="flex items-center justify-between">
+                <strong class="text-white text-base">FOH / Broadcast Send</strong>
+                <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded-full font-mono text-[10px]">Online</span>
+              </div>
+              <p class="text-slate-400 text-[11px]">32 Channels active &middot; Preacher Headset Ch 1 &middot; Sanctuary Left/Right Balanced</p>
+            </div>
+
+            <div class="p-5 bg-slate-950 rounded-2xl border border-slate-800 space-y-3">
+              <span class="text-[10px] font-mono uppercase text-slate-400 font-bold block">PTZ NDI Cameras</span>
+              <div class="flex items-center justify-between">
+                <strong class="text-white text-base">Cam 1, Cam 2, Cam 3</strong>
+                <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded-full font-mono text-[10px]">Locked</span>
+              </div>
+              <p class="text-slate-400 text-[11px]">Pulpit Tight Shot &middot; Worship Wide &middot; Sanctuary High Balcony</p>
+            </div>
+
+            <div class="p-5 bg-slate-950 rounded-2xl border border-slate-800 space-y-3">
+              <span class="text-[10px] font-mono uppercase text-slate-400 font-bold block">Hardware Encoder</span>
+              <div class="flex items-center justify-between">
+                <strong class="text-white text-base">OBS / LiveU Solo</strong>
+                <span class="px-2 py-0.5 bg-indigo-500/20 text-indigo-300 rounded-full font-mono text-[10px]">Standby</span>
+              </div>
+              <p class="text-slate-400 text-[11px]">RTMP Destination: YouTube Live Primary &middot; 0 Dropped Frames</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+<!-- ================= ROLE VIEW 5: MARY KAMAU (MEMBER PORTAL) ================= -->
   <div id="view-member" class="view-container flex-1 bg-gray-100 flex flex-col">
     <header class="bg-white border-b border-gray-200 px-6 py-4 flex flex-wrap items-center justify-between gap-4 shadow-sm">
       <div class="flex items-center gap-3">
@@ -1452,6 +2272,141 @@
   </div>
 
 
+    <!-- ================= PHASE 1 INTERACTIVE MODALS ================= -->
+  
+  <!-- Modal: Study Notes View / Download -->
+  <div id="modal-study-notes" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden border border-gray-200 animate-fadeIn">
+      <div class="bg-indigo-900 text-white p-5 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] uppercase font-bold text-accent-400 tracking-wider">ICC Kitengela Discipleship &amp; Sermon Notes</span>
+          <h3 id="modal-notes-title" class="text-base font-extrabold">Kingdom Greatness — Study Guide</h3>
+        </div>
+        <button onclick="closeModal('modal-study-notes')" class="text-gray-300 hover:text-white text-lg p-1">✕</button>
+      </div>
+      <div class="p-6 max-h-[70vh] overflow-y-auto space-y-4 text-xs text-gray-700 leading-relaxed">
+        <div class="p-3.5 bg-indigo-50/70 rounded-xl border border-indigo-100 flex items-center justify-between text-indigo-900 font-medium">
+          <span><strong>Scripture:</strong> Matthew 18:1-5</span>
+          <span><strong>Preacher:</strong> Pst. Alice Kitonga</span>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-900 text-sm mb-1.5">1. The Childlike Posture of Faith</h4>
+          <p>
+            In the Kingdom of God, greatness is measured not by earthly status, leverage, or prominence, but by humility and complete dependence on the Father. A child does not boast of self-sufficiency; they look entirely to their parent for sustenance and guidance.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-900 text-sm mb-1.5">2. Unmasking Spiritual Pride</h4>
+          <p>
+            The disciples disputed among themselves about who would be the greatest. Jesus responded by positioning a small child in their midst. True spiritual maturity manifests as servant-hearted posture in your family, Safari group, and workplace.
+          </p>
+        </div>
+        <div class="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-2">
+          <h4 class="font-bold text-gray-900 text-xs uppercase tracking-wide">Safari Group Reflection Questions</h4>
+          <ul class="list-disc list-inside space-y-1 text-gray-600">
+            <li>In what areas of your career or family are you struggling to surrender control to God?</li>
+            <li>How can our fellowship group hold each other accountable to servant leadership this week?</li>
+          </ul>
+        </div>
+      </div>
+      <div class="p-4 bg-gray-50 border-t border-gray-100 flex items-center justify-end gap-2.5">
+        <button onclick="downloadSermonGuide()" class="px-4 py-2 bg-indigo-700 hover:bg-indigo-800 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5">
+          <span>⬇</span> Download PDF Notes
+        </button>
+        <button onclick="closeModal('modal-study-notes')" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-xs rounded-xl transition">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: New Venue Reservation -->
+  <div id="modal-new-booking" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden border border-gray-200 animate-fadeIn">
+      <div class="bg-slate-900 text-white p-5 flex items-center justify-between">
+        <div>
+          <h3 class="text-base font-extrabold">Reserve Campus Facility / Asset</h3>
+          <p class="text-xs text-slate-400">Prevents clashes across sanctuary, halls and church transport.</p>
+        </div>
+        <button onclick="closeModal('modal-new-booking')" class="text-gray-300 hover:text-white text-lg p-1">✕</button>
+      </div>
+      <form onsubmit="handleNewBookingSubmit(event)" class="p-6 space-y-4 text-xs">
+        <div class="space-y-1">
+          <label class="font-bold text-gray-700">Facility / Space *</label>
+          <select id="booking-facility" required class="w-full p-2.5 border border-gray-200 rounded-xl bg-gray-50 font-medium">
+            <option value="Main Sanctuary">Main Sanctuary (2,000 seats)</option>
+            <option value="Enkasiti Hall">Enkasiti Hall (250 seats)</option>
+            <option value="Youth Center">Youth Center (400 seats)</option>
+            <option value="Executive Boardroom">Executive Boardroom (20 seats)</option>
+            <option value="Church 33-Seater Minibus">Church 33-Seater Minibus</option>
+          </select>
+        </div>
+        <div class="space-y-1">
+          <label class="font-bold text-gray-700">Event / Purpose Title *</label>
+          <input id="booking-event" type="text" required placeholder="e.g. Couples Ministry Dinner" class="w-full p-2.5 border border-gray-200 rounded-xl bg-gray-50">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="space-y-1">
+            <label class="font-bold text-gray-700">Department *</label>
+            <select id="booking-dept" class="w-full p-2.5 border border-gray-200 rounded-xl bg-gray-50">
+              <option value="Family &amp; Couples">Family &amp; Couples</option>
+              <option value="Youth &amp; Teens">Youth &amp; Teens</option>
+              <option value="Men of Valor">Men of Valor</option>
+              <option value="Women of Grace">Women of Grace</option>
+              <option value="Music Ministry">Music Ministry</option>
+            </select>
+          </div>
+          <div class="space-y-1">
+            <label class="font-bold text-gray-700">Date &amp; Time Window *</label>
+            <input id="booking-time" type="text" required placeholder="e.g. Sat, Nov 7 &middot; 4pm - 8pm" class="w-full p-2.5 border border-gray-200 rounded-xl bg-gray-50">
+          </div>
+        </div>
+        <div class="pt-3 flex items-center justify-end gap-2.5">
+          <button type="button" onclick="closeModal('modal-new-booking')" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl">Cancel</button>
+          <button type="submit" class="px-5 py-2 bg-indigo-700 hover:bg-indigo-800 text-white font-bold rounded-xl shadow">Confirm Reservation</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Bulk SMS Quick Blast -->
+  <div id="modal-admin-sms" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden border border-gray-200 animate-fadeIn">
+      <div class="bg-indigo-900 text-white p-5 flex items-center justify-between">
+        <div>
+          <h3 class="text-base font-extrabold">📲 ICC Kitengela SMS Gateway</h3>
+          <p class="text-xs text-indigo-200">AfricasTalking / SMSLeopard &middot; Sender ID: ICC-KTG</p>
+        </div>
+        <button onclick="closeModal('modal-admin-sms')" class="text-gray-300 hover:text-white text-lg p-1">✕</button>
+      </div>
+      <form onsubmit="handleAdminSendSMS(event)" class="p-6 space-y-4 text-xs">
+        <div class="space-y-1">
+          <label class="font-bold text-gray-700">Recipient Target Segment *</label>
+          <select id="admin-sms-recipient" class="w-full p-2.5 border border-gray-200 rounded-xl bg-gray-50 font-medium">
+            <option value="All Sunday Duty Roster (48 Staff)">All Sunday Duty Roster (48 Staff &amp; Volunteers)</option>
+            <option value="First-Time Visitors (Past 30 Days - 14 Guests)">First-Time Visitors (Past 30 Days - 14 Guests)</option>
+            <option value="Safari (Cell) Group Leaders (22 Leaders)">Safari (Cell) Group Leaders (22 Leaders)</option>
+            <option value="Whole Registered Church Congregation (1,840 Members)">Whole Registered Church Congregation (1,840 Members)</option>
+          </select>
+        </div>
+        <div class="space-y-1">
+          <label class="font-bold text-gray-700">SMS Message Content *</label>
+          <textarea id="admin-sms-text" rows="3" required oninput="updateSmsCharCount(this.value)" class="w-full p-3 border border-gray-200 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-600">Reminder: Sunday service briefing begins at 7:15 AM sharp in Enkasiti Hall. Please be on time for prayer and station check. God bless you.</textarea>
+          <div class="flex justify-between text-[11px] text-gray-400 font-mono mt-1">
+            <span id="sms-char-counter">145 / 160 characters (1 SMS)</span>
+            <span>Sender: ICC-KTG</span>
+          </div>
+        </div>
+        <div class="pt-3 flex items-center justify-end gap-2.5">
+          <button type="button" onclick="closeModal('modal-admin-sms')" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl">Cancel</button>
+          <button type="submit" class="px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl shadow flex items-center gap-1.5">
+            <span>🚀</span> Send Broadcast Now
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- ================= GLOBAL TOAST NOTIFICATION ================= -->
   <div id="toast" class="fixed bottom-6 right-6 bg-gray-900 text-white px-5 py-3 rounded-xl shadow-2xl text-xs font-semibold z-50 transition-all duration-300 transform translate-y-16 opacity-0 flex items-center gap-2.5 border border-gray-700">
     <span class="text-emerald-400 font-bold text-sm">✓</span>
@@ -1460,159 +2415,922 @@
 
   <!-- ================= JS APPLICATION CONTROLLER ================= -->
   <script>
-    // Current Active Role & Route
+    // ================= GLOBAL APPLICATION STATE =================
     let currentRole = 'public';
     let currentRoute = 'home';
+    let isLiveBroadcasting = false;
+    let liveStreamTimer = 0;
+    let liveStreamInterval = null;
+    let activeAudioSpeed = 1.0;
+    let isAudioPlaying = false;
+    let currentAudioProgress = 0;
+    let audioInterval = null;
+    let activeSermonFilter = 'all';
+    let activeSpeakerFilter = 'all';
 
-    // Route public views
-    function route(pageId) {
+    // Sermons Database (Structured & Dynamic)
+    let sermonsDB = [
+      {
+        id: 'sermon-1',
+        title: 'NEXT GEN SUNDAY | KINGDOM GREATNESS',
+        speaker: 'Pst. Alice Kitonga',
+        series: 'Kingdom Greatness',
+        seriesCategory: 'Kingdom',
+        scripture: 'Matthew 18:1-5',
+        date: 'Oct 18, 2026',
+        duration: '42:15',
+        youtubeId: 'l054ZoKcUGk',
+        youtubeUrl: 'https://www.youtube.com/embed/l054ZoKcUGk',
+        audioUrl: 'https://cdn.icckitengela.org/podcasts/kingdom-greatness.mp3',
+        thumbnail: 'https://images.unsplash.com/photo-1544427920-c49ccfb85579?auto=format&fit=crop&w=700&q=80',
+        hasNotes: true,
+        featured: true
+      },
+      {
+        id: 'sermon-2',
+        title: 'WALKING IN DOMINION: THE CALL TO LEAD',
+        speaker: 'Rev. William Odero',
+        series: 'Walking in Dominion',
+        seriesCategory: 'Dominion',
+        scripture: 'Genesis 1:26-28',
+        date: 'Oct 11, 2026',
+        duration: '54:30',
+        youtubeId: 'W3q8Od5qJio',
+        youtubeUrl: 'https://www.youtube.com/embed/W3q8Od5qJio',
+        audioUrl: 'https://cdn.icckitengela.org/podcasts/walking-dominion.mp3',
+        thumbnail: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=700&q=80',
+        hasNotes: true,
+        featured: false
+      },
+      {
+        id: 'sermon-3',
+        title: 'ENCOUNTER WITH GRACE & REDEMPTION',
+        speaker: 'Rev. William Odero',
+        series: 'Encounter Series',
+        seriesCategory: 'Encounter',
+        scripture: 'Ephesians 2:8-10',
+        date: 'Oct 04, 2026',
+        duration: '48:10',
+        youtubeId: 'kJQP7kiw5Fk',
+        youtubeUrl: 'https://www.youtube.com/embed/kJQP7kiw5Fk',
+        audioUrl: 'https://cdn.icckitengela.org/podcasts/encounter-grace.mp3',
+        thumbnail: 'https://images.unsplash.com/photo-1519491050282-cf00c82424b4?auto=format&fit=crop&w=700&q=80',
+        hasNotes: true,
+        featured: false
+      },
+      {
+        id: 'sermon-4',
+        title: 'A NIGHT OF SACRED INTIMACY & PRAISE',
+        speaker: 'Music Team',
+        series: 'Worship Nights',
+        seriesCategory: 'Worship',
+        scripture: 'Psalm 100:1-5',
+        date: 'Sep 27, 2026',
+        duration: '1:15:00',
+        youtubeId: 'dQw4w9WgXcQ',
+        youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+        audioUrl: 'https://cdn.icckitengela.org/podcasts/worship-night.mp3',
+        thumbnail: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=700&q=80',
+        hasNotes: false,
+        featured: false
+      }
+    ];
+
+    // Facilities & Bookings DB
+    let bookingsDB = [
+      {
+        id: 'bk-1',
+        facility: 'Main Sanctuary',
+        event: 'Praise & Worship Band Full Rehearsal',
+        dept: 'Music Ministry',
+        time: 'Saturday &middot; 3:00 PM - 6:00 PM',
+        status: 'Confirmed'
+      },
+      {
+        id: 'bk-2',
+        facility: 'Enkasiti Hall',
+        event: 'Midweek Pastoral Prayer & Fasting',
+        dept: 'Pastoral Care',
+        time: 'Wednesday &middot; 5:30 PM - 7:30 PM',
+        status: 'Confirmed'
+      },
+      {
+        id: 'bk-3',
+        facility: 'Youth Center',
+        event: 'Teens IGNITE Fellowship & Soundcheck',
+        dept: 'Youth & Teens',
+        time: 'Saturday &middot; 1:00 PM - 4:00 PM',
+        status: 'Confirmed'
+      },
+      {
+        id: 'bk-4',
+        facility: 'Church 33-Seater Minibus',
+        event: 'Acacia / Chuna Sunday Route Pickups',
+        dept: 'Transport & Protocol',
+        time: 'Sunday &middot; 7:00 AM - 1:30 PM',
+        status: 'Confirmed'
+      }
+    ];
+
+    // Requisitions DB
+    let pettyCashFund = 35300.00;
+    let requisitionsDB = [
+      {
+        id: 'REQ-104',
+        department: 'Media & Production',
+        title: 'HDMI SDI Converters & XLR Cable Spool',
+        amount: 8500.00,
+        requester: 'Kevin Otieno (AV)',
+        date: 'Oct 23, 2026',
+        status: 'Pending'
+      },
+      {
+        id: 'REQ-105',
+        department: 'Pastoral & Hospitality',
+        title: 'Tea & Snacks for 1st-Time Visitors Lounge',
+        amount: 3200.00,
+        requester: 'Dorcas Ndinda',
+        date: 'Oct 24, 2026',
+        status: 'Pending'
+      },
+      {
+        id: 'REQ-106',
+        department: 'Administration',
+        title: 'Fuel Top-up for 33-Seater Church Van',
+        amount: 6000.00,
+        requester: 'Driver Simon Mutua',
+        date: 'Oct 24, 2026',
+        status: 'Pending'
+      }
+    ];
+
+    // Visitor Assimilation DB
+    let visitorsDB = [
+      {
+        id: 'vis-1',
+        name: 'Peter & Christine Wanyama',
+        phone: '+254 712 345 678',
+        estate: 'Chuna Estate',
+        visitDate: 'Sunday, Oct 18',
+        assignedTo: 'Deacon Philip',
+        stage: 'Day 3 Pastor Call',
+        stageIndex: 2
+      },
+      {
+        id: 'vis-2',
+        name: 'Faith Achieng',
+        phone: '+254 722 890 123',
+        estate: 'Yukos Area',
+        visitDate: 'Sunday, Oct 18',
+        assignedTo: 'Sister Ruth',
+        stage: 'Day 7 Safari Invite',
+        stageIndex: 3
+      },
+      {
+        id: 'vis-3',
+        name: 'Samuel Kiprop',
+        phone: '+254 733 456 789',
+        estate: 'Acacia Zone',
+        visitDate: 'Sunday, Oct 11',
+        assignedTo: 'Elder David',
+        stage: 'Plugged in Member',
+        stageIndex: 4
+      }
+    ];
+
+    // Run-of-Show Cue Schedule DB
+    let runOfShowCues = [
+      {
+        cue: '01',
+        segment: 'Pre-Service Countdown & Video Announcements',
+        leader: 'Media Tech Booth',
+        duration: '10 Min',
+        avCues: 'Video Loop Reel on Center Screens & Stream',
+        status: 'Completed'
+      },
+      {
+        cue: '02',
+        segment: 'Praise & Worship (Full Band)',
+        leader: 'Worship Leader Ruth',
+        duration: '22 Min',
+        avCues: 'ProPresenter Lyrics Pack 4 &middot; Stage Wash Gold',
+        status: 'Active'
+      },
+      {
+        cue: '03',
+        segment: 'Welcome of Visitors & Pastoral Greetings',
+        leader: 'Elder David Mwangi',
+        duration: '7 Min',
+        avCues: 'Lower-third Elder Mwangi &middot; Visitor Card QR',
+        status: 'Upcoming'
+      },
+      {
+        cue: '04',
+        segment: 'Tithes, Offerings & Namanga Road Building',
+        leader: 'Deacon Philip Kimeu',
+        duration: '8 Min',
+        avCues: 'M-Pesa 567935 Giving Slate &middot; Instrumental',
+        status: 'Upcoming'
+      },
+      {
+        cue: '05',
+        segment: 'The Spoken Word (Sunday Sermon)',
+        leader: 'Rev. William Odero',
+        duration: '40 Min',
+        avCues: 'Camera 1 Tight Pulpit &middot; Scripture Slides',
+        status: 'Upcoming'
+      },
+      {
+        cue: '06',
+        segment: 'Altar Call, Ministry & Benediction',
+        leader: 'Rev. William Odero',
+        duration: '8 Min',
+        avCues: 'Soft Piano Pad &middot; Pastoral Prayer Mic Mix',
+        status: 'Upcoming'
+      }
+    ];
+    let currentRosIndex = 1; // Praise & Worship is Active
+
+    // ================= INITIALIZATION =================
+    window.addEventListener('DOMContentLoaded', () => {
+      // Route check from hash or path
+      const path = window.location.pathname.replace(/^\/+|\/+$/g, '');
+      const validRoutes = ['home', 'about', 'ministries', 'sermons', 'events', 'prayer', 'donate', 'contact'];
+      
+      if (validRoutes.includes(path)) {
+        route(path);
+      } else {
+        route('home');
+      }
+
+      // Render dynamic grids
+      renderSermonsGrid();
+      renderAdminBookingsTable();
+      renderRequisitionsList();
+      renderVisitorAssimilationTable();
+      renderRunOfShowTable();
+    });
+
+    // ================= NAVIGATION & ROUTING =================
+    function route(routeName) {
+      currentRoute = routeName;
+
+      // Ensure public view is active
       if (currentRole !== 'public') {
         setRoleView('public');
       }
 
-      currentRoute = pageId;
+      // Hide all subpages
+      document.querySelectorAll('.public-subpage').forEach(el => el.classList.add('hidden'));
 
-      // Update Nav Link Styles
-      document.querySelectorAll('.nav-link').forEach(el => {
-        el.classList.remove('text-indigo-600', 'font-bold');
+      // Show active subpage
+      const activeSubpage = document.getElementById('subpage-' + routeName);
+      if (activeSubpage) {
+        activeSubpage.classList.remove('hidden');
+      }
+
+      // Update nav link states
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('text-indigo-600', 'font-bold');
+        link.classList.add('text-gray-600');
       });
-      const activeLink = document.getElementById('nav-' + pageId);
+      const activeLink = document.getElementById('nav-' + routeName);
       if (activeLink) {
         activeLink.classList.add('text-indigo-600', 'font-bold');
+        activeLink.classList.remove('text-gray-600');
       }
 
-      // Hide all subpages
-      document.querySelectorAll('.public-subpage').forEach(el => {
-        el.classList.add('hidden');
-      });
-
-      // Show target subpage
-      const target = document.getElementById('subpage-' + pageId);
-      if (target) {
-        target.classList.remove('hidden');
-      } else {
-        // Fallback to home
-        document.getElementById('subpage-home').classList.remove('hidden');
+      // Close mobile menu if open
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('hidden');
       }
-
-      // Update URL without refresh
-      try {
-        const path = pageId === 'home' ? '/' : '/' + pageId;
-        history.pushState({ page: pageId }, '', path);
-      } catch (e) {}
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Role switcher
+    // Role Switcher Controller
     function setRoleView(role) {
       currentRole = role;
 
-      // Toggle views
-      document.querySelectorAll('.view-container').forEach(el => el.classList.remove('active'));
-      const activeView = document.getElementById('view-' + role);
-      if (activeView) activeView.classList.add('active');
+      // Toggle view containers
+      document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden'));
+      const targetView = document.getElementById('view-' + role);
+      if (targetView) {
+        targetView.classList.remove('hidden');
+      }
 
-      // Update pill states
+      // Update header pills
       document.querySelectorAll('.role-pill').forEach(btn => {
-        btn.classList.remove('bg-indigo-600', 'text-white', 'shadow');
-        btn.classList.add('text-gray-300', 'hover:bg-gray-800');
+        btn.classList.remove('bg-indigo-600', 'text-white', 'font-bold', 'shadow');
+        btn.classList.add('text-gray-300', 'font-medium');
       });
       const activePill = document.getElementById('pill-' + role);
       if (activePill) {
-        activePill.classList.add('bg-indigo-600', 'text-white', 'shadow');
-        activePill.classList.remove('text-gray-300', 'hover:bg-gray-800');
+        activePill.classList.remove('text-gray-300', 'font-medium');
+        activePill.classList.add('bg-indigo-600', 'text-white', 'font-bold', 'shadow');
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      showToast('Switched to: ' + role.toUpperCase() + ' VIEW');
     }
 
-    // Mobile Hamburger
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobile-menu');
-      menu.classList.toggle('hidden');
+    // ================= SERMONS HUB & MEDIA PLAYER =================
+    function renderSermonsGrid() {
+      const grid = document.getElementById('sermons-dynamic-grid');
+      if (!grid) return;
+
+      const query = (document.getElementById('sermon-search-query')?.value || '').toLowerCase().trim();
+      const filtered = sermonsDB.filter(s => {
+        const matchesSeries = (activeSermonFilter === 'all') || (s.seriesCategory === activeSermonFilter);
+        const matchesSpeaker = (activeSpeakerFilter === 'all') || (s.speaker === activeSpeakerFilter);
+        const matchesSearch = !query || s.title.toLowerCase().includes(query) || s.scripture.toLowerCase().includes(query) || s.speaker.toLowerCase().includes(query);
+        return matchesSeries && matchesSpeaker && matchesSearch;
+      });
+
+      const countBadge = document.getElementById('sermon-count-badge');
+      if (countBadge) {
+        countBadge.textContent = `Showing ${filtered.length} of ${sermonsDB.length} messages`;
+      }
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-12 text-center text-gray-400 bg-white rounded-2xl border border-gray-200">
+            <span class="text-3xl block mb-2">🔍</span>
+            <p class="font-bold text-sm text-gray-700">No sermons match your search filter</p>
+            <p class="text-xs text-gray-400 mt-1">Try resetting the series pill or searching by title or scripture.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(s => `
+        <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md transition flex flex-col group">
+          <div class="aspect-video bg-gray-900 relative overflow-hidden">
+            <img src="${s.thumbnail}" alt="${s.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-4 justify-between">
+              <span class="px-2 py-0.5 bg-black/60 backdrop-blur text-white text-[10px] font-mono rounded">${s.duration}</span>
+              <button onclick="playSermonInMainPlayer('${s.id}')" class="w-10 h-10 rounded-full bg-accent-400 text-indigo-950 font-black flex items-center justify-center text-sm shadow hover:scale-110 transition">
+                ▶
+              </button>
+            </div>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between text-[11px]">
+                <span class="text-indigo-600 font-bold">${s.series}</span>
+                <span class="text-gray-400 font-mono">${s.date}</span>
+              </div>
+              <h4 class="font-extrabold text-sm text-gray-900 line-clamp-2 leading-snug hover:text-indigo-600 transition cursor-pointer" onclick="playSermonInMainPlayer('${s.id}')">
+                ${s.title}
+              </h4>
+              <p class="text-xs text-gray-500 flex items-center gap-1.5">
+                <span>👤</span> ${s.speaker} &middot; <span class="font-mono text-gray-700 font-semibold">${s.scripture}</span>
+              </p>
+            </div>
+            <div class="pt-2 border-t border-gray-100 flex items-center justify-between text-xs">
+              <button onclick="playAudioPodcast('${s.id}')" class="text-indigo-700 hover:text-indigo-900 font-bold flex items-center gap-1 text-[11px]">
+                <span>🎧</span> Audio
+              </button>
+              ${s.hasNotes ? `
+                <button onclick="openStudyNotesFor('${s.id}')" class="text-gray-500 hover:text-gray-800 font-semibold flex items-center gap-1 text-[11px]">
+                  <span>📄</span> Notes
+                </button>
+              ` : ''}
+              <button onclick="playSermonInMainPlayer('${s.id}')" class="text-indigo-600 font-extrabold flex items-center gap-1 text-[11px]">
+                Watch &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
     }
 
-    // Toast utility
+    function filterSermonsBySeries(cat) {
+      activeSermonFilter = cat;
+      document.querySelectorAll('.sermon-filter-pill').forEach(btn => {
+        btn.classList.remove('active', 'bg-indigo-600', 'text-white');
+        btn.classList.add('text-gray-600');
+      });
+      const clicked = event.target;
+      clicked.classList.add('active', 'bg-indigo-600', 'text-white');
+      clicked.classList.remove('text-gray-600');
+      renderSermonsGrid();
+    }
+
+    function applySermonFilters() {
+      const speakerSelect = document.getElementById('sermon-speaker-select');
+      if (speakerSelect) {
+        activeSpeakerFilter = speakerSelect.value;
+      }
+      renderSermonsGrid();
+    }
+
+    function playSermonInMainPlayer(sermonId) {
+      const sermon = sermonsDB.find(s => s.id === sermonId);
+      if (!sermon) return;
+
+      const player = document.getElementById('main-sermon-player');
+      if (player) {
+        player.src = sermon.youtubeUrl + '?autoplay=1';
+      }
+      document.getElementById('main-sermon-title').textContent = sermon.title;
+      document.getElementById('main-sermon-series').textContent = 'Series: ' + sermon.series;
+      document.getElementById('main-sermon-scripture').textContent = sermon.scripture;
+      document.getElementById('main-sermon-meta').textContent = `Speaker: ${sermon.speaker} &middot; ICC Kitengela`;
+      document.getElementById('audio-player-title').textContent = sermon.title;
+
+      scrollToSermonPlayer();
+      showToast(`Loaded: ${sermon.title}`);
+    }
+
+    function scrollToSermonPlayer() {
+      const container = document.getElementById('featured-sermon-container');
+      if (container) {
+        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    // Audio Podcast Drawer Controls
+    function playActiveAudioSermon() {
+      const drawer = document.getElementById('audio-player-drawer');
+      drawer.classList.remove('hidden');
+      toggleAudioPlayback(true);
+    }
+
+    function playAudioPodcast(sermonId) {
+      const s = sermonsDB.find(x => x.id === sermonId);
+      if (!s) return;
+      document.getElementById('audio-player-title').textContent = s.title;
+      const drawer = document.getElementById('audio-player-drawer');
+      drawer.classList.remove('hidden');
+      currentAudioProgress = 0;
+      toggleAudioPlayback(true);
+      showToast(`Streaming audio podcast: ${s.title}`);
+    }
+
+    function toggleAudioPlayback(forcePlay) {
+      const btn = document.getElementById('audio-play-toggle-btn');
+      if (forcePlay === true || !isAudioPlaying) {
+        isAudioPlaying = true;
+        btn.textContent = '⏸';
+        startAudioTicker();
+      } else {
+        isAudioPlaying = false;
+        btn.textContent = '▶';
+        clearInterval(audioInterval);
+      }
+    }
+
+    function startAudioTicker() {
+      clearInterval(audioInterval);
+      audioInterval = setInterval(() => {
+        if (currentAudioProgress < 100) {
+          currentAudioProgress += 0.5 * activeAudioSpeed;
+          document.getElementById('audio-scrubber').value = currentAudioProgress;
+          const totalSeconds = 2535; // ~42:15
+          const curSeconds = Math.floor((currentAudioProgress / 100) * totalSeconds);
+          const mins = Math.floor(curSeconds / 60);
+          const secs = curSeconds % 60;
+          document.getElementById('audio-current-time').textContent = 
+            `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        } else {
+          isAudioPlaying = false;
+          document.getElementById('audio-play-toggle-btn').textContent = '▶';
+          clearInterval(audioInterval);
+        }
+      }, 500);
+    }
+
+    function scrubAudio(val) {
+      currentAudioProgress = parseFloat(val);
+      const totalSeconds = 2535;
+      const curSeconds = Math.floor((currentAudioProgress / 100) * totalSeconds);
+      const mins = Math.floor(curSeconds / 60);
+      const secs = curSeconds % 60;
+      document.getElementById('audio-current-time').textContent = 
+        `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function cyclePlaybackSpeed() {
+      const speeds = [1.0, 1.25, 1.5, 2.0];
+      let idx = speeds.indexOf(activeAudioSpeed);
+      idx = (idx + 1) % speeds.length;
+      activeAudioSpeed = speeds[idx];
+      document.getElementById('audio-speed-btn').textContent = activeAudioSpeed.toFixed(1) + 'x';
+      showToast(`Audio speed set to ${activeAudioSpeed.toFixed(1)}x`);
+    }
+
+    function closeAudioDrawer() {
+      isAudioPlaying = false;
+      clearInterval(audioInterval);
+      document.getElementById('audio-player-drawer').classList.add('hidden');
+    }
+
+    // ================= MEDIA & RUN-OF-SHOW CONSOLE =================
+    function switchMediaTab(tab) {
+      document.querySelectorAll('.media-tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.media-tab-btn').forEach(btn => {
+        btn.classList.remove('bg-red-600', 'text-white', 'shadow');
+        btn.classList.add('text-slate-300');
+      });
+      const target = document.getElementById('media-content-' + tab);
+      if (target) target.classList.remove('hidden');
+      const activeBtn = document.getElementById('media-tab-btn-' + tab);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-red-600', 'text-white', 'shadow');
+        activeBtn.classList.remove('text-slate-300');
+      }
+    }
+
+    function toggleLiveStreamFromConsole() {
+      isLiveBroadcasting = !isLiveBroadcasting;
+      const banner = document.getElementById('global-live-banner');
+      const sermonAlert = document.getElementById('sermons-live-alert');
+      const btn = document.getElementById('media-toggle-stream-btn');
+      const btnLabel = document.getElementById('media-stream-btn-label');
+      const indicator = document.getElementById('media-broadcast-indicator-pill');
+      const viewersCount = document.getElementById('stream-viewers-count');
+
+      if (isLiveBroadcasting) {
+        banner.classList.remove('hidden');
+        if (sermonAlert) sermonAlert.classList.remove('hidden');
+        btn.classList.remove('bg-red-600', 'hover:bg-red-700');
+        btn.classList.add('bg-emerald-600', 'hover:bg-emerald-700');
+        btnLabel.textContent = 'END STREAM (LIVE)';
+        indicator.className = 'px-2.5 py-0.5 bg-red-600 text-white font-black rounded-full uppercase text-[10px] flex items-center gap-1.5 shadow animate-pulse';
+        indicator.innerHTML = '<span class="w-2 h-2 rounded-full bg-white"></span> ON AIR &middot; BROADCASTING';
+        viewersCount.textContent = '384 Live Viewers';
+        showToast('Live stream started! Red broadcast banner is now active on public site.');
+      } else {
+        banner.classList.add('hidden');
+        if (sermonAlert) sermonAlert.classList.add('hidden');
+        btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
+        btn.classList.add('bg-red-600', 'hover:bg-red-700');
+        btnLabel.textContent = 'GO LIVE (TRIGGER STREAM)';
+        indicator.className = 'px-2.5 py-0.5 bg-gray-800 text-gray-400 border border-gray-700 text-[10px] font-black rounded-full uppercase tracking-wider flex items-center gap-1.5';
+        indicator.innerHTML = '<span class="w-2 h-2 rounded-full bg-gray-500"></span> Offline / Rehearsal';
+        viewersCount.textContent = '0 Live Viewers';
+        showToast('Live stream concluded. Offline mode restored.');
+      }
+    }
+
+    function switchSermonToLive() {
+      const player = document.getElementById('main-sermon-player');
+      if (player) {
+        // ICC Kitengela live stream embed
+        player.src = 'https://www.youtube.com/embed/l054ZoKcUGk?autoplay=1';
+      }
+      document.getElementById('main-sermon-title').textContent = '🔴 2nd Sunday Service (Live Broadcast)';
+      scrollToSermonPlayer();
+      showToast('Switched main video player to live stream!');
+    }
+
+    function renderRunOfShowTable() {
+      const tbody = document.getElementById('media-ros-table-body');
+      if (!tbody) return;
+
+      tbody.innerHTML = runOfShowCues.map((item, idx) => {
+        const isCurrent = (idx === currentRosIndex);
+        return `
+          <tr class="${isCurrent ? 'bg-indigo-950/50 border-l-4 border-indigo-500' : 'hover:bg-slate-900/40'}">
+            <td class="p-3.5 font-mono font-bold text-slate-400">${item.cue}</td>
+            <td class="p-3.5 text-white font-bold">${item.segment}</td>
+            <td class="p-3.5 text-slate-300">${item.leader}</td>
+            <td class="p-3.5 font-mono text-slate-400">${item.duration}</td>
+            <td class="p-3.5 text-slate-400 text-[11px]">${item.avCues}</td>
+            <td class="p-3.5">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${
+                item.status === 'Completed' ? 'bg-slate-800 text-slate-400' :
+                item.status === 'Active' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' :
+                'bg-slate-800/40 text-slate-500'
+              }">${item.status}</span>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function advanceRunOfShowNext() {
+      if (currentRosIndex < runOfShowCues.length - 1) {
+        runOfShowCues[currentRosIndex].status = 'Completed';
+        currentRosIndex++;
+        runOfShowCues[currentRosIndex].status = 'Active';
+        updateRosCurrentDisplay();
+        renderRunOfShowTable();
+        showToast(`Advanced to cue: ${runOfShowCues[currentRosIndex].segment}`);
+      } else {
+        showToast('Service run-of-show completed!');
+      }
+    }
+
+    function advanceRunOfShowPrev() {
+      if (currentRosIndex > 0) {
+        runOfShowCues[currentRosIndex].status = 'Upcoming';
+        currentRosIndex--;
+        runOfShowCues[currentRosIndex].status = 'Active';
+        updateRosCurrentDisplay();
+        renderRunOfShowTable();
+      }
+    }
+
+    function updateRosCurrentDisplay() {
+      const item = runOfShowCues[currentRosIndex];
+      document.getElementById('ros-current-item-title').textContent = item.segment;
+      document.getElementById('ros-current-item-notes').textContent = `Led by ${item.leader} &middot; AV Cues: ${item.avCues}`;
+    }
+
+    function handleSermonIngestSubmit(e) {
+      e.preventDefault();
+      const title = document.getElementById('ingest-title').value.trim();
+      const speaker = document.getElementById('ingest-speaker').value;
+      const series = document.getElementById('ingest-series').value.trim();
+      const scripture = document.getElementById('ingest-scripture').value.trim();
+      const date = document.getElementById('ingest-date').value;
+      const rawYoutube = document.getElementById('ingest-youtube').value.trim();
+      
+      // Extract youtube ID
+      let youtubeId = rawYoutube;
+      if (rawYoutube.includes('v=')) {
+        youtubeId = rawYoutube.split('v=')[1].split('&')[0];
+      } else if (rawYoutube.includes('youtu.be/')) {
+        youtubeId = rawYoutube.split('youtu.be/')[1].split('?')[0];
+      }
+
+      const newSermon = {
+        id: 'sermon-' + (sermonsDB.length + 1),
+        title: title,
+        speaker: speaker,
+        series: series,
+        seriesCategory: series.split(' ')[0],
+        scripture: scripture,
+        date: date,
+        duration: '45:00',
+        youtubeId: youtubeId,
+        youtubeUrl: `https://www.youtube.com/embed/${youtubeId}`,
+        audioUrl: document.getElementById('ingest-audio').value || '',
+        thumbnail: 'https://images.unsplash.com/photo-1544427920-c49ccfb85579?auto=format&fit=crop&w=700&q=80',
+        hasNotes: !!document.getElementById('ingest-notes').value,
+        featured: false
+      };
+
+      sermonsDB.unshift(newSermon);
+      renderSermonsGrid();
+      showToast(`✅ Published: "${title}" is now live on church website & sermons hub!`);
+      
+      // Reset and switch view to sermons to demonstrate
+      resetIngestForm();
+      setTimeout(() => {
+        setRoleView('public');
+        route('sermons');
+        playSermonInMainPlayer(newSermon.id);
+      }, 800);
+    }
+
+    function resetIngestForm() {
+      document.getElementById('ingest-title').value = '';
+      document.getElementById('ingest-series').value = '';
+      document.getElementById('ingest-scripture').value = '';
+      document.getElementById('ingest-youtube').value = '';
+      document.getElementById('ingest-audio').value = '';
+      document.getElementById('ingest-notes').value = '';
+    }
+
+    function syncLatestToPublicFeature() {
+      if (sermonsDB.length > 0) {
+        playSermonInMainPlayer(sermonsDB[0].id);
+        showToast('Set most recent sermon as primary featured video.');
+      }
+    }
+
+    function openUploadAssetModal() {
+      showToast('Opening AV Asset Uploader (ProPresenter &amp; Slides)...');
+    }
+
+    // ================= CHURCH ADMINISTRATION CONSOLE =================
+    function switchAdminTab(tab) {
+      document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+        btn.classList.remove('bg-indigo-50', 'text-indigo-700', 'font-bold');
+        btn.classList.add('text-gray-600');
+      });
+      const target = document.getElementById('admin-content-' + tab);
+      if (target) target.classList.remove('hidden');
+      const activeBtn = document.getElementById('admin-tab-btn-' + tab);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-indigo-50', 'text-indigo-700', 'font-bold');
+        activeBtn.classList.remove('text-gray-600');
+      }
+    }
+
+    function renderAdminBookingsTable() {
+      const tbody = document.getElementById('admin-bookings-table-body');
+      if (!tbody) return;
+
+      tbody.innerHTML = bookingsDB.map(b => `
+        <tr>
+          <td class="p-3.5 font-bold text-gray-900">${b.facility}</td>
+          <td class="p-3.5 text-gray-700">${b.event}</td>
+          <td class="p-3.5 text-indigo-600 font-semibold">${b.dept}</td>
+          <td class="p-3.5 font-mono text-gray-500">${b.time}</td>
+          <td class="p-3.5">
+            <span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full font-bold text-[10px]">✓ ${b.status}</span>
+          </td>
+          <td class="p-3.5 text-right">
+            <button onclick="cancelBooking('${b.id}')" class="text-rose-600 hover:underline text-[11px] font-semibold">Cancel</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function openNewBookingModal() {
+      document.getElementById('modal-new-booking').classList.remove('hidden');
+    }
+
+    function handleNewBookingSubmit(e) {
+      e.preventDefault();
+      const facility = document.getElementById('booking-facility').value;
+      const eventTitle = document.getElementById('booking-event').value;
+      const dept = document.getElementById('booking-dept').value;
+      const time = document.getElementById('booking-time').value;
+
+      bookingsDB.unshift({
+        id: 'bk-' + (bookingsDB.length + 1),
+        facility: facility,
+        event: eventTitle,
+        dept: dept,
+        time: time,
+        status: 'Confirmed'
+      });
+
+      renderAdminBookingsTable();
+      closeModal('modal-new-booking');
+      showToast(`✅ Reservation confirmed: ${facility} for ${eventTitle}`);
+    }
+
+    function cancelBooking(id) {
+      bookingsDB = bookingsDB.filter(x => x.id !== id);
+      renderAdminBookingsTable();
+      showToast('Booking cancelled.');
+    }
+
+    function renderRequisitionsList() {
+      const container = document.getElementById('admin-requisitions-list');
+      if (!container) return;
+
+      const pending = requisitionsDB.filter(r => r.status === 'Pending');
+      const badge = document.getElementById('admin-req-count-badge');
+      if (badge) badge.textContent = pending.length;
+
+      if (pending.length === 0) {
+        container.innerHTML = `
+          <div class="p-6 text-center text-gray-400 bg-gray-50 rounded-xl border border-gray-100">
+            ✓ All petty cash requisitions approved and cleared!
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = pending.map(r => `
+        <div class="p-4 bg-gray-50 rounded-xl border border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 bg-amber-100 text-amber-800 rounded font-mono font-bold text-[10px]">${r.id}</span>
+              <strong class="text-gray-900 text-sm">${r.title}</strong>
+            </div>
+            <p class="text-xs text-gray-500">Requested by: <span class="font-semibold text-gray-700">${r.requester}</span> &middot; ${r.department} &middot; ${r.date}</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-base font-extrabold text-indigo-700 font-mono">KES ${r.amount.toLocaleString('en-KE', {minimumFractionDigits: 2})}</span>
+            <button onclick="approveRequisition('${r.id}')" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow transition">
+              ✓ Approve &amp; Pay
+            </button>
+            <button onclick="rejectRequisition('${r.id}')" class="px-3 py-1.5 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium text-xs rounded-xl transition">
+              Reject
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function approveRequisition(id) {
+      const req = requisitionsDB.find(x => x.id === id);
+      if (!req) return;
+      req.status = 'Approved';
+      pettyCashFund -= req.amount;
+      document.getElementById('admin-petty-cash-display').textContent = 
+        'KES ' + pettyCashFund.toLocaleString('en-KE', {minimumFractionDigits: 2});
+      renderRequisitionsList();
+      showToast(`Approved ${req.id}! Disbursed KES ${req.amount.toLocaleString()} to ${req.requester} via M-Pesa B2C.`);
+    }
+
+    function rejectRequisition(id) {
+      requisitionsDB = requisitionsDB.filter(x => x.id !== id);
+      renderRequisitionsList();
+      showToast(`Requisition ${id} returned with notes.`);
+    }
+
+    function renderVisitorAssimilationTable() {
+      const tbody = document.getElementById('admin-visitors-table-body');
+      if (!tbody) return;
+
+      tbody.innerHTML = visitorsDB.map(v => `
+        <tr>
+          <td class="p-3.5 font-bold text-gray-900">${v.name}</td>
+          <td class="p-3.5 font-mono text-gray-600">${v.phone}</td>
+          <td class="p-3.5 text-gray-600">${v.estate}</td>
+          <td class="p-3.5 text-gray-500 font-mono">${v.visitDate}</td>
+          <td class="p-3.5 font-semibold text-indigo-700">${v.assignedTo}</td>
+          <td class="p-3.5">
+            <span class="px-2.5 py-1 bg-amber-50 text-amber-800 rounded-full text-[10px] font-bold border border-amber-200">${v.stage}</span>
+          </td>
+          <td class="p-3.5 text-right">
+            <button onclick="advanceVisitorStage('${v.id}')" class="px-2.5 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-lg text-[10px] transition">
+              Advance Stage &rarr;
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function advanceVisitorStage(id) {
+      const stages = ['New Guest Added', 'Day 1 Welcome SMS', 'Day 3 Pastor Call', 'Day 7 Safari Invite', 'Plugged in Member'];
+      const vis = visitorsDB.find(x => x.id === id);
+      if (!vis) return;
+      if (vis.stageIndex < stages.length - 1) {
+        vis.stageIndex++;
+        vis.stage = stages[vis.stageIndex];
+        renderVisitorAssimilationTable();
+        showToast(`Advanced ${vis.name} to: "${vis.stage}"`);
+      } else {
+        showToast(`${vis.name} is now a fully plugged-in church member!`);
+      }
+    }
+
+    function broadcastRosterAlert() {
+      document.getElementById('modal-admin-sms').classList.remove('hidden');
+    }
+
+    function updateSmsCharCount(text) {
+      const len = text.length;
+      const smsCount = Math.ceil(len / 160) || 1;
+      document.getElementById('sms-char-counter').textContent = 
+        `${len} / ${smsCount * 160} characters (${smsCount} SMS)`;
+    }
+
+    function handleAdminSendSMS(e) {
+      e.preventDefault();
+      const target = document.getElementById('admin-sms-recipient').value;
+      closeModal('modal-admin-sms');
+      showToast(`🚀 SMS broadcast sent to: ${target} via AfricasTalking Gateway!`);
+    }
+
+    // ================= UTILITIES & HELPERS =================
+    function openStudyNotesModal() {
+      document.getElementById('modal-study-notes').classList.remove('hidden');
+    }
+
+    function openStudyNotesFor(id) {
+      const s = sermonsDB.find(x => x.id === id);
+      if (s) {
+        document.getElementById('modal-notes-title').textContent = `${s.title} — Study Guide`;
+      }
+      document.getElementById('modal-study-notes').classList.remove('hidden');
+    }
+
+    function downloadSermonGuide() {
+      showToast('Generating official PDF Study Guide with Safari discussion points...');
+    }
+
+    function closeModal(id) {
+      const m = document.getElementById(id);
+      if (m) m.classList.add('hidden');
+    }
+
     function showToast(msg) {
-      const toast = document.getElementById('toast');
-      const text = document.getElementById('toast-message');
-      text.innerText = msg;
-      toast.classList.remove('translate-y-16', 'opacity-0');
+      const toast = document.getElementById('global-toast');
+      const text = document.getElementById('global-toast-text');
+      if (!toast || !text) return;
+      text.innerHTML = msg;
+      toast.classList.remove('hidden');
       setTimeout(() => {
-        toast.classList.add('translate-y-16', 'opacity-0');
-      }, 3200);
+        toast.classList.add('hidden');
+      }, 4000);
     }
 
-    // Sermon switcher
-    function switchSermon(youtubeId, title, meta) {
-      document.getElementById('main-sermon-player').src = 'https://www.youtube.com/embed/' + youtubeId + '?autoplay=1';
-      document.getElementById('main-sermon-title').innerText = title;
-      document.getElementById('main-sermon-meta').innerText = meta;
-      window.scrollTo({ top: 200, behavior: 'smooth' });
-      showToast('Loaded: ' + title);
-    }
-
-    // M-Pesa STK Simulator
-    function triggerSimulatedSTK() {
-      const phone = document.getElementById('stk-phone').value || '0712345678';
-      const fund = document.getElementById('stk-fund').value;
-      const amount = document.getElementById('stk-amount').value || '1000';
-      const btn = document.getElementById('btn-stk-submit');
-
-      btn.disabled = true;
-      btn.innerHTML = '<span>⏳</span> Sending STK Prompt to ' + phone + '...';
-
-      setTimeout(() => {
-        btn.disabled = false;
-        btn.innerHTML = '<span>📱</span> Trigger M-Pesa STK Prompt';
-        
-        const randomRef = 'QK' + Math.floor(10000000 + Math.random() * 90000000) + 'X';
-        const resultBox = document.getElementById('stk-result');
-        const receiptText = document.getElementById('stk-receipt-text');
-
-        receiptText.innerText = randomRef + ' Confirmed. Ksh ' + Number(amount).toLocaleString() + '.00 received from ' + phone + ' for ' + fund + '. Account: 567935. Thank you for partnering with ICC Kitengela.';
-        resultBox.classList.remove('hidden');
-
-        showToast('M-Pesa Prompt Received on ' + phone + '! Ref: ' + randomRef);
-      }, 1500);
-    }
-
-    // Form handlers
     function submitPrayerRequest() {
       const name = document.getElementById('prayer-name').value || 'Anonymous Member';
-      showToast('Thank you ' + name + '. Your prayer request was delivered to Pastor Odero.');
+      showToast('Thank you ' + name + '. Your prayer request has been delivered to Rev. Odero and pastoral team.');
+      document.getElementById('prayer-name').value = '';
+      document.getElementById('prayer-phone').value = '';
       document.getElementById('prayer-body').value = '';
     }
 
-    function submitContactForm() {
-      const name = document.getElementById('contact-name').value || 'Friend';
-      showToast('Thank you ' + name + '! We have received your inquiry.');
-      document.getElementById('contact-msg').value = '';
-    }
-
-    // Handle back/forward navigation
-    window.addEventListener('popstate', (e) => {
-      const path = window.location.pathname.replace('/', '') || 'home';
-      route(path);
-    });
-
-    // Initial Path Route detection
-    document.addEventListener('DOMContentLoaded', () => {
-      const path = window.location.pathname.replace('/', '').toLowerCase();
-      if (['about', 'ministries', 'sermons', 'events', 'donate', 'prayer', 'contact'].includes(path)) {
-        route(path);
-      } else if (path === 'admin' || path === 'executive') {
-        setRoleView('executive');
-      } else if (path === 'finance') {
-        setRoleView('finance');
-      } else if (path === 'member') {
-        setRoleView('member');
-      } else {
-        route('home');
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      if (menu) {
+        menu.classList.toggle('hidden');
       }
-    });
+    }
   </script>
 </body>
 </html>
